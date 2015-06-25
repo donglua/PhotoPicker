@@ -5,7 +5,7 @@
 .DS_Store
 /build
 /captures
-=======
+
 # Built application files
 *.apk
 *.ap_
@@ -33,4 +33,3 @@ proguard/
 
 # Log Files
 *.log
->>>>>>> 7bc7429ab48eab3d4c17a402a08d685c339d622d
