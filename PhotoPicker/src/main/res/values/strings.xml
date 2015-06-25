@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="images">Images</string>
+  <string name="delete">Delete</string>
+  <string name="done">Done</string>
+  <string name="done_with_count">Done(%1$d/%2$d)</string>
+  <string name="image_index">%1$d/%2$d</string>
+  <string name="undo">Undo</string>
+  <string name="deleted_a_photo">Deleted a photo</string>
+  <string name="confirm_to_delete">Confirm to delete?</string>
+  <string name="yes">Yes</string>
+  <string name="cancel">Cancel</string>
+
+</resources>

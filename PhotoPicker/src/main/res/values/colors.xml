@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <color name="pager_bg">#CA000000</color>
+  <color name="selected_bg">#44000000</color>
+  <color name="black_40">#282828</color>
+
+</resources>
