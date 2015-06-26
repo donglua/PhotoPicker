@@ -4,7 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PhotoPicker.iml" filepath="$PROJECT_DIR$/PhotoPicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/PhotoPicker/PhotoPicker-PhotoPicker.iml" filepath="$PROJECT_DIR$/PhotoPicker/PhotoPicker-PhotoPicker.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Sample/photopickerdemo.iml" filepath="$PROJECT_DIR$/Sample/photopickerdemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/photopickerdemo/photopickerdemo.iml" filepath="$PROJECT_DIR$/photopickerdemo/photopickerdemo.iml" />
     </modules>
   </component>
 </project>
