@@ -97,7 +97,6 @@ public class PhotoPagerActivity extends AppCompatActivity {
       Snackbar snackbar = Snackbar.make(pagerFragment.getView(), R.string.deleted_a_photo,
           Snackbar.LENGTH_LONG);
 
-
       if (pagerFragment.getPaths().size() <= 1) {
 
         new AlertDialog.Builder(this)

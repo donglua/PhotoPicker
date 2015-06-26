@@ -11,6 +11,8 @@ import com.bumptech.glide.Glide;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.R;
 
 /**
@@ -41,7 +43,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
 
     imageView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
-        if (mContext instanceof Activity) {
+        if (mContext instanceof PhotoPickerActivity) {
           if (!((Activity) mContext).isFinishing()) {
             ((Activity) mContext).onBackPressed();
           }
