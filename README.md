@@ -1,5 +1,5 @@
 # PhotoPicker
-
+[![Build Status](https://travis-ci.org/donglua/PhotoPicker.svg?branch=master)](https://travis-ci.org/donglua/PhotoPicker)
 ## License
 
     Copyright 2015 Huang Donglu
