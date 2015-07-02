@@ -10,5 +10,7 @@
   <string name="confirm_to_delete">Confirm to delete?</string>
   <string name="yes">Yes</string>
   <string name="cancel">Cancel</string>
+  <string name="all_image">All Image</string>
+  <string name="over_max_count_tips">Up to %1$d photos can be selected</string>
 
 </resources>

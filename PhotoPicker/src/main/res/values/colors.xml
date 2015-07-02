@@ -4,5 +4,9 @@
   <color name="pager_bg">#CA000000</color>
   <color name="selected_bg">#44000000</color>
   <color name="black_40">#282828</color>
+  <color name="common_primary">#f3f3f3</color>
 
+  <color name="text_40">#282828</color>
+  <color name="text_80">#505050</color>
+  <color name="text_120">#787878</color>
 </resources>

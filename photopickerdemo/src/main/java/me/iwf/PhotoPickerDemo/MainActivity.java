@@ -6,9 +6,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +33,7 @@ public class MainActivity extends ActionBarActivity {
     recyclerView.setAdapter(photoAdapter);
 
     final Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
-    intent.putExtra(PhotoPickerActivity.EXTRA_MAX_COUNT, 6);
+    intent.putExtra(PhotoPickerActivity.EXTRA_MAX_COUNT, 9);
 
     findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {

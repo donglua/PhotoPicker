@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,6 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -86,7 +83,6 @@ public class ImagePagerFragment extends Fragment {
 
 
   public void setPhotos(List<String> paths, int currentItem) {
-    Log.d(">>>>", "setPhoto");
     this.paths.clear();
     this.paths.addAll(paths);
     this.currentItem = currentItem;
@@ -98,7 +94,6 @@ public class ImagePagerFragment extends Fragment {
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Log.d(">>>>", "onCreate");
 
     paths = new ArrayList<>();
 
@@ -129,8 +124,6 @@ public class ImagePagerFragment extends Fragment {
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-
-    Log.d(">>>>", "onCreateView");
 
     View rootView = inflater.inflate(R.layout.fragment_image_pager, container, false);
 
@@ -171,7 +164,6 @@ public class ImagePagerFragment extends Fragment {
       }
 
       @Override public void onPageSelected(int position) {
-        currentItem = position;
         hasAnim = currentItem == position;
       }
 
@@ -301,7 +293,7 @@ public class ImagePagerFragment extends Fragment {
 
 
   public int getCurrentItem() {
-    return currentItem;
+    return mViewPager.getCurrentItem();
   }
 
 }

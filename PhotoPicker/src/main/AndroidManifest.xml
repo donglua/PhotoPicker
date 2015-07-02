@@ -3,24 +3,4 @@
     package="me.iwf.photopicker"
     >
 
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-  <uses-feature
-      android:name="android.hardware.camera"
-      android:required="true"
-      />
-
-  <application
-      android:allowBackup="true">
-    <activity
-        android:theme="@style/Theme.AppCompat.NoActionBar"
-        android:name=".PhotoPickerActivity"
-        />
-
-    <activity
-        android:theme="@style/Theme.AppCompat.NoActionBar"
-        android:name=".PhotoPagerActivity"
-        />
-  </application>
-
 </manifest>

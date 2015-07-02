@@ -50,6 +50,7 @@ public class ImageCaptureManager {
     return image;
   }
 
+
   public Intent dispatchTakePictureIntent() throws IOException {
     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     // Ensure that there's a camera activity to handle the intent
@@ -65,6 +66,7 @@ public class ImageCaptureManager {
     return takePictureIntent;
   }
 
+
   public void galleryAddPic() {
     Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
     File f = new File(mCurrentPhotoPath);
@@ -73,9 +75,11 @@ public class ImageCaptureManager {
     mContext.sendBroadcast(mediaScanIntent);
   }
 
+
   public String getCurrentPhotoPath() {
     return mCurrentPhotoPath;
   }
+
 
   public void onSaveInstanceState(Bundle savedInstanceState) {
     if (savedInstanceState != null && mCurrentPhotoPath != null) {
