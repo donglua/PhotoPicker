@@ -19,6 +19,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
   private ImagePagerFragment imagePagerFragment;
 
   public final static String EXTRA_MAX_COUNT     = "MAX_COUNT";
+  public final static String EXTRA_SHOW_CAMERA    = "MAX_COUNT";
   public final static String KEY_SELECTED_PHOTOS = "SELECTED_PHOTOS";
 
   private MenuItem menuDoneItem;
@@ -45,9 +46,11 @@ public class PhotoPickerActivity extends AppCompatActivity {
     }
 
     maxCount = getIntent().getIntExtra(EXTRA_MAX_COUNT, DEFAULT_MAX_COUNT);
+    boolean showCamera = getIntent().getBooleanExtra(EXTRA_SHOW_CAMERA, true);
 
     pickerFragment =
         (PhotoPickerFragment) getSupportFragmentManager().findFragmentById(R.id.photoPickerFragment);
+    pickerFragment.getPhotoGridAdapter().setShowCamera(showCamera);
 
     pickerFragment.getPhotoGridAdapter().setOnItemCheckListener(new OnItemCheckListener() {
       @Override public boolean OnItemCheck(int position, String path, final boolean isCheck, int selectedItemCount) {

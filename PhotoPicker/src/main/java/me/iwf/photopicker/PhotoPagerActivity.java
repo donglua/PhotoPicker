@@ -53,7 +53,6 @@ public class PhotoPagerActivity extends AppCompatActivity {
     }
 
 
-
     pagerFragment.getViewPager().addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
       @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         updateActionBarTitle();
@@ -146,7 +145,7 @@ public class PhotoPagerActivity extends AppCompatActivity {
 
   public void updateActionBarTitle() {
     actionBar.setTitle(
-        getString(R.string.image_index, pagerFragment.getCurrentItem() + 1,
+        getString(R.string.image_index, pagerFragment.getViewPager().getCurrentItem() + 1,
             pagerFragment.getPaths().size()));
   }
 }

@@ -1,11 +1,19 @@
 # PhotoPicker
 [![Build Status](https://travis-ci.org/donglua/PhotoPicker.svg?branch=master)](https://travis-ci.org/donglua/PhotoPicker)
 
+## Example
+
 <p style="float:left;">
   <a href="https://play.google.com/store/apps/details?id=me.iwf.PhotoPickerDemo">
-    <img alt="Android app on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
+    <img alt="Get it on Google Play" src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png" />
   </a>
 </p>
+
+
+## Usage
+
+
+
 
 ## License
 

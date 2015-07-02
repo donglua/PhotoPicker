@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">PhotoPickerDemo</string>
     <string name="pick_photo">选择图片</string>
+    <string name="pick_photo_without_camera">选择图片（不带拍照按钮）</string>
+
 </resources>
