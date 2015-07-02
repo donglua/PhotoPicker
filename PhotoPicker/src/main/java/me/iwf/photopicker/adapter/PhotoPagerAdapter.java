@@ -83,4 +83,5 @@ public class PhotoPagerAdapter extends PagerAdapter {
 
   @Override
   public int getItemPosition (Object object) { return POSITION_NONE; }
+
 }

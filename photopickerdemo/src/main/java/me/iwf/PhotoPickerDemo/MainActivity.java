@@ -10,6 +10,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 import me.iwf.photopicker.PhotoPickerActivity;
+import me.iwf.photopicker.utils.PhotoPickerIntent;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -32,14 +33,25 @@ public class MainActivity extends ActionBarActivity {
     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
     recyclerView.setAdapter(photoAdapter);
 
-    final Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
-    intent.putExtra(PhotoPickerActivity.EXTRA_MAX_COUNT, 9);
 
     findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
+        PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this, PhotoPickerActivity.class);
+        intent.setPhotoCount(9);
         startActivityForResult(intent, REQUEST_CODE);
       }
     });
+
+
+    findViewById(R.id.button_no_camera).setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this, PhotoPickerActivity.class);
+        intent.setPhotoCount(9);
+        intent.setShowCamera(false);
+        startActivityForResult(intent, REQUEST_CODE);
+      }
+    });
+
   }
 
 
