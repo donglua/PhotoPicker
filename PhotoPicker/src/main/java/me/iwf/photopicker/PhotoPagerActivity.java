@@ -99,6 +99,7 @@ public class PhotoPagerActivity extends AppCompatActivity {
 
       if (pagerFragment.getPaths().size() <= 1) {
 
+        // show confirm dialog
         new AlertDialog.Builder(this)
             .setTitle(R.string.confirm_to_delete)
             .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
@@ -144,7 +145,8 @@ public class PhotoPagerActivity extends AppCompatActivity {
   }
 
   public void updateActionBarTitle() {
-    actionBar.setTitle(getString(R.string.image_index, pagerFragment.getCurrentItem() + 1,
-        pagerFragment.getPaths().size()));
+    actionBar.setTitle(
+        getString(R.string.image_index, pagerFragment.getCurrentItem() + 1,
+            pagerFragment.getPaths().size()));
   }
 }

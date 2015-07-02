@@ -8,10 +8,10 @@ public interface OnItemCheckListener {
   /***
    *
    * @param position
-   * @param isCheck
-   * @param selectedItemCount
-   * @return enable check
+   * @param path
+   *@param isCheck
+   * @param selectedItemCount   @return enable check
    */
-  boolean OnItemCheck(int position, boolean isCheck, int selectedItemCount);
+  boolean OnItemCheck(int position, String path, boolean isCheck, int selectedItemCount);
 
 }

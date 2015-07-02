@@ -19,14 +19,13 @@ public class PhotoPickerActivity extends AppCompatActivity {
   private ImagePagerFragment imagePagerFragment;
 
   public final static String EXTRA_MAX_COUNT     = "MAX_COUNT";
-  public final static String KEY_SELECTED_PHOTOS = "selectedPhotos";
+  public final static String KEY_SELECTED_PHOTOS = "SELECTED_PHOTOS";
 
   private MenuItem menuDoneItem;
 
   public final static int DEFAULT_MAX_COUNT = 9;
 
   private int maxCount = DEFAULT_MAX_COUNT;
-
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -50,8 +49,8 @@ public class PhotoPickerActivity extends AppCompatActivity {
     pickerFragment =
         (PhotoPickerFragment) getSupportFragmentManager().findFragmentById(R.id.photoPickerFragment);
 
-    pickerFragment.getPhotoAdapter().setOnItemCheckListener(new OnItemCheckListener() {
-      @Override public boolean OnItemCheck(int position, boolean isCheck, int selectedItemCount) {
+    pickerFragment.getPhotoGridAdapter().setOnItemCheckListener(new OnItemCheckListener() {
+      @Override public boolean OnItemCheck(int position, String path, final boolean isCheck, int selectedItemCount) {
 
         int total = selectedItemCount + (isCheck ? -1 : 1);
 
@@ -65,6 +64,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
         return true;
       }
     });
+
   }
 
 
@@ -114,7 +114,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
     if (item.getItemId() == R.id.done) {
       Intent intent = new Intent();
-      ArrayList<String> selectedPhotos = pickerFragment.getPhotoAdapter().getSelectedPhotos();
+      ArrayList<String> selectedPhotos = pickerFragment.getPhotoGridAdapter().getSelectedPhotoPaths();
       intent.putStringArrayListExtra(KEY_SELECTED_PHOTOS, selectedPhotos);
       setResult(RESULT_OK, intent);
       finish();

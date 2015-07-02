@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:padding="10dip"
+    android:background="@drawable/bg_material_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+  <ImageView
+      android:id="@+id/iv_dir_cover"
+      android:layout_width="60dip"
+      android:layout_height="60dip"
+      android:layout_marginRight="10dip"
+      android:scaleType="centerCrop"
+      />
+  <LinearLayout
+      android:gravity="center"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      >
+
+      <TextView
+          android:textColor="@color/text_40"
+          android:id="@+id/tv_dir_name"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          />
+
+  </LinearLayout>
+
+
+</LinearLayout>
