@@ -3,6 +3,7 @@ package me.iwf.photopicker.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import me.iwf.photopicker.PhotoPickerActivity;
 
 /**
@@ -10,23 +11,27 @@ import me.iwf.photopicker.PhotoPickerActivity;
  */
 public class PhotoPickerIntent extends Intent {
 
-  public PhotoPickerIntent() {
+  private PhotoPickerIntent() {
   }
 
-  public PhotoPickerIntent(Intent o) {
+  private PhotoPickerIntent(Intent o) {
     super(o);
   }
 
-  public PhotoPickerIntent(String action) {
+  private PhotoPickerIntent(String action) {
     super(action);
   }
 
-  public PhotoPickerIntent(String action, Uri uri) {
+  private PhotoPickerIntent(String action, Uri uri) {
     super(action, uri);
   }
 
-  public PhotoPickerIntent(Context packageContext, Class<?> cls) {
+  private PhotoPickerIntent(Context packageContext, Class<?> cls) {
     super(packageContext, cls);
+  }
+
+  public PhotoPickerIntent(Context packageContext) {
+    super(packageContext, PhotoPickerActivity.class);
   }
 
   public void setPhotoCount(int photoCount) {
@@ -37,6 +42,5 @@ public class PhotoPickerIntent extends Intent {
   public void setShowCamera(boolean showCamera) {
     this.putExtra(PhotoPickerActivity.EXTRA_SHOW_CAMERA, showCamera);
   }
-
 
 }

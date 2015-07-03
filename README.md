@@ -12,14 +12,24 @@
 
 ## Usage
 
+#### Pick Photo
 ```java
-PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this, PhotoPickerActivity.class);
+PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
 intent.setPhotoCount(9);
 intent.setShowCamera(true);
 startActivityForResult(intent, REQUEST_CODE);
 ```
 
-* manifest
+#### Preview Photo
+
+```java
+Intent intent = new Intent(mContext, PhotoPagerActivity.class);
+intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, position);
+intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
+startActivityForResult(intent, REQUEST_CODE);
+```
+
+#### manifest
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     >
