@@ -29,6 +29,20 @@ intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
 startActivityForResult(intent, REQUEST_CODE);
 ```
 
+#### onActivityResult
+```java
+@Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  super.onActivityResult(requestCode, resultCode, data);
+
+  if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+    if (data != null) {
+      ArrayList<String> photos = 
+          data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+    }
+  }
+}
+```
+
 #### manifest
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
