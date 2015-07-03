@@ -12,9 +12,12 @@
 
 ## Usage
 
-
-
-
+```java
+  PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this, PhotoPickerActivity.class);
+  intent.setPhotoCount(9);
+  intent.setShowCamera(true);
+  startActivityForResult(intent, REQUEST_CODE);
+```
 ## License
 
     Copyright 2015 Huang Donglu
