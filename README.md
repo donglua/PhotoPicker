@@ -19,8 +19,7 @@ intent.setShowCamera(true);
 startActivityForResult(intent, REQUEST_CODE);
 ```
 
-manifest
-
+* manifest
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     >
