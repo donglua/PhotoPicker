@@ -48,12 +48,12 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     Uri uri = Uri.fromFile(new File(photoPaths.get(position)));
 
     Glide.with(mContext)
-            .load(uri)
-            .centerCrop()
-            .thumbnail(0.1f)
-            .placeholder(R.drawable.ic_photo_black_48dp)
-            .error(R.drawable.ic_broken_image_black_48dp)
-            .into(holder.ivPhoto);
+        .load(uri)
+        .centerCrop()
+        .thumbnail(0.1f)
+        .placeholder(R.drawable.ic_photo_black_48dp)
+        .error(R.drawable.ic_broken_image_black_48dp)
+        .into(holder.ivPhoto);
 
     holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
       @Override

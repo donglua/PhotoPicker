@@ -46,8 +46,18 @@ public class MainActivity extends ActionBarActivity {
     findViewById(R.id.button_no_camera).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this, PhotoPickerActivity.class);
-        intent.setPhotoCount(9);
+        intent.setPhotoCount(7);
         intent.setShowCamera(false);
+        startActivityForResult(intent, REQUEST_CODE);
+      }
+    });
+
+
+    findViewById(R.id.button_one_photo).setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this, PhotoPickerActivity.class);
+        intent.setPhotoCount(1);
+        intent.setShowCamera(true);
         startActivityForResult(intent, REQUEST_CODE);
       }
     });
