@@ -103,7 +103,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
           boolean isEnable = true;
 
           if (onItemCheckListener != null) {
-            isEnable = onItemCheckListener.OnItemCheck(position, photo.getPath(), isChecked,
+            isEnable = onItemCheckListener.OnItemCheck(position, photo, isChecked,
                 getSelectedPhotos().size());
           }
           if (isEnable) {

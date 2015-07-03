@@ -8,10 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import java.util.ArrayList;
+import java.util.List;
+import me.iwf.photopicker.entity.Photo;
 import me.iwf.photopicker.event.OnItemCheckListener;
 import me.iwf.photopicker.fragment.ImagePagerFragment;
 import me.iwf.photopicker.fragment.PhotoPickerFragment;
+
+import static android.widget.Toast.LENGTH_LONG;
 
 public class PhotoPickerActivity extends AppCompatActivity {
 
@@ -19,7 +24,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
   private ImagePagerFragment imagePagerFragment;
 
   public final static String EXTRA_MAX_COUNT     = "MAX_COUNT";
-  public final static String EXTRA_SHOW_CAMERA    = "MAX_COUNT";
+  public final static String EXTRA_SHOW_CAMERA   = "SHOW_CAMERA";
   public final static String KEY_SELECTED_PHOTOS = "SELECTED_PHOTOS";
 
   private MenuItem menuDoneItem;
@@ -50,19 +55,28 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
     pickerFragment =
         (PhotoPickerFragment) getSupportFragmentManager().findFragmentById(R.id.photoPickerFragment);
+
     pickerFragment.getPhotoGridAdapter().setShowCamera(showCamera);
 
     pickerFragment.getPhotoGridAdapter().setOnItemCheckListener(new OnItemCheckListener() {
-      @Override public boolean OnItemCheck(int position, String path, final boolean isCheck, int selectedItemCount) {
+      @Override public boolean OnItemCheck(int position, Photo photo, final boolean isCheck, int selectedItemCount) {
 
         int total = selectedItemCount + (isCheck ? -1 : 1);
 
         menuDoneItem.setEnabled(total > 0);
 
-        if (total > maxCount) {
-          return false;
+        if (maxCount <= 1) {
+          List<Photo> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotos();
+          photos.clear();
+          pickerFragment.getPhotoGridAdapter().notifyDataSetChanged();
+          return true;
         }
 
+        if (total > maxCount) {
+          Toast.makeText(getActivity(), getString(R.string.over_max_count_tips, maxCount),
+              LENGTH_LONG).show();
+          return false;
+        }
         menuDoneItem.setTitle(getString(R.string.done_with_count, total, maxCount));
         return true;
       }
@@ -127,5 +141,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
-
+  public PhotoPickerActivity getActivity() {
+    return this;
+  }
 }
