@@ -13,11 +13,32 @@
 ## Usage
 
 ```java
-  PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this, PhotoPickerActivity.class);
-  intent.setPhotoCount(9);
-  intent.setShowCamera(true);
-  startActivityForResult(intent, REQUEST_CODE);
+PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this, PhotoPickerActivity.class);
+intent.setPhotoCount(9);
+intent.setShowCamera(true);
+startActivityForResult(intent, REQUEST_CODE);
 ```
+
+### manifest
+
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+  <application
+    ...
+    >
+    ...
+    
+    <activity android:name="me.iwf.photopicker.PhotoPickerActivity" />
+
+    <activity android:name="me.iwf.photopicker.PhotoPagerActivity" />
+  </application>
+</manifest>
+```
+
 ## License
 
     Copyright 2015 Huang Donglu
