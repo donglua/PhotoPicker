@@ -55,9 +55,12 @@ startActivityForResult(intent, REQUEST_CODE);
     >
     ...
     
-    <activity android:name="me.iwf.photopicker.PhotoPickerActivity" />
+    <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
+      android:theme="@style/Theme.AppCompat.NoActionBar" 
+       />
 
-    <activity android:name="me.iwf.photopicker.PhotoPagerActivity" />
+    <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
+      android:theme="@style/Theme.AppCompat.NoActionBar"/>
     
   </application>
 </manifest>
