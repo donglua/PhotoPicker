@@ -53,6 +53,7 @@ public class ImagePagerFragment extends Fragment {
 
   private int currentItem = 0;
 
+
   public static ImagePagerFragment newInstance(List<String> paths, int currentItem) {
 
     ImagePagerFragment f = new ImagePagerFragment();
@@ -90,6 +91,7 @@ public class ImagePagerFragment extends Fragment {
     mViewPager.setCurrentItem(currentItem);
     mViewPager.getAdapter().notifyDataSetChanged();
   }
+
 
 
   @Override public void onCreate(Bundle savedInstanceState) {
@@ -273,7 +275,7 @@ public class ImagePagerFragment extends Fragment {
   /**
    * This is called by the colorizing animator. It sets a saturation factor that is then
    * passed onto a filter on the picture's drawable.
-   * @param value
+   * @param value saturation
    */
   public void setSaturation(float value) {
     colorizerMatrix.setSaturation(value);

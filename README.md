@@ -12,8 +12,56 @@
 
 ## Usage
 
+#### Pick Photo
+```java
+PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
+intent.setPhotoCount(9);
+intent.setShowCamera(true);
+startActivityForResult(intent, REQUEST_CODE);
+```
 
+#### Preview Photo
 
+```java
+Intent intent = new Intent(mContext, PhotoPagerActivity.class);
+intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, position);
+intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
+startActivityForResult(intent, REQUEST_CODE);
+```
+
+#### onActivityResult
+```java
+@Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+  super.onActivityResult(requestCode, resultCode, data);
+
+  if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+    if (data != null) {
+      ArrayList<String> photos = 
+          data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+    }
+  }
+}
+```
+
+#### manifest
+```xml
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-feature android:name="android.hardware.camera" android:required="true" />
+
+  <application
+    ...
+    >
+    ...
+    
+    <activity android:name="me.iwf.photopicker.PhotoPickerActivity" />
+
+    <activity android:name="me.iwf.photopicker.PhotoPagerActivity" />
+    
+  </application>
+</manifest>
+```
 
 ## License
 
