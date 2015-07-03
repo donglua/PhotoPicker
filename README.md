@@ -19,7 +19,7 @@ intent.setShowCamera(true);
 startActivityForResult(intent, REQUEST_CODE);
 ```
 
-### manifest
+manifest
 
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,6 +35,7 @@ startActivityForResult(intent, REQUEST_CODE);
     <activity android:name="me.iwf.photopicker.PhotoPickerActivity" />
 
     <activity android:name="me.iwf.photopicker.PhotoPagerActivity" />
+    
   </application>
 </manifest>
 ```
