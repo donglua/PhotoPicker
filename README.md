@@ -2,6 +2,10 @@
 [![Build Status](https://travis-ci.org/donglua/PhotoPicker.svg?branch=master)](https://travis-ci.org/donglua/PhotoPicker)
 
 ## Example
+![](http://ww1.sinaimg.cn/mw690/5e9a81dbgw1etr9vhnkpnj20e20p0gm4.jpg)
+![](http://ww3.sinaimg.cn/mw690/5e9a81dbgw1etr9wkovlmj20e20p0abx.jpg)
+![](http://ww4.sinaimg.cn/mw690/5e9a81dbgw1etr9wvsanvj20e20p0gp5.jpg)
+![](http://ww3.sinaimg.cn/mw690/5e9a81dbgw1etr9x7i81mj20e20p0gne.jpg)
 
 <p style="float:left;">
   <a href="https://play.google.com/store/apps/details?id=me.iwf.PhotoPickerDemo">
