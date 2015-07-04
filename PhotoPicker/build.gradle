@@ -1,8 +1,5 @@
 apply plugin: 'com.android.library'
 
-repositories {
-  jcenter()
-}
 
 android {
   compileSdkVersion 22
@@ -11,8 +8,8 @@ android {
   defaultConfig {
     minSdkVersion 10
     targetSdkVersion 22
-    versionCode 1
-    versionName "1.0"
+    versionCode 3
+    versionName "0.2.0"
   }
   buildTypes {
     release {

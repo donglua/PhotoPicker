@@ -12,6 +12,13 @@
 
 ## Usage
 
+#### Gradle
+```groovy    
+dependencies {
+    compile 'me.iwf.photopicker:PhotoPicker:0.1.8'
+}
+``` 
+
 #### Pick Photo
 ```java
 PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
