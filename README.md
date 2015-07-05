@@ -23,6 +23,19 @@ dependencies {
     compile 'me.iwf.photopicker:PhotoPicker:0.1.8'
 }
 ``` 
+Or
+
+```groovy
+dependencies {
+    compile 'me.iwf.photopicker:PhotoPicker:0.2.0@aar'
+    
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'com.android.support:recyclerview-v7:22.2.0'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'com.android.support:design:22.2.0'
+    compile 'com.github.bumptech.glide:glide:3.6.0'
+}
+```
 
 #### Pick Photo
 ```java
