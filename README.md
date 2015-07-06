@@ -1,8 +1,10 @@
-[![Android Gems](http://www.android-gems.com/badge/donglua/PhotoPicker.svg?branch=master)](http://www.android-gems.com/lib/donglua/PhotoPicker)
 
 # PhotoPicker
 [![Build Status](https://travis-ci.org/donglua/PhotoPicker.svg?branch=master)](https://travis-ci.org/donglua/PhotoPicker)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PhotoPicker-green.svg?style=flat)](https://android-arsenal.com/details/1/2091)
+[![Android Gems](http://www.android-gems.com/badge/donglua/PhotoPicker.svg?branch=master)](http://www.android-gems.com/lib/donglua/PhotoPicker)
+
+---
 
 ## Example
 ![](http://ww2.sinaimg.cn/large/5e9a81dbgw1etra5iu80lj206z0cet8r.jpg)
