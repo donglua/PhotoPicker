@@ -14,6 +14,7 @@
   </a>
 </p>
 
+---
 
 ## Usage
 
@@ -90,6 +91,13 @@ startActivityForResult(intent, REQUEST_CODE);
   </application>
 </manifest>
 ```
+---
+
+## Thanks to
+
+// TODO
+
+---
 
 ## License
 
