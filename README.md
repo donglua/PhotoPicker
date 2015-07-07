@@ -2,6 +2,7 @@
 # PhotoPicker
 [![Build Status](https://travis-ci.org/donglua/PhotoPicker.svg?branch=master)](https://travis-ci.org/donglua/PhotoPicker)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PhotoPicker-green.svg?style=flat)](https://android-arsenal.com/details/1/2091)
+[![API](https://img.shields.io/badge/API-10%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=10)
 [![Android Gems](http://www.android-gems.com/badge/donglua/PhotoPicker.svg?branch=master)](http://www.android-gems.com/lib/donglua/PhotoPicker)
 
 ---
