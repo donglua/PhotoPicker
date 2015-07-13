@@ -24,16 +24,10 @@
 ## Usage
 
 #### Gradle
-```groovy    
-dependencies {
-    compile 'me.iwf.photopicker:PhotoPicker:0.1.8'
-}
-``` 
-Or
 
 ```groovy
 dependencies {
-    compile 'me.iwf.photopicker:PhotoPicker:0.2.0@aar'
+    compile 'me.iwf.photopicker:PhotoPicker:0.2.1@aar'
     
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
@@ -96,6 +90,18 @@ startActivityForResult(intent, REQUEST_CODE);
   </application>
 </manifest>
 ```
+#### Custom style
+```xml
+<style name="myTheme.actionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+  <item name="android:textColorPrimary">#0000ff</item>
+</style>
+
+<style name="myTheme" parent="Theme.AppCompat.Light.NoActionBar">
+  <item name="actionBarTheme">@style/myTheme.actionBar</item>
+  <item name="colorPrimary">#00FF00</item>
+</style>
+```
+
 ---
 
 ## Thanks to

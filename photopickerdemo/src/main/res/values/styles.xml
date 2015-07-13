@@ -5,4 +5,13 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="myTheme.actionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+      <item name="android:textColorPrimary">#0000ff</item>
+    </style>
+
+    <style name="myTheme" parent="Theme.AppCompat.Light.NoActionBar">
+      <item name="actionBarTheme">@style/myTheme.actionBar</item>
+      <item name="colorPrimary">#00FF00</item>
+    </style>
+
 </resources>
