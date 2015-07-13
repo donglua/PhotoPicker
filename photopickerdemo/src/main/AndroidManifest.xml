@@ -27,9 +27,8 @@
     </activity>
 
 
-
     <activity
-        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:theme="@style/myTheme"
         android:name="me.iwf.photopicker.PhotoPickerActivity"
         />
 
