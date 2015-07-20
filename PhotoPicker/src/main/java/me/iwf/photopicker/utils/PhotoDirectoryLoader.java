@@ -25,10 +25,10 @@ public class PhotoDirectoryLoader extends CursorLoader {
 
     setProjection(IMAGE_PROJECTION);
     setUri(Media.EXTERNAL_CONTENT_URI);
-    setSortOrder(Media.DATE_ADDED +  " DESC");
+    setSortOrder(Media.DATE_ADDED + " DESC");
 
-    setSelection(MIME_TYPE + "=? or " + MIME_TYPE + "=?");
-    setSelectionArgs(new String[] { "image/jpeg", "image/png" });
+    setSelection(MIME_TYPE + "=? or " + MIME_TYPE + "=? or " + MIME_TYPE + "=?");
+    setSelectionArgs(new String[] { "image/jpeg", "image/png", "image/gif" });
   }
 
 
