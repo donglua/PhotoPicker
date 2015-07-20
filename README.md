@@ -7,7 +7,7 @@
 
 ---
 
-## Example
+# Example
 ![](http://ww2.sinaimg.cn/large/5e9a81dbgw1etra5iu80lj206z0cet8r.jpg)
 ![](http://ww2.sinaimg.cn/large/5e9a81dbgw1etra61rnr9j206z0ce3yu.jpg)
 ![](http://ww4.sinaimg.cn/large/5e9a81dbgw1etra6efl1hj206z0cewet.jpg)
@@ -21,9 +21,9 @@
 
 ---
 
-## Usage
+# Usage
 
-#### Gradle
+### Gradle
 
 ```groovy
 dependencies {
@@ -37,7 +37,10 @@ dependencies {
 }
 ```
 
-#### Pick Photo
+### eclipse
+[![GO HOME](http://ww4.sinaimg.cn/large/5e9a81dbgw1eu90m08v86j20dw09a3yu.jpg)
+
+### Pick Photo
 ```java
 PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
 intent.setPhotoCount(9);
@@ -45,7 +48,7 @@ intent.setShowCamera(true);
 startActivityForResult(intent, REQUEST_CODE);
 ```
 
-#### Preview Photo
+### Preview Photo
 
 ```java
 Intent intent = new Intent(mContext, PhotoPagerActivity.class);
@@ -54,7 +57,7 @@ intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
 startActivityForResult(intent, REQUEST_CODE);
 ```
 
-#### onActivityResult
+### onActivityResult
 ```java
 @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
   super.onActivityResult(requestCode, resultCode, data);
@@ -68,7 +71,7 @@ startActivityForResult(intent, REQUEST_CODE);
 }
 ```
 
-#### manifest
+### manifest
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     >
@@ -90,7 +93,7 @@ startActivityForResult(intent, REQUEST_CODE);
   </application>
 </manifest>
 ```
-#### Custom style
+### Custom style
 ```xml
 <style name="myTheme.actionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
   <item name="android:textColorPrimary">#0000ff</item>
@@ -104,13 +107,8 @@ startActivityForResult(intent, REQUEST_CODE);
 
 ---
 
-## Thanks to
 
-// TODO
-
----
-
-## License
+# License
 
     Copyright 2015 Huang Donglu
 
