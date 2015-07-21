@@ -33,6 +33,10 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
   private int maxCount = DEFAULT_MAX_COUNT;
 
+  /** to prevent multiple calls to inflate menu */
+  private boolean menuIsInflated = false;
+
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
@@ -113,12 +117,15 @@ public class PhotoPickerActivity extends AppCompatActivity {
         .commit();
   }
 
-
   @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_picker, menu);
-    menuDoneItem = menu.findItem(R.id.done);
-    menuDoneItem.setEnabled(false);
-    return true;
+    if (!menuIsInflated) {
+      getMenuInflater().inflate(R.menu.menu_picker, menu);
+      menuDoneItem = menu.findItem(R.id.done);
+      menuDoneItem.setEnabled(false);
+      menuIsInflated = true;
+      return true;
+    }
+    return false;
   }
 
 
