@@ -76,15 +76,22 @@ public class PhotoPagerActivity extends AppCompatActivity {
   }
 
 
+  @Override public void onBackPressed() {
+
+    Intent intent = new Intent();
+    intent.putExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS, pagerFragment.getPaths());
+    setResult(RESULT_OK, intent);
+    finish();
+
+    super.onBackPressed();
+  }
+
+
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
 
     if (item.getItemId() == android.R.id.home) {
-
-      Intent intent = new Intent();
-      intent.putExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS, pagerFragment.getPaths());
-      setResult(RESULT_OK, intent);
-      finish();
+      onBackPressed();
       return true;
     }
 
@@ -121,7 +128,6 @@ public class PhotoPagerActivity extends AppCompatActivity {
 
         pagerFragment.getPaths().remove(index);
         //pagerFragment.getViewPager().removeViewAt(index);
-
         pagerFragment.getViewPager().getAdapter().notifyDataSetChanged();
       }
 
