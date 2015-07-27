@@ -1,5 +1,6 @@
 package me.iwf.photopicker.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -66,6 +67,12 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
 
 
   @Override public void onBindViewHolder(final PhotoViewHolder holder, final int position) {
+
+
+    if (mContext instanceof Activity && ((Activity) mContext).isDestroyed()) {
+      return;
+    }
+
     if (getItemViewType(position) == ITEM_TYPE_PHOTO) {
 
       List<Photo> photos = getCurrentPhotos();

@@ -8,6 +8,7 @@ import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,9 +49,6 @@ public class PhotoPickerFragment extends Fragment {
 
     directories = new ArrayList<>();
 
-    photoGridAdapter = new PhotoGridAdapter(getActivity(), directories);
-    listAdapter  = new PopupDirectoryListAdapter(getActivity(), directories);
-
     captureManager = new ImageCaptureManager(getActivity());
 
 
@@ -67,7 +65,14 @@ public class PhotoPickerFragment extends Fragment {
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
+
+    setRetainInstance(true);
+
     final View rootView = inflater.inflate(R.layout.fragment_photo_picker, container, false);
+
+    photoGridAdapter = new PhotoGridAdapter(getActivity(), directories);
+    listAdapter  = new PopupDirectoryListAdapter(getActivity(), directories);
+
 
     RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
     StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, OrientationHelper.VERTICAL);
@@ -132,10 +137,11 @@ public class PhotoPickerFragment extends Fragment {
 
         if (listPopupWindow.isShowing()) {
           listPopupWindow.dismiss();
-        } else {
+        } else if (!getActivity().isFinishing()) {
           listPopupWindow.setHeight(Math.round(rootView.getHeight() * 0.8f));
           listPopupWindow.show();
         }
+
       }
     });
 
