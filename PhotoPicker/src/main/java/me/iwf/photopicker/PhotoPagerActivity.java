@@ -120,7 +120,7 @@ public class PhotoPagerActivity extends AppCompatActivity {
         snackbar.show();
 
         pagerFragment.getPaths().remove(index);
-        pagerFragment.getViewPager().removeViewAt(index);
+        //pagerFragment.getViewPager().removeViewAt(index);
 
         pagerFragment.getViewPager().getAdapter().notifyDataSetChanged();
       }
