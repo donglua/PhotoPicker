@@ -68,11 +68,6 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
 
   @Override public void onBindViewHolder(final PhotoViewHolder holder, final int position) {
 
-
-    if (mContext instanceof Activity && ((Activity) mContext).isDestroyed()) {
-      return;
-    }
-
     if (getItemViewType(position) == ITEM_TYPE_PHOTO) {
 
       List<Photo> photos = getCurrentPhotos();

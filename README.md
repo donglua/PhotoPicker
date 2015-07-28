@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/donglua/PhotoPicker.svg?branch=master)](https://travis-ci.org/donglua/PhotoPicker)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PhotoPicker-green.svg?style=flat)](https://android-arsenal.com/details/1/2091)
 [![API](https://img.shields.io/badge/API-10%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=10)
-[![Android Gems](http://www.android-gems.com/badge/donglua/PhotoPicker.svg?branch=master)](http://www.android-gems.com/lib/donglua/PhotoPicker)
 
 ---
 
@@ -27,7 +26,7 @@
 
 ```groovy
 dependencies {
-    compile 'me.iwf.photopicker:PhotoPicker:0.2.3@aar'
+    compile 'me.iwf.photopicker:PhotoPicker:0.2.4@aar'
     
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:recyclerview-v7:22.2.0'
