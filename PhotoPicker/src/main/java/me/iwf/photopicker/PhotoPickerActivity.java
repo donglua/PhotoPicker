@@ -71,8 +71,10 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
         if (maxCount <= 1) {
           List<Photo> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotos();
-          photos.clear();
-          pickerFragment.getPhotoGridAdapter().notifyDataSetChanged();
+          if (!photos.contains(photo)) {
+            photos.clear();
+            pickerFragment.getPhotoGridAdapter().notifyDataSetChanged();
+          }
           return true;
         }
 
