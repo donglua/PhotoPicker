@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .gradle
 /local.properties
 /.idea/*
@@ -33,3 +32,6 @@ proguard/
 
 # Log Files
 *.log
+
+PhotoPicker.iml
+PhotoPicker/PhotoPicker-PhotoPicker.iml
