@@ -8,8 +8,8 @@ android {
         applicationId "me.iwf.PhotoPickerDemo"
         minSdkVersion 10
         targetSdkVersion 22
-        versionCode 6
-        versionName "0.2.5"
+        versionCode 7
+        versionName "0.2.7"
     }
     buildTypes {
         release {
@@ -23,8 +23,8 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':PhotoPicker')
 
-//    compile 'me.iwf.photopicker:PhotoPicker:0.2.6@aar'
-
+//    compile 'me.iwf.photopicker:PhotoPicker:0.2.7@aar'
+//
 //    compile 'com.android.support:appcompat-v7:22.2.0'
 //    compile 'com.android.support:recyclerview-v7:22.2.0'
 //    compile 'com.nineoldandroids:library:2.4.0'
