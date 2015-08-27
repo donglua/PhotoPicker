@@ -8,7 +8,6 @@ import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,6 @@ import android.widget.Button;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.adapter.PhotoGridAdapter;
@@ -31,6 +29,7 @@ import me.iwf.photopicker.utils.ImageCaptureManager;
 import me.iwf.photopicker.utils.MediaStoreHelper;
 
 import static android.app.Activity.RESULT_OK;
+import static me.iwf.photopicker.PhotoPickerActivity.EXTRA_SHOW_GIF;
 import static me.iwf.photopicker.utils.MediaStoreHelper.INDEX_ALL_PHOTOS;
 
 /**
@@ -44,6 +43,7 @@ public class PhotoPickerFragment extends Fragment {
   private PopupDirectoryListAdapter listAdapter;
   private List<PhotoDirectory> directories;
 
+
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
@@ -51,12 +51,16 @@ public class PhotoPickerFragment extends Fragment {
 
     captureManager = new ImageCaptureManager(getActivity());
 
+    Bundle mediaStoreArgs = new Bundle();
+    if (getActivity() instanceof PhotoPickerActivity) {
+      mediaStoreArgs.putBoolean(EXTRA_SHOW_GIF, ((PhotoPickerActivity) getActivity()).isShowGif());
+    }
 
-    MediaStoreHelper.getPhotoDirs(getActivity(),
+    MediaStoreHelper.getPhotoDirs(getActivity(), mediaStoreArgs,
         new MediaStoreHelper.PhotosResultCallback() {
-          @Override public void onResultCallback(List<PhotoDirectory> directories) {
-            PhotoPickerFragment.this.directories.clear();
-            PhotoPickerFragment.this.directories.addAll(directories);
+          @Override public void onResultCallback(List<PhotoDirectory> dirs) {
+            directories.clear();
+            directories.addAll(dirs);
             photoGridAdapter.notifyDataSetChanged();
             listAdapter.notifyDataSetChanged();
           }

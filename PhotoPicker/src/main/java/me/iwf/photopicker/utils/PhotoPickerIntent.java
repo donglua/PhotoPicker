@@ -38,9 +38,12 @@ public class PhotoPickerIntent extends Intent {
     this.putExtra(PhotoPickerActivity.EXTRA_MAX_COUNT, photoCount);
   }
 
-
   public void setShowCamera(boolean showCamera) {
     this.putExtra(PhotoPickerActivity.EXTRA_SHOW_CAMERA, showCamera);
+  }
+
+  public void setShowGif(boolean showGif) {
+    this.putExtra(PhotoPickerActivity.EXTRA_SHOW_GIF, showGif);
   }
 
 }

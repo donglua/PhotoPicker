@@ -25,6 +25,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
   public final static String EXTRA_MAX_COUNT     = "MAX_COUNT";
   public final static String EXTRA_SHOW_CAMERA   = "SHOW_CAMERA";
+  public final static String EXTRA_SHOW_GIF      = "SHOW_GIF";
   public final static String KEY_SELECTED_PHOTOS = "SELECTED_PHOTOS";
 
   private MenuItem menuDoneItem;
@@ -36,9 +37,15 @@ public class PhotoPickerActivity extends AppCompatActivity {
   /** to prevent multiple calls to inflate menu */
   private boolean menuIsInflated = false;
 
+  private boolean showGif = false;
+
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    boolean showCamera = getIntent().getBooleanExtra(EXTRA_SHOW_CAMERA, true);
+    boolean showGif    = getIntent().getBooleanExtra(EXTRA_SHOW_GIF, false);
+    setShowGif(showGif);
 
     setContentView(R.layout.activity_photo_picker);
 
@@ -48,6 +55,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
     ActionBar actionBar = getSupportActionBar();
 
+    assert actionBar != null;
     actionBar.setDisplayHomeAsUpEnabled(true);
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -55,10 +63,8 @@ public class PhotoPickerActivity extends AppCompatActivity {
     }
 
     maxCount = getIntent().getIntExtra(EXTRA_MAX_COUNT, DEFAULT_MAX_COUNT);
-    boolean showCamera = getIntent().getBooleanExtra(EXTRA_SHOW_CAMERA, true);
 
-    pickerFragment =
-        (PhotoPickerFragment) getSupportFragmentManager().findFragmentById(R.id.photoPickerFragment);
+    pickerFragment = (PhotoPickerFragment) getSupportFragmentManager().findFragmentById(R.id.photoPickerFragment);
 
     pickerFragment.getPhotoGridAdapter().setShowCamera(showCamera);
 
@@ -152,5 +158,13 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
   public PhotoPickerActivity getActivity() {
     return this;
+  }
+
+  public boolean isShowGif() {
+    return showGif;
+  }
+
+  public void setShowGif(boolean showGif) {
+    this.showGif = showGif;
   }
 }

@@ -45,6 +45,7 @@ dependencies {
 PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
 intent.setPhotoCount(9);
 intent.setShowCamera(true);
+intent.setShowGif(true);
 startActivityForResult(intent, REQUEST_CODE);
 ```
 

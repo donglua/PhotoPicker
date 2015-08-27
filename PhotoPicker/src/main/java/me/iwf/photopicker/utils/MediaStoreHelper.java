@@ -8,6 +8,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import java.util.ArrayList;
 import java.util.List;
+import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.entity.PhotoDirectory;
 
@@ -16,6 +17,7 @@ import static android.provider.MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAM
 import static android.provider.MediaStore.Images.ImageColumns.BUCKET_ID;
 import static android.provider.MediaStore.MediaColumns.DATA;
 import static android.provider.MediaStore.MediaColumns.DATE_ADDED;
+import static me.iwf.photopicker.PhotoPickerActivity.EXTRA_SHOW_GIF;
 
 /**
  * Created by donglua on 15/5/31.
@@ -25,17 +27,15 @@ public class MediaStoreHelper {
   public final static int INDEX_ALL_PHOTOS = 0;
 
 
-  public static void getPhotoDirs(FragmentActivity activity, PhotosResultCallback resultCallback) {
+  public static void getPhotoDirs(FragmentActivity activity, Bundle args, PhotosResultCallback resultCallback) {
     activity.getSupportLoaderManager()
-        .initLoader(0, null, new PhotoDirLoaderCallbacks(activity, resultCallback));
+        .initLoader(0, args, new PhotoDirLoaderCallbacks(activity, resultCallback));
   }
-
-
 
   static class PhotoDirLoaderCallbacks implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    Context context;
-    PhotosResultCallback resultCallback;
+    private Context context;
+    private PhotosResultCallback resultCallback;
 
     public PhotoDirLoaderCallbacks(Context context, PhotosResultCallback resultCallback) {
       this.context = context;
@@ -43,7 +43,7 @@ public class MediaStoreHelper {
     }
 
     @Override public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-      return new PhotoDirectoryLoader(context);
+      return new PhotoDirectoryLoader(context, args.getBoolean(EXTRA_SHOW_GIF, false));
     }
 
     @Override public void onLoadFinished(Loader<Cursor> loader, Cursor data) {

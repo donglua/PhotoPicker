@@ -62,6 +62,16 @@ public class MainActivity extends ActionBarActivity {
       }
     });
 
+    findViewById(R.id.button_photo_gif).setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
+        intent.setPhotoCount(4);
+        intent.setShowCamera(true);
+        intent.setShowGif(true);
+        startActivityForResult(intent, REQUEST_CODE);
+      }
+    });
+
   }
 
 
