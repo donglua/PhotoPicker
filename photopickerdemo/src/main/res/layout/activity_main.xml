@@ -46,7 +46,7 @@
 
   <android.support.v7.widget.RecyclerView
       android:id="@+id/recycler_view"
-      android:layout_below="@id/button_one_photo"
+      android:layout_below="@id/pick_photo_gif"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       />
