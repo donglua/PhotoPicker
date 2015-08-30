@@ -47,6 +47,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
     }
     Glide.with(mContext)
         .load(uri)
+        .thumbnail(0.4f)
         .placeholder(R.drawable.ic_photo_black_48dp)
         .error(R.drawable.ic_broken_image_black_48dp)
         .into(imageView);

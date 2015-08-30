@@ -13,4 +13,7 @@
   <string name="cancel">取消</string>
   <string name="all_image">所有图片</string>
   <string name="over_max_count_tips">你最多可以选择%1$d张图片</string>
+  <string name="image_count">%1$d张</string>
+
+
 </resources>

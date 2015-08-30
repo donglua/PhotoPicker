@@ -1,5 +1,6 @@
 package me.iwf.photopicker.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,18 +69,24 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
 
     public ImageView ivCover;
     public TextView tvName;
+    public TextView tvCount;
 
     public ViewHolder(View rootView) {
       ivCover = (ImageView) rootView.findViewById(R.id.iv_dir_cover);
       tvName  = (TextView)  rootView.findViewById(R.id.tv_dir_name);
+      tvCount = (TextView)  rootView.findViewById(R.id.tv_dir_count);
     }
 
     public void bindData(PhotoDirectory directory) {
+      if (context instanceof Activity && ((Activity) context).isFinishing()) {
+        return;
+      }
       Glide.with(context)
           .load(directory.getCoverPath())
           .thumbnail(0.1f)
           .into(ivCover);
       tvName.setText(directory.getName());
+      tvCount.setText(context.getString(R.string.image_count, directory.getPhotos().size()));
     }
   }
 
