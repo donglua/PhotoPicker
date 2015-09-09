@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import me.iwf.photopicker.PhotoPickerActivity;
@@ -43,6 +44,7 @@ public class PhotoPickerFragment extends Fragment {
   private PopupDirectoryListAdapter listAdapter;
   private List<PhotoDirectory> directories;
 
+  private List<String> selected_photos;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -61,6 +63,7 @@ public class PhotoPickerFragment extends Fragment {
           @Override public void onResultCallback(List<PhotoDirectory> dirs) {
             directories.clear();
             directories.addAll(dirs);
+            photoGridAdapter.setSelectedPhotoPaths(selected_photos);
             photoGridAdapter.notifyDataSetChanged();
             listAdapter.notifyDataSetChanged();
           }
@@ -77,7 +80,6 @@ public class PhotoPickerFragment extends Fragment {
 
     photoGridAdapter = new PhotoGridAdapter(getActivity(), directories);
     listAdapter  = new PopupDirectoryListAdapter(getActivity(), directories);
-
 
     RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
     StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, OrientationHelper.VERTICAL);
@@ -98,7 +100,8 @@ public class PhotoPickerFragment extends Fragment {
     listPopupWindow.setAnimationStyle(R.style.Animation_AppCompat_DropDownUp);
 
     listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         listPopupWindow.dismiss();
 
         PhotoDirectory directory = directories.get(position);
@@ -111,23 +114,25 @@ public class PhotoPickerFragment extends Fragment {
     });
 
     photoGridAdapter.setOnPhotoClickListener(new OnPhotoClickListener() {
-      @Override public void onClick(View v, int position, boolean showCamera) {
+      @Override
+      public void onClick(View v, int position, boolean showCamera) {
         final int index = showCamera ? position - 1 : position;
 
         List<String> photos = photoGridAdapter.getCurrentPhotoPaths();
 
-        int [] screenLocation = new int[2];
+        int[] screenLocation = new int[2];
         v.getLocationOnScreen(screenLocation);
         ImagePagerFragment imagePagerFragment =
-            ImagePagerFragment.newInstance(photos, index, screenLocation,
-                v.getWidth(), v.getHeight());
+                ImagePagerFragment.newInstance(photos, index, screenLocation,
+                        v.getWidth(), v.getHeight());
 
         ((PhotoPickerActivity) getActivity()).addImagePagerFragment(imagePagerFragment);
       }
     });
 
     photoGridAdapter.setOnCameraClickListener(new OnClickListener() {
-      @Override public void onClick(View view) {
+      @Override
+      public void onClick(View view) {
         try {
           Intent intent = captureManager.dispatchTakePictureIntent();
           startActivityForResult(intent, ImageCaptureManager.REQUEST_TAKE_PHOTO);
@@ -138,7 +143,8 @@ public class PhotoPickerFragment extends Fragment {
     });
 
     btSwitchDirectory.setOnClickListener(new OnClickListener() {
-      @Override public void onClick(View v) {
+      @Override
+      public void onClick(View v) {
 
         if (listPopupWindow.isShowing()) {
           listPopupWindow.dismiss();
@@ -149,6 +155,7 @@ public class PhotoPickerFragment extends Fragment {
 
       }
     });
+
 
     return rootView;
   }
@@ -170,6 +177,10 @@ public class PhotoPickerFragment extends Fragment {
 
   public PhotoGridAdapter getPhotoGridAdapter() {
     return photoGridAdapter;
+  }
+
+  public void setSelectedPhotos(List<String> selectedPhotos) {
+    selected_photos = selectedPhotos;
   }
 
 
