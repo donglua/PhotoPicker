@@ -159,4 +159,13 @@ public class PhotoPickerFragment extends Fragment {
     return photoGridAdapter.getSelectedPhotoPaths();
   }
 
+  public void initMenuWithPreselectedPhotos() {
+
+    if (selected_photos != null && selected_photos.size() > 0) {
+      int maxCount = ((PhotoPickerActivity) getActivity()).getMaxCount();
+      ((PhotoPickerActivity) getActivity()).getMenuDoneItem().setEnabled(true);
+      ((PhotoPickerActivity) getActivity()).getMenuDoneItem()
+              .setTitle(getString(R.string.done_with_count, selected_photos.size(), maxCount));
+    }
+  }
 }

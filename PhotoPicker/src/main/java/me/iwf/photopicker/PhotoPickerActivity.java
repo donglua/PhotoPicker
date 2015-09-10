@@ -144,6 +144,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
       menuDoneItem = menu.findItem(R.id.done);
       menuDoneItem.setEnabled(false);
       menuIsInflated = true;
+      pickerFragment.initMenuWithPreselectedPhotos();
       return true;
     }
     return false;
@@ -169,6 +170,10 @@ public class PhotoPickerActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
+  public MenuItem getMenuDoneItem() {
+    return menuDoneItem;
+  }
+
   public PhotoPickerActivity getActivity() {
     return this;
   }
@@ -179,5 +184,9 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
   public void setShowGif(boolean showGif) {
     this.showGif = showGif;
+  }
+
+  public int getMaxCount() {
+    return maxCount;
   }
 }

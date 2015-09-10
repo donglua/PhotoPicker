@@ -171,18 +171,20 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
 
   public void setSelectedPhotoPaths(List<String> selected_photos) {
 
-    List<Photo> photos = getCurrentPhotos();
-    boolean found;
-    int j = 0;
-    for (int i = 0; i < photos.size(); ++i) {
-      found = false;
-      j = 0;
-      while(j < selected_photos.size() && !found) {
-        if(selected_photos.get(j).equals(photos.get(i).getPath())) {
-          toggleSelection(photos.get(i));
-          found = true;
+    if(selected_photos != null) {
+      List<Photo> photos = getCurrentPhotos();
+      boolean found;
+      int j = 0;
+      for (int i = 0; i < photos.size(); ++i) {
+        found = false;
+        j = 0;
+        while (j < selected_photos.size() && !found) {
+          if (selected_photos.get(j).equals(photos.get(i).getPath())) {
+            toggleSelection(photos.get(i));
+            found = true;
+          }
+          ++j;
         }
-        ++j;
       }
     }
   }
