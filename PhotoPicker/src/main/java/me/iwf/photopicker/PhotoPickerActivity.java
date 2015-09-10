@@ -1,14 +1,18 @@
 package me.iwf.photopicker;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +62,10 @@ public class PhotoPickerActivity extends AppCompatActivity {
     mToolbar.setTitle(activityTitle);
     setSupportActionBar(mToolbar);
 
+
     ActionBar actionBar = getSupportActionBar();
+
+    setNavigationStatusBar();
 
     assert actionBar != null;
     actionBar.setDisplayHomeAsUpEnabled(true);
@@ -94,12 +101,6 @@ public class PhotoPickerActivity extends AppCompatActivity {
           Toast.makeText(getActivity(), getString(R.string.over_max_count_tips, maxCount),
               LENGTH_LONG).show();
           return false;
-        }
-
-        List<Photo> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotos();
-
-        for(int i = 0; i < photos.size(); ++i) {
-          Log.v("PickerActivity", photos.get(i).getPath());
         }
 
         menuDoneItem.setTitle(getString(R.string.done_with_count, total, maxCount));
@@ -188,5 +189,46 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
   public int getMaxCount() {
     return maxCount;
+  }
+
+  public void setNavigationStatusBar() {
+    // Fix portrait issues
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+      // Fix issues for KitKat setting Status Bar color primary
+      if (Build.VERSION.SDK_INT >= 19) {
+        TypedValue typedValue19 = new TypedValue();
+        this.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue19, true);
+        final int color = typedValue19.data;
+        FrameLayout statusBar = (FrameLayout) findViewById(R.id.status_bar);
+        statusBar.setBackgroundColor(color);
+      }
+
+      // Fix issues for Lollipop, setting Status Bar color primary dark
+      if (Build.VERSION.SDK_INT >= 21) {
+        TypedValue typedValue21 = new TypedValue();
+        this.getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue21, true);
+        final int color = typedValue21.data;
+        FrameLayout statusBar = (FrameLayout) findViewById(R.id.status_bar);
+        statusBar.setBackgroundColor(color);
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+      }
+    }
+
+    // Fix landscape issues (only Lollipop)
+    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+      if (Build.VERSION.SDK_INT >= 19) {
+        TypedValue typedValue19 = new TypedValue();
+        this.getTheme().resolveAttribute(R.attr.colorPrimary, typedValue19, true);
+        final int color = typedValue19.data;
+        FrameLayout statusBar = (FrameLayout) findViewById(R.id.status_bar);
+        statusBar.setBackgroundColor(color);
+      }
+      if (Build.VERSION.SDK_INT >= 21) {
+        TypedValue typedValue = new TypedValue();
+        this.getTheme().resolveAttribute(R.attr.colorPrimaryDark, typedValue, true);
+        final int color = typedValue.data;
+      }
+    }
   }
 }
