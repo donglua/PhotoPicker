@@ -54,4 +54,8 @@ public class PhotoPickerIntent extends Intent {
     this.putStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS, selectedPhotos);
   }
 
+  public void setActivityTitle(String title) {
+    this.putExtra(PhotoPickerActivity.EXTRA_ACTIVITY_TITLE, title);
+  }
+
 }

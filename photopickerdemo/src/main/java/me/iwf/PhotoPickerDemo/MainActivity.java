@@ -41,6 +41,7 @@ public class MainActivity extends ActionBarActivity {
         selected_photos.add("/storage/emulated/0/Pictures/JPEG_20150826_131652_-1972212360.jpg");
         selected_photos.add("/storage/emulated/0/Pictures/JPEG_20150908_124042_280811053.jpg");
         intent.setSelectedPhotos(selected_photos);
+        intent.setActivityTitle("JOTO");
         intent.setPhotoCount(9);
         startActivityForResult(intent, REQUEST_CODE);
       }

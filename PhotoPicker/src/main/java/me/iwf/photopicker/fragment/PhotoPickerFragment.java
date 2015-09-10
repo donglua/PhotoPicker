@@ -88,31 +88,6 @@ public class PhotoPickerFragment extends Fragment {
     recyclerView.setAdapter(photoGridAdapter);
     recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-    final Button btSwitchDirectory = (Button) rootView.findViewById(R.id.button);
-
-
-    final ListPopupWindow listPopupWindow = new ListPopupWindow(getActivity());
-    listPopupWindow.setWidth(ListPopupWindow.MATCH_PARENT);
-    listPopupWindow.setAnchorView(btSwitchDirectory);
-    listPopupWindow.setAdapter(listAdapter);
-    listPopupWindow.setModal(true);
-    listPopupWindow.setDropDownGravity(Gravity.BOTTOM);
-    listPopupWindow.setAnimationStyle(R.style.Animation_AppCompat_DropDownUp);
-
-    listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override
-      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        listPopupWindow.dismiss();
-
-        PhotoDirectory directory = directories.get(position);
-
-        btSwitchDirectory.setText(directory.getName());
-
-        photoGridAdapter.setCurrentDirectoryIndex(position);
-        photoGridAdapter.notifyDataSetChanged();
-      }
-    });
-
     photoGridAdapter.setOnPhotoClickListener(new OnPhotoClickListener() {
       @Override
       public void onClick(View v, int position, boolean showCamera) {
@@ -141,21 +116,6 @@ public class PhotoPickerFragment extends Fragment {
         }
       }
     });
-
-    btSwitchDirectory.setOnClickListener(new OnClickListener() {
-      @Override
-      public void onClick(View v) {
-
-        if (listPopupWindow.isShowing()) {
-          listPopupWindow.dismiss();
-        } else if (!getActivity().isFinishing()) {
-          listPopupWindow.setHeight(Math.round(rootView.getHeight() * 0.8f));
-          listPopupWindow.show();
-        }
-
-      }
-    });
-
 
     return rootView;
   }

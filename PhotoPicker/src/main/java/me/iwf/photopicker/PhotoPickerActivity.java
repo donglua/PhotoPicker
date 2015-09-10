@@ -28,6 +28,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
   public final static String EXTRA_SHOW_CAMERA   = "SHOW_CAMERA";
   public final static String EXTRA_SHOW_GIF      = "SHOW_GIF";
   public final static String KEY_SELECTED_PHOTOS = "SELECTED_PHOTOS";
+  public final static String EXTRA_ACTIVITY_TITLE = "ACTIVITY_TITLE";
 
   private MenuItem menuDoneItem;
 
@@ -47,12 +48,14 @@ public class PhotoPickerActivity extends AppCompatActivity {
     boolean showCamera = getIntent().getBooleanExtra(EXTRA_SHOW_CAMERA, true);
     boolean showGif    = getIntent().getBooleanExtra(EXTRA_SHOW_GIF, false);
     ArrayList<String> selectedPhotos = getIntent().getStringArrayListExtra(KEY_SELECTED_PHOTOS);
+    String activityTitle = getIntent().getStringExtra(EXTRA_ACTIVITY_TITLE);
+
     setShowGif(showGif);
 
     setContentView(R.layout.activity_photo_picker);
 
     Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-    mToolbar.setTitle(R.string.images);
+    mToolbar.setTitle(activityTitle);
     setSupportActionBar(mToolbar);
 
     ActionBar actionBar = getSupportActionBar();
