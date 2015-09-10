@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -45,6 +46,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
     boolean showCamera = getIntent().getBooleanExtra(EXTRA_SHOW_CAMERA, true);
     boolean showGif    = getIntent().getBooleanExtra(EXTRA_SHOW_GIF, false);
+    ArrayList<String> selectedPhotos = getIntent().getStringArrayListExtra(KEY_SELECTED_PHOTOS);
     setShowGif(showGif);
 
     setContentView(R.layout.activity_photo_picker);
@@ -67,6 +69,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     pickerFragment = (PhotoPickerFragment) getSupportFragmentManager().findFragmentById(R.id.photoPickerFragment);
 
     pickerFragment.getPhotoGridAdapter().setShowCamera(showCamera);
+    pickerFragment.setSelectedPhotos(selectedPhotos);
 
     pickerFragment.getPhotoGridAdapter().setOnItemCheckListener(new OnItemCheckListener() {
       @Override public boolean OnItemCheck(int position, Photo photo, final boolean isCheck, int selectedItemCount) {
@@ -89,6 +92,13 @@ public class PhotoPickerActivity extends AppCompatActivity {
               LENGTH_LONG).show();
           return false;
         }
+
+        List<Photo> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotos();
+
+        for(int i = 0; i < photos.size(); ++i) {
+          Log.v("PickerActivity", photos.get(i).getPath());
+        }
+
         menuDoneItem.setTitle(getString(R.string.done_with_count, total, maxCount));
         return true;
       }
