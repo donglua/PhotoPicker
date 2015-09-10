@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
   public final static String EXTRA_SHOW_CAMERA   = "SHOW_CAMERA";
   public final static String EXTRA_SHOW_GIF      = "SHOW_GIF";
   public final static String KEY_SELECTED_PHOTOS = "SELECTED_PHOTOS";
+  public final static String EXTRA_ACTIVITY_TITLE = "ACTIVITY_TITLE";
 
   private MenuItem menuDoneItem;
 
@@ -45,12 +47,15 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
     boolean showCamera = getIntent().getBooleanExtra(EXTRA_SHOW_CAMERA, true);
     boolean showGif    = getIntent().getBooleanExtra(EXTRA_SHOW_GIF, false);
+    ArrayList<String> selectedPhotos = getIntent().getStringArrayListExtra(KEY_SELECTED_PHOTOS);
+    String activityTitle = getIntent().getStringExtra(EXTRA_ACTIVITY_TITLE);
+
     setShowGif(showGif);
 
     setContentView(R.layout.activity_photo_picker);
 
     Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-    mToolbar.setTitle(R.string.images);
+    mToolbar.setTitle(activityTitle);
     setSupportActionBar(mToolbar);
 
     ActionBar actionBar = getSupportActionBar();
@@ -67,6 +72,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     pickerFragment = (PhotoPickerFragment) getSupportFragmentManager().findFragmentById(R.id.photoPickerFragment);
 
     pickerFragment.getPhotoGridAdapter().setShowCamera(showCamera);
+    pickerFragment.setSelectedPhotos(selectedPhotos);
 
     pickerFragment.getPhotoGridAdapter().setOnItemCheckListener(new OnItemCheckListener() {
       @Override public boolean OnItemCheck(int position, Photo photo, final boolean isCheck, int selectedItemCount) {
@@ -89,6 +95,13 @@ public class PhotoPickerActivity extends AppCompatActivity {
               LENGTH_LONG).show();
           return false;
         }
+
+        List<Photo> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotos();
+
+        for(int i = 0; i < photos.size(); ++i) {
+          Log.v("PickerActivity", photos.get(i).getPath());
+        }
+
         menuDoneItem.setTitle(getString(R.string.done_with_count, total, maxCount));
         return true;
       }
@@ -131,6 +144,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
       menuDoneItem = menu.findItem(R.id.done);
       menuDoneItem.setEnabled(false);
       menuIsInflated = true;
+      pickerFragment.initMenuWithPreselectedPhotos();
       return true;
     }
     return false;
@@ -156,6 +170,10 @@ public class PhotoPickerActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
+  public MenuItem getMenuDoneItem() {
+    return menuDoneItem;
+  }
+
   public PhotoPickerActivity getActivity() {
     return this;
   }
@@ -166,5 +184,9 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
   public void setShowGif(boolean showGif) {
     this.showGif = showGif;
+  }
+
+  public int getMaxCount() {
+    return maxCount;
   }
 }

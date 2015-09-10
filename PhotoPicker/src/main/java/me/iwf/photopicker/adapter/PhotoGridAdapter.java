@@ -55,7 +55,8 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
       holder.vSelected.setVisibility(View.GONE);
       holder.ivPhoto.setScaleType(ImageView.ScaleType.CENTER);
       holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
-        @Override public void onClick(View view) {
+        @Override
+        public void onClick(View view) {
           if (onCameraClickListener != null) {
             onCameraClickListener.onClick(view);
           }
@@ -168,6 +169,25 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
     return selectedPhotoPaths;
   }
 
+  public void setSelectedPhotoPaths(List<String> selected_photos) {
+
+    if(selected_photos != null) {
+      List<Photo> photos = getCurrentPhotos();
+      boolean found;
+      int j = 0;
+      for (int i = 0; i < photos.size(); ++i) {
+        found = false;
+        j = 0;
+        while (j < selected_photos.size() && !found) {
+          if (selected_photos.get(j).equals(photos.get(i).getPath())) {
+            toggleSelection(photos.get(i));
+            found = true;
+          }
+          ++j;
+        }
+      }
+    }
+  }
 
   public void setShowCamera(boolean hasCamera) {
     this.hasCamera = hasCamera;

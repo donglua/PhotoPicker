@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import me.iwf.photopicker.PhotoPickerActivity;
@@ -43,6 +44,7 @@ public class PhotoPickerFragment extends Fragment {
   private PopupDirectoryListAdapter listAdapter;
   private List<PhotoDirectory> directories;
 
+  private List<String> selected_photos;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -61,6 +63,7 @@ public class PhotoPickerFragment extends Fragment {
           @Override public void onResultCallback(List<PhotoDirectory> dirs) {
             directories.clear();
             directories.addAll(dirs);
+            photoGridAdapter.setSelectedPhotoPaths(selected_photos);
             photoGridAdapter.notifyDataSetChanged();
             listAdapter.notifyDataSetChanged();
           }
@@ -78,7 +81,6 @@ public class PhotoPickerFragment extends Fragment {
     photoGridAdapter = new PhotoGridAdapter(getActivity(), directories);
     listAdapter  = new PopupDirectoryListAdapter(getActivity(), directories);
 
-
     RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
     StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, OrientationHelper.VERTICAL);
     layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
@@ -86,67 +88,32 @@ public class PhotoPickerFragment extends Fragment {
     recyclerView.setAdapter(photoGridAdapter);
     recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-    final Button btSwitchDirectory = (Button) rootView.findViewById(R.id.button);
-
-
-    final ListPopupWindow listPopupWindow = new ListPopupWindow(getActivity());
-    listPopupWindow.setWidth(ListPopupWindow.MATCH_PARENT);
-    listPopupWindow.setAnchorView(btSwitchDirectory);
-    listPopupWindow.setAdapter(listAdapter);
-    listPopupWindow.setModal(true);
-    listPopupWindow.setDropDownGravity(Gravity.BOTTOM);
-    listPopupWindow.setAnimationStyle(R.style.Animation_AppCompat_DropDownUp);
-
-    listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        listPopupWindow.dismiss();
-
-        PhotoDirectory directory = directories.get(position);
-
-        btSwitchDirectory.setText(directory.getName());
-
-        photoGridAdapter.setCurrentDirectoryIndex(position);
-        photoGridAdapter.notifyDataSetChanged();
-      }
-    });
-
     photoGridAdapter.setOnPhotoClickListener(new OnPhotoClickListener() {
-      @Override public void onClick(View v, int position, boolean showCamera) {
+      @Override
+      public void onClick(View v, int position, boolean showCamera) {
         final int index = showCamera ? position - 1 : position;
 
         List<String> photos = photoGridAdapter.getCurrentPhotoPaths();
 
-        int [] screenLocation = new int[2];
+        int[] screenLocation = new int[2];
         v.getLocationOnScreen(screenLocation);
         ImagePagerFragment imagePagerFragment =
-            ImagePagerFragment.newInstance(photos, index, screenLocation,
-                v.getWidth(), v.getHeight());
+                ImagePagerFragment.newInstance(photos, index, screenLocation,
+                        v.getWidth(), v.getHeight());
 
         ((PhotoPickerActivity) getActivity()).addImagePagerFragment(imagePagerFragment);
       }
     });
 
     photoGridAdapter.setOnCameraClickListener(new OnClickListener() {
-      @Override public void onClick(View view) {
+      @Override
+      public void onClick(View view) {
         try {
           Intent intent = captureManager.dispatchTakePictureIntent();
           startActivityForResult(intent, ImageCaptureManager.REQUEST_TAKE_PHOTO);
         } catch (IOException e) {
           e.printStackTrace();
         }
-      }
-    });
-
-    btSwitchDirectory.setOnClickListener(new OnClickListener() {
-      @Override public void onClick(View v) {
-
-        if (listPopupWindow.isShowing()) {
-          listPopupWindow.dismiss();
-        } else if (!getActivity().isFinishing()) {
-          listPopupWindow.setHeight(Math.round(rootView.getHeight() * 0.8f));
-          listPopupWindow.show();
-        }
-
       }
     });
 
@@ -172,6 +139,10 @@ public class PhotoPickerFragment extends Fragment {
     return photoGridAdapter;
   }
 
+  public void setSelectedPhotos(List<String> selectedPhotos) {
+    selected_photos = selectedPhotos;
+  }
+
 
   @Override public void onSaveInstanceState(Bundle outState) {
     captureManager.onSaveInstanceState(outState);
@@ -188,4 +159,13 @@ public class PhotoPickerFragment extends Fragment {
     return photoGridAdapter.getSelectedPhotoPaths();
   }
 
+  public void initMenuWithPreselectedPhotos() {
+
+    if (selected_photos != null && selected_photos.size() > 0) {
+      int maxCount = ((PhotoPickerActivity) getActivity()).getMaxCount();
+      ((PhotoPickerActivity) getActivity()).getMenuDoneItem().setEnabled(true);
+      ((PhotoPickerActivity) getActivity()).getMenuDoneItem()
+              .setTitle(getString(R.string.done_with_count, selected_photos.size(), maxCount));
+    }
+  }
 }
