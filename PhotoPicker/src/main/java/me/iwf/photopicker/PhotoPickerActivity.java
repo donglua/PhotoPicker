@@ -94,7 +94,6 @@ public class PhotoPickerActivity extends AppCompatActivity {
             photos.clear();
             pickerFragment.getPhotoGridAdapter().notifyDataSetChanged();
           }
-          return true;
         }
 
         if (total > maxCount) {
