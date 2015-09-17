@@ -88,18 +88,21 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
         //menuDoneItem.setEnabled(total > 0);
         menuDoneItem.setEnabled(true);
-        if (maxCount <= 1) {
+        if (maxCount == 1) {
           List<Photo> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotos();
           if (!photos.contains(photo)) {
             photos.clear();
             pickerFragment.getPhotoGridAdapter().notifyDataSetChanged();
-          }
-        }
 
-        if (total > maxCount) {
+          }
+          menuDoneItem.setTitle(getString(R.string.done));
+          return true;
+
+        } else if (total > maxCount) {
           Toast.makeText(getActivity(), getString(R.string.over_max_count_tips, maxCount),
               LENGTH_LONG).show();
           return false;
+
         }
 
         menuDoneItem.setTitle(getString(R.string.done_with_count, total, maxCount));
