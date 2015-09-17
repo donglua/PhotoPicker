@@ -86,8 +86,8 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
         int total = selectedItemCount + (isCheck ? -1 : 1);
 
-        menuDoneItem.setEnabled(total > 0);
-
+        //menuDoneItem.setEnabled(total > 0);
+        menuDoneItem.setEnabled(true);
         if (maxCount <= 1) {
           List<Photo> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotos();
           if (!photos.contains(photo)) {
@@ -143,7 +143,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     if (!menuIsInflated) {
       getMenuInflater().inflate(R.menu.menu_picker, menu);
       menuDoneItem = menu.findItem(R.id.done);
-      menuDoneItem.setEnabled(false);
+      menuDoneItem.setEnabled(true);
       menuIsInflated = true;
       pickerFragment.initMenuWithPreselectedPhotos();
       return true;
