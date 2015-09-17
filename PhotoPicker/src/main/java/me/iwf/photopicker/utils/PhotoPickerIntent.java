@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import me.iwf.photopicker.PhotoPickerActivity;
 
 /**
@@ -44,6 +48,14 @@ public class PhotoPickerIntent extends Intent {
 
   public void setShowGif(boolean showGif) {
     this.putExtra(PhotoPickerActivity.EXTRA_SHOW_GIF, showGif);
+  }
+
+  public void setSelectedPhotos(ArrayList<String> selectedPhotos) {
+    this.putStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS, selectedPhotos);
+  }
+
+  public void setActivityTitle(String title) {
+    this.putExtra(PhotoPickerActivity.EXTRA_ACTIVITY_TITLE, title);
   }
 
 }

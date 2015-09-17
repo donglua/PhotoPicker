@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 import me.iwf.photopicker.PhotoPickerActivity;
@@ -17,6 +19,7 @@ import static android.provider.MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAM
 import static android.provider.MediaStore.Images.ImageColumns.BUCKET_ID;
 import static android.provider.MediaStore.MediaColumns.DATA;
 import static android.provider.MediaStore.MediaColumns.DATE_ADDED;
+import static android.provider.MediaStore.MediaColumns.SIZE;
 import static me.iwf.photopicker.PhotoPickerActivity.EXTRA_SHOW_GIF;
 
 /**
