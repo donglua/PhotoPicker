@@ -96,23 +96,6 @@ public class PhotoPickerFragment extends Fragment {
         recyclerView.setAdapter(photoGridAdapter);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        photoGridAdapter.setOnPhotoClickListener(new OnPhotoClickListener() {
-            @Override
-            public void onClick(View v, int position, boolean showCamera) {
-                final int index = showCamera ? position - 1 : position;
-
-                List<String> photos = photoGridAdapter.getCurrentPhotoPaths();
-
-                int[] screenLocation = new int[2];
-                v.getLocationOnScreen(screenLocation);
-                ImagePagerFragment imagePagerFragment =
-                        ImagePagerFragment.newInstance(photos, index, screenLocation,
-                                v.getWidth(), v.getHeight());
-
-                ((PhotoPickerActivity) getActivity()).addImagePagerFragment(imagePagerFragment);
-            }
-        });
-
         photoGridAdapter.setOnCameraClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
