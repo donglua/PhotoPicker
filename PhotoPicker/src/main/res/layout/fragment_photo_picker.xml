@@ -21,9 +21,11 @@
         <Button
             android:id="@+id/button"
             android:text="@string/all_image"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:gravity="center"
             android:layout_height="wrap_content"
+            android:textColor="@color/pick_photo_color"
+            android:textSize="16sp"
             style="@style/Widget.AppCompat.ActionButton"
             />
 

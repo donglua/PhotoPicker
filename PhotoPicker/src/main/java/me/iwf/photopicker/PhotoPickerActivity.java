@@ -50,7 +50,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     setContentView(R.layout.activity_photo_picker);
 
     Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-    mToolbar.setTitle(R.string.images);
+    mToolbar.setTitle("");
     setSupportActionBar(mToolbar);
 
     ActionBar actionBar = getSupportActionBar();
@@ -85,11 +85,9 @@ public class PhotoPickerActivity extends AppCompatActivity {
         }
 
         if (total > maxCount) {
-          Toast.makeText(getActivity(), getString(R.string.over_max_count_tips, maxCount),
-              LENGTH_LONG).show();
           return false;
         }
-        menuDoneItem.setTitle(getString(R.string.done_with_count, total, maxCount));
+        menuDoneItem.setTitle(getString(R.string.done));
         return true;
       }
     });

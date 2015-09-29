@@ -83,8 +83,6 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
           .load(new File(photo.getPath()))
           .centerCrop()
           .thumbnail(0.1f)
-          .placeholder(R.drawable.ic_photo_black_48dp)
-          .error(R.drawable.ic_broken_image_black_48dp)
           .into(holder.ivPhoto);
 
       final boolean isChecked = isSelected(photo);
@@ -92,14 +90,14 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
       holder.vSelected.setSelected(isChecked);
       holder.ivPhoto.setSelected(isChecked);
 
+//      holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
+//        @Override public void onClick(View view) {
+//          if (onPhotoClickListener != null) {
+//            onPhotoClickListener.onClick(view, position, showCamera());
+//          }
+//        }
+//      });
       holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
-        @Override public void onClick(View view) {
-          if (onPhotoClickListener != null) {
-            onPhotoClickListener.onClick(view, position, showCamera());
-          }
-        }
-      });
-      holder.vSelected.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {
 
           boolean isEnable = true;
@@ -116,7 +114,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
       });
 
     } else {
-      holder.ivPhoto.setImageResource(R.drawable.camera);
+      holder.ivPhoto.setImageResource(R.drawable.photo_camera);
     }
   }
 
