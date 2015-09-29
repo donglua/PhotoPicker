@@ -9,4 +9,5 @@
   <color name="text_40">#282828</color>
   <color name="text_80">#505050</color>
   <color name="text_120">#787878</color>
+  <color name="pick_photo_color">#757575</color>
 </resources>
