@@ -2,6 +2,7 @@ package me.iwf.photopicker.utils;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images.Media;
 import android.support.v4.content.CursorLoader;
@@ -29,7 +30,8 @@ public class PhotoDirectoryLoader extends CursorLoader {
         setSortOrder(Media.DATE_ADDED + " DESC");
 
         setSelection(
-                Media.BUCKET_DISPLAY_NAME + " LIKE 'Pictures' AND " + Media.SIZE + " > 0 AND " +  MIME_TYPE
+                Media.BUCKET_DISPLAY_NAME + " LIKE 'Camera' AND "
+                        + Media.SIZE + " > 0 AND " + MIME_TYPE
                         + "=? or " + MIME_TYPE + "=? " + (showGif ? ("or " + MIME_TYPE + "=?")
                         : ""));
         String[] selectionArgs;
