@@ -1,3 +1,4 @@
+/photopickerdemo/photopickerdemo.iml
 .gradle
 /local.properties
 /.idea/*
@@ -34,4 +35,5 @@ proguard/
 *.log
 
 PhotoPicker.iml
+/.idea
 PhotoPicker/PhotoPicker-PhotoPicker.iml

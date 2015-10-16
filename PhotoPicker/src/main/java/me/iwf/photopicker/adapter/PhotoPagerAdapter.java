@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +47,8 @@ public class PhotoPagerAdapter extends PagerAdapter {
     Glide.with(mContext)
         .load(uri)
         .thumbnail(0.4f)
+        .dontAnimate()
+        .dontTransform()
         .placeholder(R.drawable.ic_photo_black_48dp)
         .error(R.drawable.ic_broken_image_black_48dp)
         .into(imageView);

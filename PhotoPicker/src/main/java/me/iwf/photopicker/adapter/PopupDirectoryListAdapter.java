@@ -83,6 +83,7 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
       }
       Glide.with(context)
           .load(directory.getCoverPath())
+          .dontAnimate()
           .thumbnail(0.1f)
           .into(ivCover);
       tvName.setText(directory.getName());
