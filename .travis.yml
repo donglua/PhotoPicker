@@ -8,8 +8,8 @@ before_install:
 
 android:
   components:
-    - build-tools-22.0.1
-    - android-22
+    - build-tools-23.0.1
+    - android-23
     - extra-android-m2repository
 
 script: ./gradlew assembleDebug
