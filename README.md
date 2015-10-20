@@ -52,6 +52,8 @@ startActivityForResult(intent, REQUEST_CODE);
 ### Preview Photo
 
 ```java
+ArrayList<String> photoPaths = ...;
+
 Intent intent = new Intent(mContext, PhotoPagerActivity.class);
 intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, position);
 intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
