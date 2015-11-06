@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import com.bumptech.glide.Glide;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class PhotoPickerFragment extends Fragment {
   private PopupDirectoryListAdapter listAdapter;
   private List<PhotoDirectory> directories;
 
+  private int SCROLL_THRESHOLD = 10;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -116,11 +118,11 @@ public class PhotoPickerFragment extends Fragment {
 
         List<String> photos = photoGridAdapter.getCurrentPhotoPaths();
 
-        int [] screenLocation = new int[2];
+        int[] screenLocation = new int[2];
         v.getLocationOnScreen(screenLocation);
         ImagePagerFragment imagePagerFragment =
-            ImagePagerFragment.newInstance(photos, index, screenLocation,
-                v.getWidth(), v.getHeight());
+            ImagePagerFragment.newInstance(photos, index, screenLocation, v.getWidth(),
+                v.getHeight());
 
         ((PhotoPickerActivity) getActivity()).addImagePagerFragment(imagePagerFragment);
       }
@@ -146,9 +148,27 @@ public class PhotoPickerFragment extends Fragment {
           listPopupWindow.setHeight(Math.round(rootView.getHeight() * 0.8f));
           listPopupWindow.show();
         }
-
       }
     });
+
+
+    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+      @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+        super.onScrolled(recyclerView, dx, dy);
+        // Log.d(">>> Picker >>>", "dy = " + dy);
+        if (Math.abs(dy) > SCROLL_THRESHOLD) {
+          Glide.with(getActivity()).pauseRequests();
+        } else {
+          Glide.with(getActivity()).resumeRequests();
+        }
+      }
+      @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+          Glide.with(getActivity()).resumeRequests();
+        }
+      }
+    });
+
 
     return rootView;
   }
