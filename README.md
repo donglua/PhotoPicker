@@ -57,6 +57,7 @@ ArrayList<String> photoPaths = ...;
 Intent intent = new Intent(mContext, PhotoPagerActivity.class);
 intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, position);
 intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
+intent.putExtra(PhotoPagerActivity.EXTRA_SHOW_DELETE, false); // default is true
 startActivityForResult(intent, REQUEST_CODE);
 ```
 

@@ -61,6 +61,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         Intent intent = new Intent(mContext, PhotoPagerActivity.class);
         intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, position);
         intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
+        intent.putExtra(PhotoPagerActivity.EXTRA_SHOW_DELETE, true);
         if (mContext instanceof MainActivity) {
           ((MainActivity) mContext).previewPhoto(intent);
         }
