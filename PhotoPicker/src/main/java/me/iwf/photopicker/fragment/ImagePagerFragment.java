@@ -93,7 +93,6 @@ public class ImagePagerFragment extends Fragment {
   }
 
 
-
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
@@ -115,9 +114,7 @@ public class ImagePagerFragment extends Fragment {
       thumbnailLeft   = bundle.getInt(ARG_THUMBNAIL_LEFT);
       thumbnailWidth  = bundle.getInt(ARG_THUMBNAIL_WIDTH);
       thumbnailHeight = bundle.getInt(ARG_THUMBNAIL_HEIGHT);
-
     }
-
 
     mPagerAdapter = new PhotoPagerAdapter(getActivity(), paths);
 
@@ -127,7 +124,7 @@ public class ImagePagerFragment extends Fragment {
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
 
-    View rootView = inflater.inflate(R.layout.fragment_image_pager, container, false);
+    View rootView = inflater.inflate(R.layout.picker_fragment_image_pager, container, false);
 
     mViewPager = (ViewPager) rootView.findViewById(R.id.vp_photos);
     mViewPager.setAdapter(mPagerAdapter);
