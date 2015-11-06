@@ -1,6 +1,5 @@
 package me.iwf.photopicker.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -82,6 +81,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
       Glide.with(mContext)
           .load(new File(photo.getPath()))
           .centerCrop()
+          .dontAnimate()
           .thumbnail(0.1f)
           .placeholder(R.drawable.ic_photo_black_48dp)
           .error(R.drawable.ic_broken_image_black_48dp)

@@ -5,7 +5,7 @@
     >
   <item
       android:id="@+id/delete"
-      android:title="@string/delete"
+      android:title="@string/picker_delete"
       android:icon="@drawable/delete"
       android:orderInCategory="100"
       app:showAsAction="ifRoom"

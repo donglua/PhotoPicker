@@ -1,17 +1,17 @@
 <resources>
 
-    <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
     </style>
 
     <style name="myTheme.actionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
       <item name="android:textColorPrimary">#0000ff</item>
+      <item name="actionBarSize">@dimen/iwf_actionBarSize</item>
     </style>
 
     <style name="myTheme" parent="Theme.AppCompat.Light.NoActionBar">
       <item name="actionBarTheme">@style/myTheme.actionBar</item>
       <item name="colorPrimary">#00FF00</item>
+      <item name="actionBarSize">@dimen/iwf_actionBarSize</item>
     </style>
 
 </resources>

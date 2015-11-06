@@ -5,7 +5,7 @@
     >
   <item
       android:id="@+id/done"
-      android:title="@string/done"
+      android:title="@string/picker_done"
       android:orderInCategory="100"
       app:showAsAction="ifRoom"
       />

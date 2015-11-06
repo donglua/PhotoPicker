@@ -8,7 +8,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import java.util.ArrayList;
 import java.util.List;
-import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.entity.PhotoDirectory;
 
@@ -51,7 +50,7 @@ public class MediaStoreHelper {
       if (data == null)  return;
       List<PhotoDirectory> directories = new ArrayList<>();
       PhotoDirectory photoDirectoryAll = new PhotoDirectory();
-      photoDirectoryAll.setName(context.getString(R.string.all_image));
+      photoDirectoryAll.setName(context.getString(R.string.picker_all_image));
       photoDirectoryAll.setId("ALL");
 
       while (data.moveToNext()) {

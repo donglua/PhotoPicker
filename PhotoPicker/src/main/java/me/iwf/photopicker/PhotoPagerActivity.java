@@ -100,22 +100,22 @@ public class PhotoPagerActivity extends AppCompatActivity {
 
       final String deletedPath =  pagerFragment.getPaths().get(index);
 
-      Snackbar snackbar = Snackbar.make(pagerFragment.getView(), R.string.deleted_a_photo,
+      Snackbar snackbar = Snackbar.make(pagerFragment.getView(), R.string.picker_deleted_a_photo,
           Snackbar.LENGTH_LONG);
 
       if (pagerFragment.getPaths().size() <= 1) {
 
         // show confirm dialog
         new AlertDialog.Builder(this)
-            .setTitle(R.string.confirm_to_delete)
-            .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+            .setTitle(R.string.picker_confirm_to_delete)
+            .setPositiveButton(R.string.picker_yes, new DialogInterface.OnClickListener() {
               @Override public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
                 setResult(RESULT_OK);
                 finish();
               }
             })
-            .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            .setNegativeButton(R.string.picker_cancel, new DialogInterface.OnClickListener() {
               @Override public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
               }
@@ -131,7 +131,7 @@ public class PhotoPagerActivity extends AppCompatActivity {
         pagerFragment.getViewPager().getAdapter().notifyDataSetChanged();
       }
 
-      snackbar.setAction(R.string.undo, new View.OnClickListener() {
+      snackbar.setAction(R.string.picker_undo, new View.OnClickListener() {
         @Override public void onClick(View view) {
           if (pagerFragment.getPaths().size() > 0) {
             pagerFragment.getPaths().add(index, deletedPath);
@@ -151,7 +151,7 @@ public class PhotoPagerActivity extends AppCompatActivity {
 
   public void updateActionBarTitle() {
     actionBar.setTitle(
-        getString(R.string.image_index, pagerFragment.getViewPager().getCurrentItem() + 1,
+        getString(R.string.picker_image_index, pagerFragment.getViewPager().getCurrentItem() + 1,
             pagerFragment.getPaths().size()));
   }
 }

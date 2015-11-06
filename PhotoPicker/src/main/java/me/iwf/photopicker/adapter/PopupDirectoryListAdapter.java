@@ -87,7 +87,7 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
           .thumbnail(0.1f)
           .into(ivCover);
       tvName.setText(directory.getName());
-      tvCount.setText(context.getString(R.string.image_count, directory.getPhotos().size()));
+      tvCount.setText(context.getString(R.string.picker_image_count, directory.getPhotos().size()));
     }
   }
 
