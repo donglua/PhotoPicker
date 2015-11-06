@@ -25,9 +25,10 @@ public class PhotoPagerActivity extends AppCompatActivity {
 
   public final static String EXTRA_CURRENT_ITEM = "current_item";
   public final static String EXTRA_PHOTOS = "photos";
+  public final static String EXTRA_SHOW_DELETE = "show_delete";
 
   private ActionBar actionBar;
-
+  private boolean showDelete;
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
@@ -35,6 +36,7 @@ public class PhotoPagerActivity extends AppCompatActivity {
 
     int currentItem = getIntent().getIntExtra(EXTRA_CURRENT_ITEM, 0);
     List<String> paths = getIntent().getStringArrayListExtra(EXTRA_PHOTOS);
+    showDelete = getIntent().getBooleanExtra(EXTRA_SHOW_DELETE,true);
 
     pagerFragment =
         (ImagePagerFragment) getSupportFragmentManager().findFragmentById(R.id.photoPagerFragment);
@@ -71,7 +73,9 @@ public class PhotoPagerActivity extends AppCompatActivity {
 
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_preview, menu);
+    if (showDelete){
+      getMenuInflater().inflate(R.menu.menu_preview, menu);
+    }
     return true;
   }
 

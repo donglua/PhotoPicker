@@ -29,10 +29,10 @@
 dependencies {
     compile 'me.iwf.photopicker:PhotoPicker:0.2.8@aar'
     
-    compile 'com.android.support:appcompat-v7:22.2.0'
-    compile 'com.android.support:recyclerview-v7:22.2.0'
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.android.support:recyclerview-v7:23.1.0'
+    compile 'com.android.support:design:23.1.0'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.android.support:design:22.2.0'
     compile 'com.github.bumptech.glide:glide:3.6.0'
 }
 ```
@@ -52,6 +52,8 @@ startActivityForResult(intent, REQUEST_CODE);
 ### Preview Photo
 
 ```java
+ArrayList<String> photoPaths = ...;
+
 Intent intent = new Intent(mContext, PhotoPagerActivity.class);
 intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, position);
 intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
@@ -151,3 +153,7 @@ startActivityForResult(intent, REQUEST_CODE);
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/donglua/photopicker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
