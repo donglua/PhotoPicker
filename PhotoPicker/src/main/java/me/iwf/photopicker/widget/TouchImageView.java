@@ -350,7 +350,7 @@ public class TouchImageView extends ImageView {
     public void setZoom(float scale) {
     	setZoom(scale, 0.5f, 0.5f);
     }
-    
+
     /**
      * Set zoom to the specified scale. Image will be centered around the point
      * (focusX, focusY). These floats range from 0 to 1 and denote the focus point
@@ -363,7 +363,7 @@ public class TouchImageView extends ImageView {
     public void setZoom(float scale, float focusX, float focusY) {
     	setZoom(scale, focusX, focusY, mScaleType);
     }
-    
+
     /**
      * Set zoom to the specified scale. Image will be centered around the point
      * (focusX, focusY). These floats range from 0 to 1 and denote the focus point

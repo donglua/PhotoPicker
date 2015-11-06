@@ -2,9 +2,11 @@ package me.iwf.photopicker.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import java.io.File;
@@ -35,10 +37,18 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
 
   private boolean hasCamera = true;
 
-  public PhotoGridAdapter(Context mContext, List<PhotoDirectory> photoDirectories) {
+  private final int imageSize;
+
+  public PhotoGridAdapter(Context context, List<PhotoDirectory> photoDirectories) {
     this.photoDirectories = photoDirectories;
-    this.mContext = mContext;
-    inflater = LayoutInflater.from(mContext);
+    this.mContext = context;
+    inflater = LayoutInflater.from(context);
+    WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    DisplayMetrics metrics = new DisplayMetrics();
+    wm.getDefaultDisplay().getMetrics(metrics);
+    int widthPixels = metrics.widthPixels;
+
+    imageSize = widthPixels / 3;
   }
 
 
@@ -82,7 +92,8 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
           .load(new File(photo.getPath()))
           .centerCrop()
           .dontAnimate()
-          .thumbnail(0.1f)
+          .thumbnail(0.5f)
+          .override(imageSize, imageSize)
           .placeholder(R.drawable.ic_photo_black_48dp)
           .error(R.drawable.ic_broken_image_black_48dp)
           .into(holder.ivPhoto);

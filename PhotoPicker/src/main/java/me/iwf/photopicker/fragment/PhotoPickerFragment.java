@@ -44,7 +44,7 @@ public class PhotoPickerFragment extends Fragment {
   private PopupDirectoryListAdapter listAdapter;
   private List<PhotoDirectory> directories;
 
-  private int SCROLL_THRESHOLD = 10;
+  private int SCROLL_THRESHOLD = 30;
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
