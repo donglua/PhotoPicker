@@ -35,6 +35,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
   public final static int ITEM_TYPE_PHOTO  = 101;
 
   private boolean hasCamera = true;
+  private boolean isChecked;
 
   public PhotoGridAdapter(Context mContext, List<PhotoDirectory> photoDirectories) {
     this.photoDirectories = photoDirectories;
@@ -88,7 +89,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
           .error(R.drawable.ic_broken_image_black_48dp)
           .into(holder.ivPhoto);
 
-      final boolean isChecked = isSelected(photo);
+      isChecked = isSelected(photo);
 
       holder.vSelected.setSelected(isChecked);
       holder.ivPhoto.setSelected(isChecked);
@@ -96,6 +97,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
       holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {
           boolean isEnable = true;
+          isChecked = isSelected(photo);
           if (onItemCheckListener != null) {
             isEnable = onItemCheckListener.OnItemCheck(position, photo, isChecked,
                     getSelectedPhotos().size());
@@ -110,6 +112,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
         @Override public void onClick(View view) {
 
           boolean isEnable = true;
+          isChecked = isSelected(photo);
 
           if (onItemCheckListener != null) {
             isEnable = onItemCheckListener.OnItemCheck(position, photo, isChecked,
