@@ -3,41 +3,42 @@
     package="me.iwf.PhotoPickerDemo"
     >
 
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
-  <uses-feature
-      android:name="android.hardware.camera"
-      android:required="true"
-      />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true"
+        />
 
-  <application
-      android:allowBackup="true"
-      android:icon="@mipmap/ic_launcher"
-      android:label="@string/app_name"
-      android:theme="@style/AppTheme"
-      >
-    <activity
-        android:name="me.iwf.PhotoPickerDemo.MainActivity"
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:theme="@style/AppTheme"
         >
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
+        <activity
+            android:name="me.iwf.PhotoPickerDemo.MainActivity"
+            android:label="@string/app_name"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
 
-    <activity
-        android:theme="@style/myTheme"
-        android:name="me.iwf.photopicker.PhotoPickerActivity"
-        />
+        <activity
+            android:theme="@style/myTheme"
+            android:name="me.iwf.photopicker.PhotoPickerActivity"
+            />
 
-    <activity
-        android:theme="@style/Theme.AppCompat.NoActionBar"
-        android:name="me.iwf.photopicker.PhotoPagerActivity"
-        />
+        <activity
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:name="me.iwf.photopicker.PhotoPagerActivity"
+            />
 
 
-  </application>
+    </application>
 
 </manifest>
