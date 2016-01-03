@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="picker_images">Imagens</string>
+  <string name="picker_delete">Deletar</string>
+  <string name="picker_done">@android:string/ok</string>
+  <string name="picker_done_with_count">Ok(%1$d/%2$d)</string>
+  <string name="picker_image_index">%1$d/%2$d</string>
+  <string name="picker_undo">Desfazer</string>
+  <string name="picker_deleted_a_photo">Feletar uma imagem</string>
+  <string name="picker_confirm_to_delete">Deseja deletar?</string>
+  <string name="picker_yes">Sim</string>
+  <string name="picker_cancel">Cancelar</string>
+  <string name="picker_all_image">Todas as images</string>
+  <string name="picker_over_max_count_tips">Apenas %1$d imagens podem ser selecionadas</string>
+  <string name="picker_image_count">%1$d</string>
+
+</resources>
