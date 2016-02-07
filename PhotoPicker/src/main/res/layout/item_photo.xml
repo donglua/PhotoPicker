@@ -21,7 +21,7 @@
       android:clickable="true"
       android:padding="5dip"
       android:id="@+id/v_selected"
-      android:src="@drawable/photo_checkbox_bg"
+      android:src="@drawable/__picker_checkbox_bg"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       />

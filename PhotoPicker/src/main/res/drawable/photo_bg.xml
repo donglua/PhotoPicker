@@ -3,14 +3,14 @@
 
   <item android:state_selected="true">
     <shape>
-      <stroke android:color="@android:color/holo_green_light"
+      <stroke android:color="@color/__picker_item_photo_border_selected"
           android:width="1dip"/>
     </shape>
   </item>
 
   <item>
     <shape>
-      <stroke android:color="@color/ripple_material_dark"
+      <stroke android:color="@color/__picker_item_photo_border_n"
           android:width="1dip"/>
     </shape>
   </item>

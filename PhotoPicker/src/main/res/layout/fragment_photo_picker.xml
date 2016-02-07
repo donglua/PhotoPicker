@@ -20,7 +20,7 @@
       >
         <Button
             android:id="@+id/button"
-            android:text="@string/picker_all_image"
+            android:text="@string/__picker_all_image"
             android:layout_width="wrap_content"
             android:gravity="center"
             android:layout_height="wrap_content"

@@ -34,23 +34,33 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
 
   public final static int ITEM_TYPE_CAMERA = 100;
   public final static int ITEM_TYPE_PHOTO  = 101;
+  private final static int COL_NUMBER_DEFAULT = 3;
 
   private boolean hasCamera = true;
 
-  private final int imageSize;
+  private int imageSize;
+  private int columnNumber = COL_NUMBER_DEFAULT;
 
   public PhotoGridAdapter(Context context, List<PhotoDirectory> photoDirectories) {
     this.photoDirectories = photoDirectories;
     this.mContext = context;
     inflater = LayoutInflater.from(context);
+    setColumnNumber(context, columnNumber);
+  }
+
+  public PhotoGridAdapter(Context context, List<PhotoDirectory> photoDirectories, int colNum) {
+    this(context, photoDirectories);
+    setColumnNumber(context, colNum);
+  }
+
+  private void setColumnNumber(Context context, int columnNumber) {
+    this.columnNumber = columnNumber;
     WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
     DisplayMetrics metrics = new DisplayMetrics();
     wm.getDefaultDisplay().getMetrics(metrics);
     int widthPixels = metrics.widthPixels;
-
-    imageSize = widthPixels / 3;
+    imageSize = widthPixels / columnNumber;
   }
-
 
   @Override public int getItemViewType(int position) {
     return (showCamera() && position == 0) ? ITEM_TYPE_CAMERA : ITEM_TYPE_PHOTO;
@@ -127,7 +137,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
       });
 
     } else {
-      holder.ivPhoto.setImageResource(R.drawable.camera);
+      holder.ivPhoto.setImageResource(R.drawable.__picker_camera);
     }
   }
 

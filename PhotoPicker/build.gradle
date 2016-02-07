@@ -1,25 +1,18 @@
 apply plugin: 'com.android.library'
 
-
 android {
   compileSdkVersion 23
   buildToolsVersion "23.0.2"
-  resourcePrefix "picker_"
+  resourcePrefix "__picker_"
 
   defaultConfig {
     minSdkVersion 10
     targetSdkVersion 23
-    versionCode 12
-    versionName "0.2.9"
-  }
-
-  buildTypes {
-    release {
-      minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-    }
+    versionCode 13
+    versionName "0.3.0-preview"
   }
 }
+apply from: '../gradle/gradle-mvn-push.gradle'
 
 
 dependencies {
@@ -30,3 +23,4 @@ dependencies {
   compile 'com.nineoldandroids:library:2.4.0'
   compile 'com.github.bumptech.glide:glide:3.6.0'
 }
+

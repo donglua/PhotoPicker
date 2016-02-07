@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="picker_images">Images</string>
-  <string name="picker_delete">Delete</string>
-  <string name="picker_done">Done</string>
-  <string name="picker_done_with_count">Done(%1$d/%2$d)</string>
-  <string name="picker_image_index">%1$d/%2$d</string>
-  <string name="picker_undo">Undo</string>
-  <string name="picker_deleted_a_photo">Deleted a photo</string>
-  <string name="picker_confirm_to_delete">Confirm to delete?</string>
-  <string name="picker_yes">Yes</string>
-  <string name="picker_cancel">Cancel</string>
-  <string name="picker_all_image">All Images</string>
-  <string name="picker_over_max_count_tips">Up to %1$d photos can be selected</string>
-  <string name="picker_image_count">%1$d</string>
+  <string name="__picker_title">Images</string>
+  <string name="__picker_delete">Delete</string>
+  <string name="__picker_done">Done</string>
+  <string name="__picker_done_with_count">Done(%1$d/%2$d)</string>
+  <string name="__picker_image_index">%1$d/%2$d</string>
+  <string name="__picker_undo">Undo</string>
+  <string name="__picker_deleted_a_photo">Deleted a photo</string>
+  <string name="__picker_confirm_to_delete">Confirm to delete?</string>
+  <string name="__picker_yes">Yes</string>
+  <string name="__picker_cancel">Cancel</string>
+  <string name="__picker_all_image">All Images</string>
+  <string name="__picker_over_max_count_tips">Up to %1$d photos can be selected</string>
+  <string name="__picker_image_count">%1$d</string>
 
 </resources>

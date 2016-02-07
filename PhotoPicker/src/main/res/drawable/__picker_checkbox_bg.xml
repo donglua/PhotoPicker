@@ -14,7 +14,7 @@
               android:color="@android:color/white"/>
         </shape>
       </item>
-      <item android:drawable="@drawable/checkbox_marked"/>
+      <item android:drawable="@drawable/__picker_checkbox_marked"/>
     </layer-list>
   </item>
 
@@ -31,7 +31,7 @@
               android:color="@android:color/white"/>
         </shape>
       </item>
-      <item android:drawable="@drawable/ic_checkbox_blank_grey600_24dp"/>
+      <item android:drawable="@drawable/__picker_checkbox_n"/>
     </layer-list>
   </item>
 

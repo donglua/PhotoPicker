@@ -50,7 +50,7 @@ public class MediaStoreHelper {
       if (data == null)  return;
       List<PhotoDirectory> directories = new ArrayList<>();
       PhotoDirectory photoDirectoryAll = new PhotoDirectory();
-      photoDirectoryAll.setName(context.getString(R.string.picker_all_image));
+      photoDirectoryAll.setName(context.getString(R.string.__picker_all_image));
       photoDirectoryAll.setId("ALL");
 
       while (data.moveToNext()) {
