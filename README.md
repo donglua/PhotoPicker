@@ -80,7 +80,6 @@ startActivityForResult(intent, REQUEST_CODE);
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     >
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-  <uses-feature android:name="android.hardware.camera" android:required="true" />
 
   <application
     ...
