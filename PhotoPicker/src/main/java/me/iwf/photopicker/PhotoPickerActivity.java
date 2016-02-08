@@ -27,10 +27,12 @@ public class PhotoPickerActivity extends AppCompatActivity {
   public final static String EXTRA_SHOW_CAMERA   = "SHOW_CAMERA";
   public final static String EXTRA_SHOW_GIF      = "SHOW_GIF";
   public final static String KEY_SELECTED_PHOTOS = "SELECTED_PHOTOS";
+  public final static String EXTRA_GRID_COLUMN   = "column";
 
   private MenuItem menuDoneItem;
 
   public final static int DEFAULT_MAX_COUNT = 9;
+  public final static int DEFAULT_COLUMN_NUMBER = 3;
 
   private int maxCount = DEFAULT_MAX_COUNT;
 
@@ -38,6 +40,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
   private boolean menuIsInflated = false;
 
   private boolean showGif = false;
+  private int columnNumber = DEFAULT_COLUMN_NUMBER;
 
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +60,19 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
     assert actionBar != null;
     actionBar.setDisplayHomeAsUpEnabled(true);
-
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       actionBar.setElevation(25);
     }
 
     maxCount = getIntent().getIntExtra(EXTRA_MAX_COUNT, DEFAULT_MAX_COUNT);
+    columnNumber = getIntent().getIntExtra(EXTRA_GRID_COLUMN, DEFAULT_COLUMN_NUMBER);
 
-    pickerFragment = (PhotoPickerFragment) getSupportFragmentManager().findFragmentById(R.id.photoPickerFragment);
-
-    pickerFragment.getPhotoGridAdapter().setShowCamera(showCamera);
+    pickerFragment = PhotoPickerFragment.newInstance(showCamera, showGif, columnNumber, maxCount);
+    getSupportFragmentManager()
+        .beginTransaction()
+        .replace(R.id.container, pickerFragment)
+        .commit();
+    getSupportFragmentManager().executePendingTransactions();
 
     pickerFragment.getPhotoGridAdapter().setOnItemCheckListener(new OnItemCheckListener() {
       @Override public boolean OnItemCheck(int position, Photo photo, final boolean isCheck, int selectedItemCount) {

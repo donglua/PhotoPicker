@@ -171,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
       case R.id.button: {
         PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
         intent.setPhotoCount(9);
+        intent.setColumn(4);
         startActivityForResult(intent, REQUEST_CODE);
         break;
       }

@@ -3,7 +3,6 @@ package me.iwf.photopicker.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import me.iwf.photopicker.PhotoPickerActivity;
 
 /**
@@ -46,4 +45,7 @@ public class PhotoPickerIntent extends Intent {
     this.putExtra(PhotoPickerActivity.EXTRA_SHOW_GIF, showGif);
   }
 
+  public void setColumn(int column) {
+    this.putExtra(PhotoPickerActivity.EXTRA_GRID_COLUMN, column);
+  }
 }

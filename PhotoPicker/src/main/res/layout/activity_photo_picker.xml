@@ -13,11 +13,11 @@
       android:layout_height="match_parent"
       >
 
-      <fragment
-          android:id="@+id/photoPickerFragment"
-          android:name="me.iwf.photopicker.fragment.PhotoPickerFragment"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent" />
+      <!--<fragment-->
+          <!--android:id="@+id/photoPickerFragment"-->
+          <!--android:name="me.iwf.photopicker.fragment.PhotoPickerFragment"-->
+          <!--android:layout_width="match_parent"-->
+          <!--android:layout_height="match_parent" />-->
 
   </FrameLayout>
 

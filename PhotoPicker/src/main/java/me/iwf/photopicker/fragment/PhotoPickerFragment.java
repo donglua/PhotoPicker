@@ -30,6 +30,7 @@ import me.iwf.photopicker.utils.ImageCaptureManager;
 import me.iwf.photopicker.utils.MediaStoreHelper;
 
 import static android.app.Activity.RESULT_OK;
+import static me.iwf.photopicker.PhotoPickerActivity.DEFAULT_COLUMN_NUMBER;
 import static me.iwf.photopicker.PhotoPickerActivity.EXTRA_SHOW_GIF;
 import static me.iwf.photopicker.utils.MediaStoreHelper.INDEX_ALL_PHOTOS;
 
@@ -45,19 +46,39 @@ public class PhotoPickerFragment extends Fragment {
   private List<PhotoDirectory> directories;
 
   private int SCROLL_THRESHOLD = 30;
+  int column;
+
+  private final static String EXTRA_CAMERA = "camera";
+  private final static String EXTRA_COLUMN = "column";
+  private final static String EXTRA_COUNT = "count";
+  private final static String EXTRA_GIF = "gif";
+
+  public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif, int column, int maxCount) {
+    Bundle args = new Bundle();
+    args.putBoolean(EXTRA_CAMERA, showCamera);
+    args.putBoolean(EXTRA_GIF, showGif);
+    args.putInt(EXTRA_COLUMN, column);
+    args.putInt(EXTRA_COUNT, maxCount);
+    PhotoPickerFragment fragment = new PhotoPickerFragment();
+    fragment.setArguments(args);
+    return fragment;
+  }
 
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     directories = new ArrayList<>();
 
-    captureManager = new ImageCaptureManager(getActivity());
+    column = getArguments().getInt(EXTRA_COLUMN, DEFAULT_COLUMN_NUMBER);
+    boolean showCamera = getArguments().getBoolean(EXTRA_CAMERA, true);
+
+    photoGridAdapter = new PhotoGridAdapter(getActivity(), directories, column);
+    photoGridAdapter.setShowCamera(showCamera);
 
     Bundle mediaStoreArgs = new Bundle();
-    if (getActivity() instanceof PhotoPickerActivity) {
-      mediaStoreArgs.putBoolean(EXTRA_SHOW_GIF, ((PhotoPickerActivity) getActivity()).isShowGif());
-    }
 
+    boolean showGif = getArguments().getBoolean(EXTRA_GIF);
+    mediaStoreArgs.putBoolean(EXTRA_SHOW_GIF, showGif);
     MediaStoreHelper.getPhotoDirs(getActivity(), mediaStoreArgs,
         new MediaStoreHelper.PhotosResultCallback() {
           @Override public void onResultCallback(List<PhotoDirectory> dirs) {
@@ -67,6 +88,9 @@ public class PhotoPickerFragment extends Fragment {
             listAdapter.notifyDataSetChanged();
           }
         });
+
+    captureManager = new ImageCaptureManager(getActivity());
+
   }
 
 
@@ -77,19 +101,16 @@ public class PhotoPickerFragment extends Fragment {
 
     final View rootView = inflater.inflate(R.layout.fragment_photo_picker, container, false);
 
-    photoGridAdapter = new PhotoGridAdapter(getActivity(), directories);
     listAdapter  = new PopupDirectoryListAdapter(getActivity(), directories);
 
-
     RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
-    StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, OrientationHelper.VERTICAL);
+    StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(column, OrientationHelper.VERTICAL);
     layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(photoGridAdapter);
     recyclerView.setItemAnimator(new DefaultItemAnimator());
 
     final Button btSwitchDirectory = (Button) rootView.findViewById(R.id.button);
-
 
     final ListPopupWindow listPopupWindow = new ListPopupWindow(getActivity());
     listPopupWindow.setWidth(ListPopupWindow.MATCH_PARENT);
