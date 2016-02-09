@@ -38,6 +38,10 @@ public class PhotoPickerIntent extends Intent {
     this.putExtra(PhotoPickerActivity.EXTRA_MAX_COUNT, photoCount);
   }
 
+  public void setPreviewEnabled(boolean enabled) {
+    this.putExtra(PhotoPickerActivity.EXTRA_PREVIEW_ENABLED, enabled);
+  }
+
   public void setShowCamera(boolean showCamera) {
     this.putExtra(PhotoPickerActivity.EXTRA_SHOW_CAMERA, showCamera);
   }

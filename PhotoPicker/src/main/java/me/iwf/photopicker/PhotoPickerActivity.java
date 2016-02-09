@@ -24,6 +24,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
   private ImagePagerFragment imagePagerFragment;
 
   public final static String EXTRA_MAX_COUNT     = "MAX_COUNT";
+  public final static String EXTRA_PREVIEW_ENABLED = "PREVIEW_ENABLED";
   public final static String EXTRA_SHOW_CAMERA   = "SHOW_CAMERA";
   public final static String EXTRA_SHOW_GIF      = "SHOW_GIF";
   public final static String KEY_SELECTED_PHOTOS = "SELECTED_PHOTOS";
@@ -158,6 +159,19 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
   public PhotoPickerActivity getActivity() {
     return this;
+  }
+
+  public boolean isPreviewEnabled() {
+    boolean previewEnabled = true;
+
+    Intent intent = getIntent();
+
+    if (intent != null)
+    {
+      previewEnabled = intent.getBooleanExtra(EXTRA_PREVIEW_ENABLED, true);
+    }
+
+    return previewEnabled;
   }
 
   public boolean isShowGif() {

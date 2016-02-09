@@ -112,21 +112,25 @@ public class PhotoPickerFragment extends Fragment {
       }
     });
 
-    photoGridAdapter.setOnPhotoClickListener(new OnPhotoClickListener() {
-      @Override public void onClick(View v, int position, boolean showCamera) {
-        final int index = showCamera ? position - 1 : position;
+    // Sometimes you just want to browse the gallery
+    if (((PhotoPickerActivity) getActivity()).isPreviewEnabled()) {
 
-        List<String> photos = photoGridAdapter.getCurrentPhotoPaths();
+      photoGridAdapter.setOnPhotoClickListener(new OnPhotoClickListener() {
+        @Override public void onClick(View v, int position, boolean showCamera) {
+          final int index = showCamera ? position - 1 : position;
 
-        int[] screenLocation = new int[2];
-        v.getLocationOnScreen(screenLocation);
-        ImagePagerFragment imagePagerFragment =
-            ImagePagerFragment.newInstance(photos, index, screenLocation, v.getWidth(),
-                v.getHeight());
+          List<String> photos = photoGridAdapter.getCurrentPhotoPaths();
 
-        ((PhotoPickerActivity) getActivity()).addImagePagerFragment(imagePagerFragment);
-      }
-    });
+          int[] screenLocation = new int[2];
+          v.getLocationOnScreen(screenLocation);
+          ImagePagerFragment imagePagerFragment =
+              ImagePagerFragment.newInstance(photos, index, screenLocation, v.getWidth(),
+                  v.getHeight());
+
+          ((PhotoPickerActivity) getActivity()).addImagePagerFragment(imagePagerFragment);
+        }
+      });
+    }
 
     photoGridAdapter.setOnCameraClickListener(new OnClickListener() {
       @Override public void onClick(View view) {
