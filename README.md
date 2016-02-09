@@ -137,6 +137,34 @@ startActivityForResult(intent, REQUEST_CODE);
 
 ---
 
+# Donate
+
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_xclick">
+<input type="hidden" name="business" value="W8QBDQYB6Q65G">
+<input type="hidden" name="lc" value="C2">
+<input type="hidden" name="button_subtype" value="services">
+<input type="hidden" name="currency_code" value="USD">
+<input type="hidden" name="bn" value="PP-BuyNowBF:btn_donate_pp_142x27.png:NonHosted">
+<table>
+<tr><td><input type="hidden" name="on0" value="donate">donate</td></tr><tr><td><select name="os0">
+	<option value="Option 1">Option 1 $1.99 USD</option>
+	<option value="Option 2">Option 2 $3.99 USD</option>
+	<option value="Option 3">Option 3 $9.99 USD</option>
+</select> </td></tr>
+</table>
+<input type="hidden" name="currency_code" value="USD">
+<input type="hidden" name="option_select0" value="Option 1">
+<input type="hidden" name="option_amount0" value="1.99">
+<input type="hidden" name="option_select1" value="Option 2">
+<input type="hidden" name="option_amount1" value="3.99">
+<input type="hidden" name="option_select2" value="Option 3">
+<input type="hidden" name="option_amount2" value="9.99">
+<input type="hidden" name="option_index" value="0">
+<input type="image" src="https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_pp_142x27.png" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+
 
 # License
 
