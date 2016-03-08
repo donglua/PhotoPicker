@@ -44,6 +44,10 @@ public class PhotoPickerFragment extends Fragment {
   private PopupDirectoryListAdapter listAdapter;
   private List<PhotoDirectory> directories;
 
+  RecyclerView.OnScrollListener onScrollListener;
+
+  RecyclerView recyclerView;
+
   private int SCROLL_THRESHOLD = 30;
 
   @Override public void onCreate(Bundle savedInstanceState) {
@@ -81,7 +85,7 @@ public class PhotoPickerFragment extends Fragment {
     listAdapter  = new PopupDirectoryListAdapter(getActivity(), directories);
 
 
-    RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
+    recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
     StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, OrientationHelper.VERTICAL);
     layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
     recyclerView.setLayoutManager(layoutManager);
@@ -156,7 +160,7 @@ public class PhotoPickerFragment extends Fragment {
     });
 
 
-    recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+    onScrollListener = new RecyclerView.OnScrollListener() {
       @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         // Log.d(">>> Picker >>>", "dy = " + dy);
@@ -171,7 +175,7 @@ public class PhotoPickerFragment extends Fragment {
           Glide.with(getActivity()).resumeRequests();
         }
       }
-    });
+    };
 
 
     return rootView;
@@ -196,6 +200,17 @@ public class PhotoPickerFragment extends Fragment {
     return photoGridAdapter;
   }
 
+  @Override
+  public void onPause() {
+    recyclerView.removeOnScrollListener(onScrollListener);
+    super.onPause();
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    recyclerView.addOnScrollListener(onScrollListener);
+  }
 
   @Override public void onSaveInstanceState(Bundle outState) {
     captureManager.onSaveInstanceState(outState);
