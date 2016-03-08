@@ -117,6 +117,9 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
         @Override public void onClick(View view) {
           if (onPhotoClickListener != null) {
             onPhotoClickListener.onClick(view, position, showCamera());
+          } else {
+            // We might as well select on tap if we're not going to take any other action
+            holder.vSelected.performClick();
           }
         }
       });
