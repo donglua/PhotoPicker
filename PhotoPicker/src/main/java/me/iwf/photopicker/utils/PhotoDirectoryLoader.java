@@ -31,9 +31,9 @@ public class PhotoDirectoryLoader extends CursorLoader {
         MIME_TYPE + "=? or " + MIME_TYPE + "=? " + (showGif ? ("or " + MIME_TYPE + "=?") : ""));
     String[] selectionArgs;
     if (showGif) {
-      selectionArgs = new String[] { "image/jpeg", "image/png", "image/gif" };
+      selectionArgs = new String[] { "image/jpeg", "image/png", "image/jpg", "image/gif" };
     } else {
-      selectionArgs = new String[] { "image/jpeg", "image/png" };
+      selectionArgs = new String[] { "image/jpeg", "image/png",  "image/jpg" };
     }
     setSelectionArgs(selectionArgs);
   }
