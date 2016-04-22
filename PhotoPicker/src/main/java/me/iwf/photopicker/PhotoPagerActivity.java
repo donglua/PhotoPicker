@@ -48,12 +48,15 @@ public class PhotoPagerActivity extends AppCompatActivity {
 
     actionBar = getSupportActionBar();
 
-    if (actionBar != null) actionBar.setDisplayHomeAsUpEnabled(true);
-    updateActionBarTitle();
-
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-      actionBar.setElevation(25);
+    if (actionBar != null) {
+      actionBar.setDisplayHomeAsUpEnabled(true);
+      updateActionBarTitle();
+      if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        actionBar.setElevation(25);
+      }
     }
+
+
 
     pagerFragment.getViewPager().addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
       @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -144,7 +147,7 @@ public class PhotoPagerActivity extends AppCompatActivity {
   }
 
   public void updateActionBarTitle() {
-    actionBar.setTitle(
+    if (actionBar != null) actionBar.setTitle(
         getString(R.string.__picker_image_index, pagerFragment.getViewPager().getCurrentItem() + 1,
             pagerFragment.getPaths().size()));
   }
