@@ -28,12 +28,12 @@ public class PhotoDirectoryLoader extends CursorLoader {
     setSortOrder(Media.DATE_ADDED + " DESC");
 
     setSelection(
-        MIME_TYPE + "=? or " + MIME_TYPE + "=? " + (showGif ? ("or " + MIME_TYPE + "=?") : ""));
+        MIME_TYPE + "=? or " + MIME_TYPE + "=? or "+ MIME_TYPE + "=? " + (showGif ? ("or " + MIME_TYPE + "=?") : ""));
     String[] selectionArgs;
     if (showGif) {
-      selectionArgs = new String[] { "image/jpeg", "image/png", "image/jpg", "image/gif" };
+      selectionArgs = new String[] { "image/jpeg", "image/png", "image/jpg","image/gif" };
     } else {
-      selectionArgs = new String[] { "image/jpeg", "image/png",  "image/jpg" };
+      selectionArgs = new String[] { "image/jpeg", "image/png", "image/jpg" };
     }
     setSelectionArgs(selectionArgs);
   }
