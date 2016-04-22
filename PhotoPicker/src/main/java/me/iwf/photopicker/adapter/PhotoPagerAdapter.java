@@ -9,10 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.R;
 
 /**
@@ -21,21 +21,19 @@ import me.iwf.photopicker.R;
 public class PhotoPagerAdapter extends PagerAdapter {
 
   private List<String> paths = new ArrayList<>();
-  private Context mContext;
-  private LayoutInflater mLayoutInflater;
+  private RequestManager mGlide;
 
-
-  public PhotoPagerAdapter(Context mContext, List<String> paths) {
-    this.mContext = mContext;
+  public PhotoPagerAdapter(RequestManager glide, List<String> paths) {
     this.paths = paths;
-    mLayoutInflater = LayoutInflater.from(mContext);
+    this.mGlide = glide;
   }
 
   @Override public Object instantiateItem(ViewGroup container, int position) {
+    final Context context = container.getContext();
+    View itemView = LayoutInflater.from(context)
+        .inflate(R.layout.picker_item_pager, container, false);
 
-    View itemView = mLayoutInflater.inflate(R.layout.picker_item_pager, container, false);
-
-    ImageView imageView = (ImageView) itemView.findViewById(R.id.iv_pager);
+    final ImageView imageView = (ImageView) itemView.findViewById(R.id.iv_pager);
 
     final String path = paths.get(position);
     final Uri uri;
@@ -44,8 +42,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
     } else {
       uri = Uri.fromFile(new File(path));
     }
-    Glide.with(mContext)
-        .load(uri)
+    mGlide.load(uri)
         .thumbnail(0.1f)
         .dontAnimate()
         .dontTransform()
@@ -56,9 +53,9 @@ public class PhotoPagerAdapter extends PagerAdapter {
 
     imageView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
-        if (mContext instanceof PhotoPickerActivity) {
-          if (!((Activity) mContext).isFinishing()) {
-            ((Activity) mContext).onBackPressed();
+        if (context instanceof Activity) {
+          if (!((Activity) context).isFinishing()) {
+            ((Activity) context).onBackPressed();
           }
         }
       }
@@ -83,6 +80,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
   @Override
   public void destroyItem(ViewGroup container, int position, Object object) {
     container.removeView((View) object);
+    Glide.clear((View) object);
   }
 
   @Override

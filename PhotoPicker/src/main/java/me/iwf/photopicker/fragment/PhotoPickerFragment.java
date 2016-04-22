@@ -72,7 +72,7 @@ public class PhotoPickerFragment extends Fragment {
     column = getArguments().getInt(EXTRA_COLUMN, DEFAULT_COLUMN_NUMBER);
     boolean showCamera = getArguments().getBoolean(EXTRA_CAMERA, true);
 
-    photoGridAdapter = new PhotoGridAdapter(getActivity(), directories, column);
+    photoGridAdapter = new PhotoGridAdapter(getContext(), directories, column);
     photoGridAdapter.setShowCamera(showCamera);
 
     Bundle mediaStoreArgs = new Bundle();
@@ -101,7 +101,7 @@ public class PhotoPickerFragment extends Fragment {
 
     final View rootView = inflater.inflate(R.layout.fragment_photo_picker, container, false);
 
-    listAdapter  = new PopupDirectoryListAdapter(getActivity(), directories);
+    listAdapter  = new PopupDirectoryListAdapter(directories);
 
     RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
     StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(column, OrientationHelper.VERTICAL);
@@ -118,7 +118,7 @@ public class PhotoPickerFragment extends Fragment {
     listPopupWindow.setAdapter(listAdapter);
     listPopupWindow.setModal(true);
     listPopupWindow.setDropDownGravity(Gravity.BOTTOM);
-    listPopupWindow.setAnimationStyle(R.style.Animation_AppCompat_DropDownUp);
+    //listPopupWindow.setAnimationStyle(R.style.Animation_AppCompat_DropDownUp);
 
     listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -229,4 +229,16 @@ public class PhotoPickerFragment extends Fragment {
     return photoGridAdapter.getSelectedPhotoPaths();
   }
 
+  @Override public void onDetach() {
+    super.onDetach();
+
+    for (PhotoDirectory directory : directories) {
+      directory.getPhotoPaths().clear();
+      directory.getPhotos().clear();
+      directory.setPhotos(null);
+    }
+    directories.clear();
+    directories = null;
+
+  }
 }

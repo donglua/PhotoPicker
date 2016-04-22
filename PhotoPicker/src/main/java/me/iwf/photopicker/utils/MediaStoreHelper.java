@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import me.iwf.photopicker.R;
@@ -33,16 +34,16 @@ public class MediaStoreHelper {
 
   static class PhotoDirLoaderCallbacks implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private Context context;
+    private WeakReference<Context> context;
     private PhotosResultCallback resultCallback;
 
     public PhotoDirLoaderCallbacks(Context context, PhotosResultCallback resultCallback) {
-      this.context = context;
+      this.context = new WeakReference<>(context);
       this.resultCallback = resultCallback;
     }
 
     @Override public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-      return new PhotoDirectoryLoader(context, args.getBoolean(EXTRA_SHOW_GIF, false));
+      return new PhotoDirectoryLoader(context.get(), args.getBoolean(EXTRA_SHOW_GIF, false));
     }
 
     @Override public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
@@ -50,7 +51,7 @@ public class MediaStoreHelper {
       if (data == null)  return;
       List<PhotoDirectory> directories = new ArrayList<>();
       PhotoDirectory photoDirectoryAll = new PhotoDirectory();
-      photoDirectoryAll.setName(context.getString(R.string.__picker_all_image));
+      photoDirectoryAll.setName(context.get().getString(R.string.__picker_all_image));
       photoDirectoryAll.setId("ALL");
 
       while (data.moveToNext()) {

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +26,7 @@ import me.iwf.photopicker.utils.MediaStoreHelper;
 public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoViewHolder> {
 
   private LayoutInflater inflater;
-
-  private Context mContext;
+  private RequestManager glide;
 
   private OnItemCheckListener onItemCheckListener    = null;
   private OnPhotoClickListener onPhotoClickListener  = null;
@@ -43,7 +43,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
 
   public PhotoGridAdapter(Context context, List<PhotoDirectory> photoDirectories) {
     this.photoDirectories = photoDirectories;
-    this.mContext = context;
+    this.glide = Glide.with(context);
     inflater = LayoutInflater.from(context);
     setColumnNumber(context, columnNumber);
   }
@@ -98,7 +98,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
         photo = photos.get(position);
       }
 
-      Glide.with(mContext)
+      glide
           .load(new File(photo.getPath()))
           .centerCrop()
           .dontAnimate()

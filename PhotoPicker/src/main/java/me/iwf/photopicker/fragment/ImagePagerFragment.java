@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import com.bumptech.glide.Glide;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
@@ -116,7 +117,7 @@ public class ImagePagerFragment extends Fragment {
       thumbnailHeight = bundle.getInt(ARG_THUMBNAIL_HEIGHT);
     }
 
-    mPagerAdapter = new PhotoPagerAdapter(getActivity(), paths);
+    mPagerAdapter = new PhotoPagerAdapter(Glide.with(this), paths);
 
   }
 
@@ -295,4 +296,11 @@ public class ImagePagerFragment extends Fragment {
     return mViewPager.getCurrentItem();
   }
 
+  @Override public void onDetach() {
+    super.onDetach();
+
+    paths.clear();
+    paths = null;
+
+  }
 }
