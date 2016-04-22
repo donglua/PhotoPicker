@@ -36,6 +36,6 @@ proguard/
 # Log Files
 *.log
 
-PhotoPicker.iml
+*.iml
 /.idea
-*/*.iml
+/*/*.iml
