@@ -27,7 +27,7 @@
 
 ```groovy
 dependencies {
-    compile 'me.iwf.photopicker:PhotoPicker:0.2.9@aar'
+    compile 'me.iwf.photopicker:PhotoPicker:0.8.0@aar'
     
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
