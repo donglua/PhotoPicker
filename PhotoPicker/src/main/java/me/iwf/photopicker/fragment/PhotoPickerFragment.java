@@ -101,7 +101,7 @@ public class PhotoPickerFragment extends Fragment {
 
     final View rootView = inflater.inflate(R.layout.fragment_photo_picker, container, false);
 
-    listAdapter  = new PopupDirectoryListAdapter(directories);
+    listAdapter  = new PopupDirectoryListAdapter(Glide.with(this), directories);
 
     RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
     StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(column, OrientationHelper.VERTICAL);

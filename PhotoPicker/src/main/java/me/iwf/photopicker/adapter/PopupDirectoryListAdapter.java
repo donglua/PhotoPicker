@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import java.util.ArrayList;
 import java.util.List;
 import me.iwf.photopicker.R;
@@ -19,9 +19,11 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
 
 
   private List<PhotoDirectory> directories = new ArrayList<>();
+  private RequestManager glide;
 
-  public PopupDirectoryListAdapter(List<PhotoDirectory> directories) {
+  public PopupDirectoryListAdapter(RequestManager glide, List<PhotoDirectory> directories) {
     this.directories = directories;
+    this.glide = glide;
   }
 
 
@@ -56,7 +58,6 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
     return convertView;
   }
 
-
   private class ViewHolder {
 
     public ImageView ivCover;
@@ -70,8 +71,7 @@ public class PopupDirectoryListAdapter extends BaseAdapter {
     }
 
     public void bindData(PhotoDirectory directory) {
-      Glide.with(ivCover.getContext())
-          .load(directory.getCoverPath())
+      glide.load(directory.getCoverPath())
           .dontAnimate()
           .thumbnail(0.1f)
           .into(ivCover);

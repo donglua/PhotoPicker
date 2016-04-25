@@ -301,6 +301,5 @@ public class ImagePagerFragment extends Fragment {
 
     paths.clear();
     paths = null;
-
   }
 }
