@@ -1,0 +1,20 @@
+# Build configuration file for Circle CI
+# needs to be named `circle.yml` and should be in the top level dir of the repo
+
+machine:
+  environment:
+    ANDROID_HOME: /home/ubuntu/android
+  java:
+    version: oraclejdk8
+
+dependencies:
+  cache_directories:
+    - ~/.android
+    - ~/android
+  override:
+    - (echo "Downloading Android SDK v23 now!")
+    - (source circle.sh && getAndroidSDK)
+
+test:
+  pre:
+    - (./gradlew assembleDebug)
