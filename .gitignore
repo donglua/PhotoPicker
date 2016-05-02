@@ -1,8 +1,6 @@
-/.idea/misc.xml
-/photopickerdemo/photopickerdemo.iml
+.idea/**
 .gradle
 /local.properties
-/.idea/*
 .DS_Store
 /build
 /captures
@@ -37,5 +35,3 @@ proguard/
 *.log
 
 *.iml
-/.idea
-/*/*.iml

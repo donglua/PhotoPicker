@@ -125,7 +125,7 @@ public class ImagePagerFragment extends Fragment {
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
 
-    View rootView = inflater.inflate(R.layout.picker_fragment_image_pager, container, false);
+    View rootView = inflater.inflate(R.layout.__picker_picker_fragment_image_pager, container, false);
 
     mViewPager = (ViewPager) rootView.findViewById(R.id.vp_photos);
     mViewPager.setAdapter(mPagerAdapter);

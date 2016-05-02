@@ -169,34 +169,34 @@ public class MainActivity extends AppCompatActivity {
 
     switch (viewId) {
       case R.id.button: {
-        PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
-        intent.setPhotoCount(9);
-        intent.setColumn(4);
+        Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
+        PhotoPickerIntent.setPhotoCount(intent, 9);
+        PhotoPickerIntent.setColumn(intent, 4);
         startActivityForResult(intent, REQUEST_CODE);
         break;
       }
 
       case R.id.button_no_camera: {
-        PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
-        intent.setPhotoCount(7);
-        intent.setShowCamera(false);
+        Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
+        PhotoPickerIntent.setPhotoCount(intent, 7);
+        PhotoPickerIntent.setShowCamera(intent, false);
         startActivityForResult(intent, REQUEST_CODE);
         break;
       }
 
       case R.id.button_one_photo: {
-        PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
-        intent.setPhotoCount(1);
-        intent.setShowCamera(true);
+        Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
+        PhotoPickerIntent.setPhotoCount(intent, 1);
+        PhotoPickerIntent.setShowCamera(intent, true);
         startActivityForResult(intent, REQUEST_CODE);
         break;
       }
 
       case R.id.button_photo_gif : {
-        PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
-        intent.setPhotoCount(4);
-        intent.setShowCamera(true);
-        intent.setShowGif(true);
+        Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
+        PhotoPickerIntent.setPhotoCount(intent, 4);
+        PhotoPickerIntent.setShowCamera(intent, true);
+        PhotoPickerIntent.setShowGif(intent, true);
         startActivityForResult(intent, REQUEST_CODE);
         break;
       }

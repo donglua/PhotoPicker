@@ -37,7 +37,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
 
 
   @Override public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View itemView = inflater.inflate(R.layout.item_photo, parent, false);
+    View itemView = inflater.inflate(R.layout.__picker_item_photo, parent, false);
     return new PhotoViewHolder(itemView);
   }
 
@@ -51,8 +51,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         .load(uri)
         .centerCrop()
         .thumbnail(0.1f)
-        .placeholder(R.drawable.ic_photo_black_48dp)
-        .error(R.drawable.ic_broken_image_black_48dp)
+        .placeholder(R.drawable.__picker_ic_photo_black_48dp)
+        .error(R.drawable.__picker_ic_broken_image_black_48dp)
         .into(holder.ivPhoto);
 
     holder.ivPhoto.setOnClickListener(new View.OnClickListener() {

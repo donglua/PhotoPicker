@@ -68,7 +68,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
 
 
   @Override public PhotoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View itemView = inflater.inflate(R.layout.item_photo, parent, false);
+    View itemView = inflater.inflate(R.layout.__picker_item_photo, parent, false);
     PhotoViewHolder holder = new PhotoViewHolder(itemView);
     if (viewType == ITEM_TYPE_CAMERA) {
       holder.vSelected.setVisibility(View.GONE);
@@ -85,7 +85,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
   }
 
 
-  @Override public void onBindViewHolder(final PhotoViewHolder holder, final int position) {
+  @Override public void onBindViewHolder(final PhotoViewHolder holder, int position) {
 
     if (getItemViewType(position) == ITEM_TYPE_PHOTO) {
 
@@ -104,8 +104,8 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
           .dontAnimate()
           .thumbnail(0.5f)
           .override(imageSize, imageSize)
-          .placeholder(R.drawable.ic_photo_black_48dp)
-          .error(R.drawable.ic_broken_image_black_48dp)
+          .placeholder(R.drawable.__picker_ic_photo_black_48dp)
+          .error(R.drawable.__picker_ic_broken_image_black_48dp)
           .into(holder.ivPhoto);
 
       final boolean isChecked = isSelected(photo);
@@ -116,22 +116,23 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
       holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {
           if (onPhotoClickListener != null) {
-            onPhotoClickListener.onClick(view, position, showCamera());
+            int pos = holder.getAdapterPosition();
+            onPhotoClickListener.onClick(view, pos, showCamera());
           }
         }
       });
       holder.vSelected.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {
-
+          int pos = holder.getAdapterPosition();
           boolean isEnable = true;
 
           if (onItemCheckListener != null) {
-            isEnable = onItemCheckListener.OnItemCheck(position, photo, isChecked,
+            isEnable = onItemCheckListener.OnItemCheck(pos, photo, isChecked,
                 getSelectedPhotos().size());
           }
           if (isEnable) {
             toggleSelection(photo);
-            notifyItemChanged(position);
+            notifyItemChanged(pos);
           }
         }
       });
