@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -69,6 +71,11 @@ public class ImageCaptureManager {
 
   public void galleryAddPic() {
     Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+
+    if (TextUtils.isEmpty(mCurrentPhotoPath)) {
+      return;
+    }
+
     File f = new File(mCurrentPhotoPath);
     Uri contentUri = Uri.fromFile(f);
     mediaScanIntent.setData(contentUri);
