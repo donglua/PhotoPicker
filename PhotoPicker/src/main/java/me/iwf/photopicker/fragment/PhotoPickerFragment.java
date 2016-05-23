@@ -232,6 +232,10 @@ public class PhotoPickerFragment extends Fragment {
   @Override public void onDetach() {
     super.onDetach();
 
+    if (directories == null) {
+      return;
+    }
+
     for (PhotoDirectory directory : directories) {
       directory.getPhotoPaths().clear();
       directory.getPhotos().clear();
