@@ -26,8 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Button(R.id.button),
     ButtonNoCamera(R.id.button_no_camera),
     ButtonOnePhoto(R.id.button_one_photo),
-    ButtonPhotoGif(R.id.button_photo_gif)
-    ;
+    ButtonPhotoGif(R.id.button_photo_gif);
 
     @IdRes final int mViewId;
     RequestCode(@IdRes int viewId) {

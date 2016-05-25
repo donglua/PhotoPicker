@@ -9,7 +9,7 @@ android {
     minSdkVersion 10
     targetSdkVersion 23
     versionCode 14
-    versionName "0.8.1"
+    versionName "0.8.2"
   }
 }
 apply from: '../gradle/gradle-mvn-push.gradle'
@@ -17,9 +17,9 @@ apply from: '../gradle/gradle-mvn-push.gradle'
 
 dependencies {
   compile fileTree(dir: 'libs', include: ['*.jar'])
-  compile 'com.android.support:appcompat-v7:23.3.0'
-  compile 'com.android.support:recyclerview-v7:23.3.0'
-  compile 'com.android.support:design:23.3.0'
+  compile 'com.android.support:appcompat-v7:23.4.0'
+  compile 'com.android.support:recyclerview-v7:23.4.0'
+  compile 'com.android.support:design:23.4.0'
   compile 'com.nineoldandroids:library:2.4.0'
   compile 'com.github.bumptech.glide:glide:3.6.0'
 }

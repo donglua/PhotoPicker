@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "me.iwf.PhotoPickerDemo"
         minSdkVersion 10
         targetSdkVersion 23
-        versionCode 10
-        versionName "0.3.0"
+        versionCode 11
+        versionName "0.5.0"
     }
     buildTypes {
         release {
