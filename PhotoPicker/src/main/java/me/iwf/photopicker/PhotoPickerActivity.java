@@ -50,7 +50,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     boolean showGif    = getIntent().getBooleanExtra(EXTRA_SHOW_GIF, false);
     setShowGif(showGif);
 
-    setContentView(R.layout.activity_photo_picker);
+    setContentView(R.layout.__picker_activity_photo_picker);
 
     Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(mToolbar);
@@ -133,7 +133,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
     if (!menuIsInflated) {
-      getMenuInflater().inflate(R.menu.menu_picker, menu);
+      getMenuInflater().inflate(R.menu.__picker_menu_picker, menu);
       menuDoneItem = menu.findItem(R.id.done);
       menuDoneItem.setEnabled(false);
       menuIsInflated = true;

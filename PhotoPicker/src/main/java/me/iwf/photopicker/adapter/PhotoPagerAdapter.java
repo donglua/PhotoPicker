@@ -31,7 +31,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
   @Override public Object instantiateItem(ViewGroup container, int position) {
     final Context context = container.getContext();
     View itemView = LayoutInflater.from(context)
-        .inflate(R.layout.picker_item_pager, container, false);
+        .inflate(R.layout.__picker_picker_item_pager, container, false);
 
     final ImageView imageView = (ImageView) itemView.findViewById(R.id.iv_pager);
 
@@ -47,8 +47,8 @@ public class PhotoPagerAdapter extends PagerAdapter {
         .dontAnimate()
         .dontTransform()
         .override(800, 800)
-        .placeholder(R.drawable.ic_photo_black_48dp)
-        .error(R.drawable.ic_broken_image_black_48dp)
+        .placeholder(R.drawable.__picker_ic_photo_black_48dp)
+        .error(R.drawable.__picker_ic_broken_image_black_48dp)
         .into(imageView);
 
     imageView.setOnClickListener(new View.OnClickListener() {

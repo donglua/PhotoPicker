@@ -9,7 +9,7 @@
       android:id="@+id/iv_photo"
       android:scaleType="centerCrop"
       android:layout_width="match_parent"
-      android:background="@drawable/photo_bg"
+      android:background="@drawable/__picker_photo_bg"
       android:layout_height="match_parent"
       android:adjustViewBounds="true"
       />

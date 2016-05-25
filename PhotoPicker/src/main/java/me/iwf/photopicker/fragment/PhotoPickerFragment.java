@@ -99,7 +99,7 @@ public class PhotoPickerFragment extends Fragment {
 
     setRetainInstance(true);
 
-    final View rootView = inflater.inflate(R.layout.fragment_photo_picker, container, false);
+    final View rootView = inflater.inflate(R.layout.__picker_fragment_photo_picker, container, false);
 
     listAdapter  = new PopupDirectoryListAdapter(Glide.with(this), directories);
 
@@ -231,6 +231,10 @@ public class PhotoPickerFragment extends Fragment {
 
   @Override public void onDetach() {
     super.onDetach();
+
+    if (directories == null) {
+      return;
+    }
 
     for (PhotoDirectory directory : directories) {
       directory.getPhotoPaths().clear();

@@ -1,19 +1,15 @@
 language: android
 
-jdk:
- - oraclejdk7
-
 before_install:
  - chmod +x gradlew
 
 android:
   components:
     - tools
+    - platform-tools
     - build-tools-23.0.2
     - android-23
     - extra-android-m2repository
-
-script: ./gradlew assembleDebug
 
 notifications:
   email: false

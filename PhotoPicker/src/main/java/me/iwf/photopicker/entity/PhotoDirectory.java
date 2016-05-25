@@ -1,8 +1,8 @@
 package me.iwf.photopicker.entity;
 
-import android.util.SparseBooleanArray;
+import android.text.TextUtils;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,12 +22,35 @@ public class PhotoDirectory {
 
     PhotoDirectory directory = (PhotoDirectory) o;
 
-    if (!id.equals(directory.id)) return false;
-    return name.equals(directory.name);
+    boolean hasId = !TextUtils.isEmpty(id);
+    boolean otherHasId = !TextUtils.isEmpty(directory.id);
+
+    if (hasId && otherHasId) {
+      if (!TextUtils.equals(id, directory.id)) {
+        return false;
+      }
+
+      return TextUtils.equals(name, directory.name);
+    }
+
+    return false;
   }
 
   @Override public int hashCode() {
+    if (TextUtils.isEmpty(id)) {
+      if (TextUtils.isEmpty(name)) {
+        return 0;
+      }
+
+      return name.hashCode();
+    }
+
     int result = id.hashCode();
+
+    if (TextUtils.isEmpty(name)) {
+      return result;
+    }
+
     result = 31 * result + name.hashCode();
     return result;
   }
