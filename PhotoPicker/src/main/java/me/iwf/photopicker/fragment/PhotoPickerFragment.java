@@ -47,7 +47,7 @@ public class PhotoPickerFragment extends Fragment {
 
   private int SCROLL_THRESHOLD = 30;
   int column;
-
+  private final static int COUNT_MAX = 4;
   private final static String EXTRA_CAMERA = "camera";
   private final static String EXTRA_COLUMN = "column";
   private final static String EXTRA_COUNT = "count";
@@ -86,6 +86,7 @@ public class PhotoPickerFragment extends Fragment {
             directories.addAll(dirs);
             photoGridAdapter.notifyDataSetChanged();
             listAdapter.notifyDataSetChanged();
+            adjustHeight();
           }
         });
 
@@ -166,7 +167,7 @@ public class PhotoPickerFragment extends Fragment {
         if (listPopupWindow.isShowing()) {
           listPopupWindow.dismiss();
         } else if (!getActivity().isFinishing()) {
-          listPopupWindow.setHeight(Math.round(rootView.getHeight() * 0.8f));
+          adjustHeight();
           listPopupWindow.show();
         }
       }
@@ -241,4 +242,14 @@ public class PhotoPickerFragment extends Fragment {
     directories = null;
 
   }
+  
+  public void adjustHeight() {
+    if (listAdapter == null) return;
+    int count = listAdapter.getCount();
+    count = count < COUNT_MAX ? count : COUNT_MAX;
+    if (listPopupWindow != null) {
+      listPopupWindow.setHeight(count * getResources().getDimensionPixelOffset(R.dimen.__picker_item_directory_height));
+    }
+  }
+  
 }
