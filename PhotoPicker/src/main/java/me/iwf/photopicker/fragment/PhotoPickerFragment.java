@@ -47,7 +47,8 @@ public class PhotoPickerFragment extends Fragment {
 
   private int SCROLL_THRESHOLD = 30;
   int column;
-  private final static int COUNT_MAX = 4;
+  //目录弹出框的一次最多显示的目录数目
+  public static int COUNT_MAX = 4;
   private final static String EXTRA_CAMERA = "camera";
   private final static String EXTRA_COLUMN = "column";
   private final static String EXTRA_COUNT = "count";
