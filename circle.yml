@@ -8,6 +8,9 @@ machine:
     version: oraclejdk8
 
 dependencies:
+  pre:
+    - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --no-ui --all --filter "tools,platform-tools,android-23,extra-google-m2repository,extra-android-m2repository,extra-android-support"
+    - echo y | android update sdk --no-ui --all --filter "build-tools-23.0.3"
   cache_directories:
     - ~/.android
     - ~/android
@@ -17,4 +20,4 @@ dependencies:
 
 test:
   pre:
-    - (./gradlew assembleDebug)
+    - (./gradlew build)
