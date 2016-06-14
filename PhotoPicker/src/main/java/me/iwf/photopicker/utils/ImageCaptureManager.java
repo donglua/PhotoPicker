@@ -76,7 +76,14 @@ public class ImageCaptureManager {
       return;
     }
 
-    File f = new File(mCurrentPhotoPath);
+    final File f;
+
+    try {
+      f = new File(mCurrentPhotoPath);
+    } catch (Exception e) {
+      return;
+    }
+
     Uri contentUri = Uri.fromFile(f);
     mediaScanIntent.setData(contentUri);
     mContext.sendBroadcast(mediaScanIntent);
