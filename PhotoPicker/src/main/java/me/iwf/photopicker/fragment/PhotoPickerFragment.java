@@ -53,6 +53,7 @@ public class PhotoPickerFragment extends Fragment {
   private final static String EXTRA_COLUMN = "column";
   private final static String EXTRA_COUNT = "count";
   private final static String EXTRA_GIF = "gif";
+  private ListPopupWindow listPopupWindow;
 
   public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif, int column, int maxCount) {
     Bundle args = new Bundle();
@@ -114,7 +115,7 @@ public class PhotoPickerFragment extends Fragment {
 
     final Button btSwitchDirectory = (Button) rootView.findViewById(R.id.button);
 
-    final ListPopupWindow listPopupWindow = new ListPopupWindow(getActivity());
+    listPopupWindow = new ListPopupWindow(getActivity());
     listPopupWindow.setWidth(ListPopupWindow.MATCH_PARENT);
     listPopupWindow.setAnchorView(btSwitchDirectory);
     listPopupWindow.setAdapter(listAdapter);
@@ -247,7 +248,7 @@ public class PhotoPickerFragment extends Fragment {
     directories = null;
 
   }
-  
+
   public void adjustHeight() {
     if (listAdapter == null) return;
     int count = listAdapter.getCount();
@@ -256,5 +257,5 @@ public class PhotoPickerFragment extends Fragment {
       listPopupWindow.setHeight(count * getResources().getDimensionPixelOffset(R.dimen.__picker_item_directory_height));
     }
   }
-  
+
 }
