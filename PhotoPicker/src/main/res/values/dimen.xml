@@ -4,5 +4,6 @@
   <dimen name="__picker_iwf_actionBarSize">48dip</dimen>
   <dimen name="__picker_item_photo_size">80dip</dimen>
   <dimen name="__picker_item_camera_size">80dip</dimen>
+  <dimen name="__picker_item_directory_height">80dp</dimen>
 
 </resources>
