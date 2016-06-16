@@ -85,7 +85,7 @@ public abstract class SelectableAdapter<VH extends RecyclerView.ViewHolder>
   }
 
 
-  @Override public List<Photo> getSelectedPhotos() {
+  public List<Photo> getSelectedPhotos() {
     return selectedPhotos;
   }
 

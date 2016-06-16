@@ -1,7 +1,5 @@
 package me.iwf.photopicker.event;
 
-import java.util.ArrayList;
-import java.util.List;
 import me.iwf.photopicker.entity.Photo;
 
 /**
@@ -36,12 +34,5 @@ public interface Selectable {
    * @return Selected items count
    */
   int getSelectedItemCount();
-
-  /**
-   * Indicates the list of selected photos
-   *
-   * @return List of selected photos
-   */
-  List<Photo> getSelectedPhotos();
 
 }
