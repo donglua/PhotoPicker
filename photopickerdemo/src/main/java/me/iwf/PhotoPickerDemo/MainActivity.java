@@ -129,9 +129,9 @@ public class MainActivity extends AppCompatActivity {
   public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
     switch (permission) {
       case Manifest.permission.READ_EXTERNAL_STORAGE:
+      case Manifest.permission.CAMERA:
         // No need to explain to user as it is obvious
         return false;
-
       default:
         return true;
     }
@@ -139,29 +139,44 @@ public class MainActivity extends AppCompatActivity {
 
   private void checkPermission(@NonNull RequestCode requestCode) {
 
-    int permissionState = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+    int readStoragePermissionState = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+    int cameraPermissionState = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
 
-    if (permissionState != PackageManager.PERMISSION_GRANTED) {
+    boolean readStoragePermissionGranted = readStoragePermissionState != PackageManager.PERMISSION_GRANTED;
+    boolean cameraPermissionGranted = cameraPermissionState != PackageManager.PERMISSION_GRANTED;
+
+    if (readStoragePermissionGranted || cameraPermissionGranted) {
 
       // Should we show an explanation?
       if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-              Manifest.permission.READ_EXTERNAL_STORAGE)) {
+          Manifest.permission.READ_EXTERNAL_STORAGE)
+          || ActivityCompat.shouldShowRequestPermissionRationale(this,
+          Manifest.permission.CAMERA)) {
 
         // Show an expanation to the user *asynchronously* -- don't block
         // this thread waiting for the user's response! After the user
         // sees the explanation, try again to request the permission.
 
       } else {
-
+        String[] permissions;
+        if (readStoragePermissionGranted && cameraPermissionGranted) {
+          permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA };
+        } else {
+          permissions = new String[] {
+              readStoragePermissionGranted ? Manifest.permission.READ_EXTERNAL_STORAGE
+                  : Manifest.permission.CAMERA
+          };
+        }
         ActivityCompat.requestPermissions(this,
-                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                permissions,
                 requestCode.ordinal());
-
       }
+
     } else {
       // Permission granted
       onClick(requestCode.mViewId);
     }
+
   }
 
   private void onClick(@IdRes int viewId) {

@@ -5,10 +5,19 @@
     <permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
+    <permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!--
+      - Include all the "features" under the camera permission,
+      - and mark them all as optional.
+      -->
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true"
-        />
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
 
     <application
         android:allowBackup="true"

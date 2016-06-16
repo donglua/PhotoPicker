@@ -7,11 +7,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-
+import android.util.Log;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by donglua on 15/6/23.
@@ -33,19 +34,23 @@ public class ImageCaptureManager {
 
   private File createImageFile() throws IOException {
     // Create an image file name
-    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-    String imageFileName = "JPEG_" + timeStamp + "_";
+    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.ENGLISH).format(new Date());
+    String imageFileName = "JPEG_" + timeStamp + ".jpg";
     File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
     if (!storageDir.exists()) {
       if (!storageDir.mkdir()) {
+        Log.e("TAG", "Throwing Errors....");
         throw new IOException();
       }
     }
-    File image = File.createTempFile(
-        imageFileName,  /* prefix */
-        ".jpg",         /* suffix */
-        storageDir      /* directory */
-    );
+
+    File image = new File(storageDir, imageFileName);
+    //                File.createTempFile(
+    //                imageFileName,  /* prefix */
+    //                ".jpg",         /* suffix */
+    //                storageDir      /* directory */
+    //        );
 
     // Save a file: path for use with ACTION_VIEW intents
     mCurrentPhotoPath = image.getAbsolutePath();
