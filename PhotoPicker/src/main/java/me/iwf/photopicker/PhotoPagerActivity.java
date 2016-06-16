@@ -109,8 +109,9 @@ public class PhotoPagerActivity extends AppCompatActivity {
             .setPositiveButton(R.string.__picker_yes, new DialogInterface.OnClickListener() {
               @Override public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
-                setResult(RESULT_OK);
-                finish();
+                pagerFragment.getPaths().remove(index);
+                pagerFragment.getViewPager().getAdapter().notifyDataSetChanged();
+                onBackPressed();
               }
             })
             .setNegativeButton(R.string.__picker_cancel, new DialogInterface.OnClickListener() {
