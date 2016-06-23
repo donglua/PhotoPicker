@@ -44,9 +44,19 @@
       android:layout_centerHorizontal="true"
       />
 
+  <Button
+      android:layout_below="@id/button_photo_gif"
+      android:layout_marginTop="10dip"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/multiple_pick_photo"
+      android:id="@+id/button_multiple_picked"
+      android:layout_centerHorizontal="true"
+      />
+
   <android.support.v7.widget.RecyclerView
       android:id="@+id/recycler_view"
-      android:layout_below="@id/button_photo_gif"
+      android:layout_below="@id/button_multiple_picked"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       />
