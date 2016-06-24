@@ -26,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
     Button(R.id.button),
     ButtonNoCamera(R.id.button_no_camera),
     ButtonOnePhoto(R.id.button_one_photo),
-    ButtonPhotoGif(R.id.button_photo_gif);
+    ButtonPhotoGif(R.id.button_photo_gif),
+    ButtonMultiplePicked(R.id.button_multiple_picked);
 
     @IdRes final int mViewId;
     RequestCode(@IdRes int viewId) {
@@ -79,6 +80,14 @@ public class MainActivity extends AppCompatActivity {
       public void onClick(View v) {
         checkPermission(RequestCode.ButtonPhotoGif);
       }
+    });
+
+    findViewById(R.id.button_multiple_picked).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        checkPermission(RequestCode.ButtonMultiplePicked);
+      }
+
     });
 
   }
@@ -211,6 +220,15 @@ public class MainActivity extends AppCompatActivity {
         PhotoPickerIntent.setPhotoCount(intent, 4);
         PhotoPickerIntent.setShowCamera(intent, true);
         PhotoPickerIntent.setShowGif(intent, true);
+        startActivityForResult(intent, REQUEST_CODE);
+        break;
+      }
+
+      case R.id.button_multiple_picked:{
+        Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
+        PhotoPickerIntent.setPhotoCount(intent, 4);
+        PhotoPickerIntent.setShowCamera(intent, true);
+        PhotoPickerIntent.setSelected(intent,selectedPhotos);
         startActivityForResult(intent, REQUEST_CODE);
         break;
       }

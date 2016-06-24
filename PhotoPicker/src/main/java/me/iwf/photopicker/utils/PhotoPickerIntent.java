@@ -2,6 +2,8 @@ package me.iwf.photopicker.utils;
 
 import android.content.Intent;
 
+import java.util.ArrayList;
+
 import me.iwf.photopicker.PhotoPickerActivity;
 
 /**
@@ -22,5 +24,14 @@ public class PhotoPickerIntent {
 
   public static void setColumn(Intent intent, int column) {
     intent.putExtra(PhotoPickerActivity.EXTRA_GRID_COLUMN, column);
+  }
+
+  /**
+   * To set some photos that have been selected before
+   * @param intent
+   * @param imagesUri Selected photos
+     */
+  public static void setSelected(Intent intent, ArrayList<String> imagesUri) {
+    intent.putExtra(PhotoPickerActivity.EXTRA_ORIGINAL_PHOTOS, imagesUri);
   }
 }

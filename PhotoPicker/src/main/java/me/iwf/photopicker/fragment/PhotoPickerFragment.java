@@ -43,7 +43,10 @@ public class PhotoPickerFragment extends Fragment {
   private PhotoGridAdapter photoGridAdapter;
 
   private PopupDirectoryListAdapter listAdapter;
+  //所有photos的路径
   private List<PhotoDirectory> directories;
+  //传入的已选照片
+  private ArrayList<String> originalPhotos;
 
   private int SCROLL_THRESHOLD = 30;
   int column;
@@ -53,14 +56,16 @@ public class PhotoPickerFragment extends Fragment {
   private final static String EXTRA_COLUMN = "column";
   private final static String EXTRA_COUNT = "count";
   private final static String EXTRA_GIF = "gif";
+  private final static String EXTRA_ORIGIN = "origin";
   private ListPopupWindow listPopupWindow;
 
-  public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif, int column, int maxCount) {
+  public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif, int column, int maxCount, ArrayList<String> originalPhotos) {
     Bundle args = new Bundle();
     args.putBoolean(EXTRA_CAMERA, showCamera);
     args.putBoolean(EXTRA_GIF, showGif);
     args.putInt(EXTRA_COLUMN, column);
     args.putInt(EXTRA_COUNT, maxCount);
+    args.putStringArrayList(EXTRA_ORIGIN, originalPhotos);
     PhotoPickerFragment fragment = new PhotoPickerFragment();
     fragment.setArguments(args);
     return fragment;
@@ -70,11 +75,12 @@ public class PhotoPickerFragment extends Fragment {
     super.onCreate(savedInstanceState);
 
     directories = new ArrayList<>();
+    originalPhotos = getArguments().getStringArrayList(EXTRA_ORIGIN);
 
     column = getArguments().getInt(EXTRA_COLUMN, DEFAULT_COLUMN_NUMBER);
     boolean showCamera = getArguments().getBoolean(EXTRA_CAMERA, true);
 
-    photoGridAdapter = new PhotoGridAdapter(getContext(), directories, column);
+    photoGridAdapter = new PhotoGridAdapter(getContext(), directories, originalPhotos, column);
     photoGridAdapter.setShowCamera(showCamera);
 
     Bundle mediaStoreArgs = new Bundle();

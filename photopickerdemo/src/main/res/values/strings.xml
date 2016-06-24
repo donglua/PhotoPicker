@@ -4,4 +4,6 @@
     <string name="pick_photo_without_camera">Pick Photo Without Camera</string>
     <string name="pick_one_photo">Pick Single Photo</string>
     <string name="pick_photo_gif">Pick Photos (show gif)</string>
+    <string name="multiple_pick_photo">Multiple Pick Photo</string>
+
 </resources>
