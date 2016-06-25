@@ -2,8 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="${relativePackage}.${activityClass}">
+    android:orientation="vertical">
 
   <include layout="@layout/__picker_toolbar" />
 
@@ -11,14 +10,6 @@
       android:id="@+id/container"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      >
-
-      <!--<fragment-->
-          <!--android:id="@+id/photoPickerFragment"-->
-          <!--android:name="me.iwf.photopicker.fragment.PhotoPickerFragment"-->
-          <!--android:layout_width="match_parent"-->
-          <!--android:layout_height="match_parent" />-->
-
-  </FrameLayout>
+      />
 
 </LinearLayout>

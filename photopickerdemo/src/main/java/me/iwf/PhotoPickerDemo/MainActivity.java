@@ -98,16 +98,13 @@ public class MainActivity extends AppCompatActivity {
     }));
   }
 
-  //public void previewPhoto(Intent intent) {
-  //  startActivityForResult(intent, PhotoPreview.REQUEST_CODE);
-  //}
-
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
-    List<String> photos = null;
     if (resultCode == RESULT_OK &&
         (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
+
+      List<String> photos = null;
       if (data != null) {
         photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
       }
