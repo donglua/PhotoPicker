@@ -19,23 +19,21 @@ import me.iwf.photopicker.fragment.ImagePagerFragment;
 import me.iwf.photopicker.fragment.PhotoPickerFragment;
 
 import static android.widget.Toast.LENGTH_LONG;
+import static me.iwf.photopicker.PhotoPicker.DEFAULT_COLUMN_NUMBER;
+import static me.iwf.photopicker.PhotoPicker.DEFAULT_MAX_COUNT;
+import static me.iwf.photopicker.PhotoPicker.EXTRA_GRID_COLUMN;
+import static me.iwf.photopicker.PhotoPicker.EXTRA_MAX_COUNT;
+import static me.iwf.photopicker.PhotoPicker.EXTRA_ORIGINAL_PHOTOS;
+import static me.iwf.photopicker.PhotoPicker.EXTRA_SHOW_CAMERA;
+import static me.iwf.photopicker.PhotoPicker.EXTRA_SHOW_GIF;
+import static me.iwf.photopicker.PhotoPicker.KEY_SELECTED_PHOTOS;
 
 public class PhotoPickerActivity extends AppCompatActivity {
 
   private PhotoPickerFragment pickerFragment;
   private ImagePagerFragment imagePagerFragment;
-
-  public final static String EXTRA_MAX_COUNT     = "MAX_COUNT";
-  public final static String EXTRA_SHOW_CAMERA   = "SHOW_CAMERA";
-  public final static String EXTRA_SHOW_GIF      = "SHOW_GIF";
-  public final static String KEY_SELECTED_PHOTOS = "SELECTED_PHOTOS";
-  public final static String EXTRA_GRID_COLUMN   = "column";
-  public final static String EXTRA_ORIGINAL_PHOTOS = "ORIGINAL_PHOTOS";
-
   private MenuItem menuDoneItem;
 
-  public final static int DEFAULT_MAX_COUNT = 9;
-  public final static int DEFAULT_COLUMN_NUMBER = 3;
 
   private int maxCount = DEFAULT_MAX_COUNT;
 

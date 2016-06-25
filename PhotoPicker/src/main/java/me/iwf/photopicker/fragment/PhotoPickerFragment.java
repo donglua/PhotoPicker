@@ -30,8 +30,8 @@ import me.iwf.photopicker.utils.ImageCaptureManager;
 import me.iwf.photopicker.utils.MediaStoreHelper;
 
 import static android.app.Activity.RESULT_OK;
-import static me.iwf.photopicker.PhotoPickerActivity.DEFAULT_COLUMN_NUMBER;
-import static me.iwf.photopicker.PhotoPickerActivity.EXTRA_SHOW_GIF;
+import static me.iwf.photopicker.PhotoPicker.DEFAULT_COLUMN_NUMBER;
+import static me.iwf.photopicker.PhotoPicker.EXTRA_SHOW_GIF;
 import static me.iwf.photopicker.utils.MediaStoreHelper.INDEX_ALL_PHOTOS;
 
 /**
