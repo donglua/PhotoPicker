@@ -37,7 +37,7 @@
 
 
         <activity
-            android:theme="@style/myTheme"
+            android:theme="@style/customTheme"
             android:name="me.iwf.photopicker.PhotoPickerActivity"
             />
 
@@ -45,7 +45,6 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:name="me.iwf.photopicker.PhotoPagerActivity"
             />
-
 
     </application>
 

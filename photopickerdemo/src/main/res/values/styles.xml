@@ -3,15 +3,16 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     </style>
 
-    <style name="myTheme.actionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-      <item name="android:textColorPrimary">@android:color/white</item>
-      <item name="actionBarSize">@dimen/iwf_actionBarSize</item>
+    <style name="actionBarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+      <item name="android:textColorPrimary">@android:color/primary_text_light</item>
+      <item name="actionBarSize">@dimen/actionBarSize</item>
     </style>
 
-    <style name="myTheme" parent="Theme.AppCompat.Light.NoActionBar">
-      <item name="actionBarTheme">@style/myTheme.actionBar</item>
+    <style name="customTheme" parent="Theme.AppCompat.Light.NoActionBar">
+      <item name="actionBarTheme">@style/actionBarTheme</item>
       <item name="colorPrimary">#FFA500</item>
-      <item name="actionBarSize">@dimen/iwf_actionBarSize</item>
+      <item name="actionBarSize">@dimen/actionBarSize</item>
+      <item name="colorPrimaryDark">#CCa500</item>
     </style>
 
 </resources>
