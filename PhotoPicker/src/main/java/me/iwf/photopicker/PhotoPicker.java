@@ -9,26 +9,21 @@ import java.util.ArrayList;
 
 /**
  * Created by Donglua on 16/6/25.
+ * Builder class to ease Intent setup.
  */
 public class PhotoPicker {
 
-  public static final int REQUEST_CODE = 233;
+  public static final int REQUEST_CODE             = 233;
 
-  /**
-   * macCount
-   * showCamera
-   * showGif
-   * gridColumnCount
-   */
-  public final static int DEFAULT_MAX_COUNT = 9;
-  public final static int DEFAULT_COLUMN_NUMBER = 3;
+  public final static int DEFAULT_MAX_COUNT        = 9;
+  public final static int DEFAULT_COLUMN_NUMBER    = 3;
 
-  public final static String KEY_SELECTED_PHOTOS = "SELECTED_PHOTOS";
+  public final static String KEY_SELECTED_PHOTOS   = "SELECTED_PHOTOS";
 
-  public final static String EXTRA_MAX_COUNT     = "MAX_COUNT";
-  public final static String EXTRA_SHOW_CAMERA   = "SHOW_CAMERA";
-  public final static String EXTRA_SHOW_GIF      = "SHOW_GIF";
-  public final static String EXTRA_GRID_COLUMN   = "column";
+  public final static String EXTRA_MAX_COUNT       = "MAX_COUNT";
+  public final static String EXTRA_SHOW_CAMERA     = "SHOW_CAMERA";
+  public final static String EXTRA_SHOW_GIF        = "SHOW_GIF";
+  public final static String EXTRA_GRID_COLUMN     = "column";
   public final static String EXTRA_ORIGINAL_PHOTOS = "ORIGINAL_PHOTOS";
 
   public static PhotoPickerBuilder builder() {
@@ -45,7 +40,7 @@ public class PhotoPicker {
     }
 
     /**
-     * Send the crop Intent from an Activity with a custom request code
+     * Send the Intent from an Activity with a custom request code
      *
      * @param activity    Activity to receive result
      * @param requestCode requestCode for result
@@ -55,13 +50,22 @@ public class PhotoPicker {
     }
 
     /**
-     * Send the crop Intent with a custom request code
+     * Send the Intent with a custom request code
      *
      * @param fragment    Fragment to receive result
      * @param requestCode requestCode for result
      */
     public void start(@NonNull Context context, @NonNull android.support.v4.app.Fragment fragment, int requestCode) {
       fragment.startActivityForResult(getIntent(context), requestCode);
+    }
+
+    /**
+     * Send the Intent with a custom request code
+     *
+     * @param fragment    Fragment to receive result
+     */
+    public void start(@NonNull Context context, @NonNull android.support.v4.app.Fragment fragment) {
+      fragment.startActivityForResult(getIntent(context), REQUEST_CODE);
     }
 
     /**

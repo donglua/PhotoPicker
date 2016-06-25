@@ -17,16 +17,14 @@ import java.util.List;
 import me.iwf.photopicker.fragment.ImagePagerFragment;
 
 import static me.iwf.photopicker.PhotoPicker.KEY_SELECTED_PHOTOS;
+import static me.iwf.photopicker.PhotoPreview.EXTRA_CURRENT_ITEM;
+import static me.iwf.photopicker.PhotoPreview.EXTRA_PHOTOS;
+import static me.iwf.photopicker.PhotoPreview.EXTRA_SHOW_DELETE;
 
 /**
  * Created by donglua on 15/6/24.
  */
 public class PhotoPagerActivity extends AppCompatActivity {
-
-  public final static String EXTRA_CURRENT_ITEM = "current_item";
-  public final static String EXTRA_PHOTOS = "photos";
-  public final static String EXTRA_SHOW_DELETE = "show_delete";
-
 
   private ImagePagerFragment pagerFragment;
 

@@ -15,7 +15,9 @@ import android.view.View;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
+import me.iwf.PhotoPickerDemo.RecyclerItemClickListener.OnItemClickListener;
 import me.iwf.photopicker.PhotoPicker;
+import me.iwf.photopicker.PhotoPreview;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
   ArrayList<String> selectedPhotos = new ArrayList<>();
 
-  public final static int REQUEST_CODE = 1;
-
+  //public final static int REQUEST_CODE = 1;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -87,19 +88,26 @@ public class MainActivity extends AppCompatActivity {
 
     });
 
+    recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new OnItemClickListener() {
+      @Override public void onItemClick(View view, int position) {
+        PhotoPreview.builder()
+            .setPhotos(selectedPhotos)
+            .setCurrentItem(position)
+            .start(MainActivity.this);
+      }
+    }));
   }
 
-
-  public void previewPhoto(Intent intent) {
-    startActivityForResult(intent, REQUEST_CODE);
-  }
-
+  //public void previewPhoto(Intent intent) {
+  //  startActivityForResult(intent, PhotoPreview.REQUEST_CODE);
+  //}
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
     List<String> photos = null;
-    if (resultCode == RESULT_OK && requestCode == PhotoPicker.REQUEST_CODE) {
+    if (resultCode == RESULT_OK &&
+        (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
       if (data != null) {
         photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
       }
