@@ -37,6 +37,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
   private final static int COL_NUMBER_DEFAULT = 3;
 
   private boolean hasCamera = true;
+  private boolean previewEnable = true;
 
   private int imageSize;
   private int columnNumber = COL_NUMBER_DEFAULT;
@@ -79,6 +80,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
     if (viewType == ITEM_TYPE_CAMERA) {
       holder.vSelected.setVisibility(View.GONE);
       holder.ivPhoto.setScaleType(ImageView.ScaleType.CENTER);
+
       holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {
           if (onCameraClickListener != null) {
@@ -123,7 +125,11 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
         @Override public void onClick(View view) {
           if (onPhotoClickListener != null) {
             int pos = holder.getAdapterPosition();
-            onPhotoClickListener.onClick(view, pos, showCamera());
+            if (previewEnable) {
+              onPhotoClickListener.onClick(view, pos, showCamera());
+            } else {
+              holder.vSelected.performClick();
+            }
           }
         }
       });
@@ -201,6 +207,9 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
     this.hasCamera = hasCamera;
   }
 
+  public void setPreviewEnable(boolean previewEnable) {
+    this.previewEnable = previewEnable;
+  }
 
   public boolean showCamera() {
     return (hasCamera && currentDirectoryIndex == MediaStoreHelper.INDEX_ALL_PHOTOS);

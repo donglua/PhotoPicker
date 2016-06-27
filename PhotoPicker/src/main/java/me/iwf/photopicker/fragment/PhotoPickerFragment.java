@@ -32,6 +32,7 @@ import me.iwf.photopicker.utils.MediaStoreHelper;
 
 import static android.app.Activity.RESULT_OK;
 import static me.iwf.photopicker.PhotoPicker.DEFAULT_COLUMN_NUMBER;
+import static me.iwf.photopicker.PhotoPicker.EXTRA_PREVIEW_ENABLED;
 import static me.iwf.photopicker.PhotoPicker.EXTRA_SHOW_GIF;
 import static me.iwf.photopicker.utils.MediaStoreHelper.INDEX_ALL_PHOTOS;
 
@@ -61,10 +62,12 @@ public class PhotoPickerFragment extends Fragment {
   private ListPopupWindow listPopupWindow;
   RequestManager mGlideRequestManager;
 
-  public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif, int column, int maxCount, ArrayList<String> originalPhotos) {
+  public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif,
+      boolean previewEnable, int column, int maxCount, ArrayList<String> originalPhotos) {
     Bundle args = new Bundle();
     args.putBoolean(EXTRA_CAMERA, showCamera);
     args.putBoolean(EXTRA_GIF, showGif);
+    args.putBoolean(EXTRA_PREVIEW_ENABLED, previewEnable);
     args.putInt(EXTRA_COLUMN, column);
     args.putInt(EXTRA_COUNT, maxCount);
     args.putStringArrayList(EXTRA_ORIGIN, originalPhotos);
@@ -85,9 +88,11 @@ public class PhotoPickerFragment extends Fragment {
 
     column = getArguments().getInt(EXTRA_COLUMN, DEFAULT_COLUMN_NUMBER);
     boolean showCamera = getArguments().getBoolean(EXTRA_CAMERA, true);
+    boolean previewEnable = getArguments().getBoolean(EXTRA_PREVIEW_ENABLED, true);
 
     photoGridAdapter = new PhotoGridAdapter(getContext(), mGlideRequestManager, directories, originalPhotos, column);
     photoGridAdapter.setShowCamera(showCamera);
+    photoGridAdapter.setPreviewEnable(previewEnable);
 
     Bundle mediaStoreArgs = new Bundle();
 

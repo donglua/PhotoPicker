@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PhotoPicker Demo</string>
     <string name="pick_photo">Pick Photo</string>
-    <string name="pick_photo_without_camera">Pick Photo Without Camera</string>
+    <string name="pick_photo_without_camera">Pick Photo Without Camera &amp;&amp; Disable Preview</string>
     <string name="pick_one_photo">Pick Single Photo</string>
     <string name="pick_photo_gif">Pick Photos (show gif)</string>
     <string name="multiple_pick_photo">Multiple Pick Photo</string>

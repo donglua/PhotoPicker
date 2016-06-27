@@ -213,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
         PhotoPicker.builder()
             .setPhotoCount(7)
             .setShowCamera(false)
+            .setPreviewEnabled(false)
             .start(this);
         break;
       }

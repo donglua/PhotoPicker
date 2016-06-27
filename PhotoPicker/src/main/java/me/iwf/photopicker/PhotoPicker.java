@@ -25,6 +25,7 @@ public class PhotoPicker {
   public final static String EXTRA_SHOW_GIF        = "SHOW_GIF";
   public final static String EXTRA_GRID_COLUMN     = "column";
   public final static String EXTRA_ORIGINAL_PHOTOS = "ORIGINAL_PHOTOS";
+  public final static String EXTRA_PREVIEW_ENABLED = "PREVIEW_ENABLED";
 
   public static PhotoPickerBuilder builder() {
     return new PhotoPickerBuilder();
@@ -110,6 +111,11 @@ public class PhotoPicker {
 
     public PhotoPickerBuilder setSelected(ArrayList<String> imagesUri) {
       mPickerOptionsBundle.putStringArrayList(EXTRA_ORIGINAL_PHOTOS, imagesUri);
+      return this;
+    }
+
+    public PhotoPickerBuilder setPreviewEnabled(boolean previewEnabled) {
+      mPickerOptionsBundle.putBoolean(EXTRA_PREVIEW_ENABLED, previewEnabled);
       return this;
     }
   }
