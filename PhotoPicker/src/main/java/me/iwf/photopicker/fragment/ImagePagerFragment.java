@@ -302,6 +302,8 @@ public class ImagePagerFragment extends Fragment {
     paths.clear();
     paths = null;
 
-    mViewPager.setAdapter(null);
+    if (mViewPager != null) {
+      mViewPager.setAdapter(null);
+    }
   }
 }
