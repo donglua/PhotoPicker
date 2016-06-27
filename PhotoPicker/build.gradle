@@ -8,8 +8,8 @@ android {
   defaultConfig {
     minSdkVersion 10
     targetSdkVersion 23
-    versionCode 15
-    versionName "0.8.3"
+    versionCode 16
+    versionName "0.8.4"
   }
 }
 apply from: '../gradle/gradle-mvn-push.gradle'

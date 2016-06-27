@@ -52,6 +52,7 @@ PhotoPicker.builder()
     .setPhotoCount(9)
     .setShowCamera(true)
     .setShowGif(true)
+    .setPreviewEnabled(false)
     .start(this, PhotoPicker.REQUEST_CODE);
 ```
 
