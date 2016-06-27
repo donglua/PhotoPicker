@@ -206,9 +206,8 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
     return (hasCamera && currentDirectoryIndex == MediaStoreHelper.INDEX_ALL_PHOTOS);
   }
 
-  @Override public void onViewDetachedFromWindow(PhotoViewHolder holder) {
-    super.onViewDetachedFromWindow(holder);
-
+  @Override public void onViewRecycled(PhotoViewHolder holder) {
     Glide.clear(holder.ivPhoto);
+    super.onViewRecycled(holder);
   }
 }

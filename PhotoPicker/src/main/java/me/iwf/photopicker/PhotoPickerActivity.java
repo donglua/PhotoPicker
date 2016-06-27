@@ -71,12 +71,16 @@ public class PhotoPickerActivity extends AppCompatActivity {
     columnNumber = getIntent().getIntExtra(EXTRA_GRID_COLUMN, DEFAULT_COLUMN_NUMBER);
     originalPhotos = getIntent().getStringArrayListExtra(EXTRA_ORIGINAL_PHOTOS);
 
-    pickerFragment = PhotoPickerFragment.newInstance(showCamera, showGif, columnNumber, maxCount, originalPhotos);
-    getSupportFragmentManager()
-        .beginTransaction()
-        .replace(R.id.container, pickerFragment)
-        .commit();
-    getSupportFragmentManager().executePendingTransactions();
+    pickerFragment = (PhotoPickerFragment) getSupportFragmentManager().findFragmentByTag("tag");
+    if (pickerFragment == null) {
+      pickerFragment = PhotoPickerFragment
+          .newInstance(showCamera, showGif, columnNumber, maxCount, originalPhotos);
+      getSupportFragmentManager()
+          .beginTransaction()
+          .replace(R.id.container, pickerFragment, "tag")
+          .commit();
+      getSupportFragmentManager().executePendingTransactions();
+    }
 
     pickerFragment.getPhotoGridAdapter().setOnItemCheckListener(new OnItemCheckListener() {
       @Override public boolean OnItemCheck(int position, Photo photo, final boolean isCheck, int selectedItemCount) {

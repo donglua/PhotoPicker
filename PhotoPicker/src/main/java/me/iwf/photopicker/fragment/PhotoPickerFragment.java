@@ -74,6 +74,8 @@ public class PhotoPickerFragment extends Fragment {
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
+    setRetainInstance(true);
+
     directories = new ArrayList<>();
     originalPhotos = getArguments().getStringArrayList(EXTRA_ORIGIN);
 
@@ -99,14 +101,11 @@ public class PhotoPickerFragment extends Fragment {
         });
 
     captureManager = new ImageCaptureManager(getActivity());
-
   }
 
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-
-    setRetainInstance(true);
 
     final View rootView = inflater.inflate(R.layout.__picker_fragment_photo_picker, container, false);
 
@@ -199,7 +198,6 @@ public class PhotoPickerFragment extends Fragment {
       }
     });
 
-
     return rootView;
   }
 
@@ -238,8 +236,17 @@ public class PhotoPickerFragment extends Fragment {
     return photoGridAdapter.getSelectedPhotoPaths();
   }
 
-  @Override public void onDetach() {
-    super.onDetach();
+  public void adjustHeight() {
+    if (listAdapter == null) return;
+    int count = listAdapter.getCount();
+    count = count < COUNT_MAX ? count : COUNT_MAX;
+    if (listPopupWindow != null) {
+      listPopupWindow.setHeight(count * getResources().getDimensionPixelOffset(R.dimen.__picker_item_directory_height));
+    }
+  }
+
+  @Override public void onDestroy() {
+    super.onDestroy();
 
     if (directories == null) {
       return;
@@ -252,16 +259,5 @@ public class PhotoPickerFragment extends Fragment {
     }
     directories.clear();
     directories = null;
-
   }
-
-  public void adjustHeight() {
-    if (listAdapter == null) return;
-    int count = listAdapter.getCount();
-    count = count < COUNT_MAX ? count : COUNT_MAX;
-    if (listPopupWindow != null) {
-      listPopupWindow.setHeight(count * getResources().getDimensionPixelOffset(R.dimen.__picker_item_directory_height));
-    }
-  }
-
 }
