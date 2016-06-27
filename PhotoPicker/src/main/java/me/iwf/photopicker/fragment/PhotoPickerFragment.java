@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,7 @@ public class PhotoPickerFragment extends Fragment {
   private final static String EXTRA_GIF = "gif";
   private final static String EXTRA_ORIGIN = "origin";
   private ListPopupWindow listPopupWindow;
+  RequestManager mGlideRequestManager;
 
   public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif, int column, int maxCount, ArrayList<String> originalPhotos) {
     Bundle args = new Bundle();
@@ -76,13 +78,15 @@ public class PhotoPickerFragment extends Fragment {
 
     setRetainInstance(true);
 
+    mGlideRequestManager = Glide.with(this);
+
     directories = new ArrayList<>();
     originalPhotos = getArguments().getStringArrayList(EXTRA_ORIGIN);
 
     column = getArguments().getInt(EXTRA_COLUMN, DEFAULT_COLUMN_NUMBER);
     boolean showCamera = getArguments().getBoolean(EXTRA_CAMERA, true);
 
-    photoGridAdapter = new PhotoGridAdapter(getContext(), directories, originalPhotos, column);
+    photoGridAdapter = new PhotoGridAdapter(getContext(), mGlideRequestManager, directories, originalPhotos, column);
     photoGridAdapter.setShowCamera(showCamera);
 
     Bundle mediaStoreArgs = new Bundle();
@@ -109,7 +113,7 @@ public class PhotoPickerFragment extends Fragment {
 
     final View rootView = inflater.inflate(R.layout.__picker_fragment_photo_picker, container, false);
 
-    listAdapter  = new PopupDirectoryListAdapter(Glide.with(this), directories);
+    listAdapter  = new PopupDirectoryListAdapter(mGlideRequestManager, directories);
 
     RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
     StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(column, OrientationHelper.VERTICAL);
@@ -186,14 +190,14 @@ public class PhotoPickerFragment extends Fragment {
         super.onScrolled(recyclerView, dx, dy);
         // Log.d(">>> Picker >>>", "dy = " + dy);
         if (Math.abs(dy) > SCROLL_THRESHOLD) {
-          Glide.with(getActivity()).pauseRequests();
+          mGlideRequestManager.pauseRequests();
         } else {
-          Glide.with(getActivity()).resumeRequests();
+          mGlideRequestManager.resumeRequests();
         }
       }
       @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-          Glide.with(getActivity()).resumeRequests();
+          mGlideRequestManager.resumeRequests();
         }
       }
     });

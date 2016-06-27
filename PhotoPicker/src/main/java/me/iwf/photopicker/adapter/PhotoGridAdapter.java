@@ -42,15 +42,15 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
   private int columnNumber = COL_NUMBER_DEFAULT;
 
 
-  public PhotoGridAdapter(Context context, List<PhotoDirectory> photoDirectories) {
+  public PhotoGridAdapter(Context context, RequestManager requestManager, List<PhotoDirectory> photoDirectories) {
     this.photoDirectories = photoDirectories;
-    this.glide = Glide.with(context);
+    this.glide = requestManager;
     inflater = LayoutInflater.from(context);
     setColumnNumber(context, columnNumber);
   }
 
-  public PhotoGridAdapter(Context context, List<PhotoDirectory> photoDirectories, ArrayList<String> orginalPhotos, int colNum) {
-    this(context, photoDirectories);
+  public PhotoGridAdapter(Context context, RequestManager requestManager,  List<PhotoDirectory> photoDirectories, ArrayList<String> orginalPhotos, int colNum) {
+    this(context, requestManager, photoDirectories);
     setColumnNumber(context, colNum);
     setOriginalPhotos(orginalPhotos);
   }
