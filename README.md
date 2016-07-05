@@ -81,7 +81,7 @@ PhotoPreview.builder()
   if (resultCode == RESULT_OK && requestCode == PhotoPicker.REQUEST_CODE) {
     if (data != null) {
       ArrayList<String> photos = 
-          data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+          data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
     }
   }
 }
