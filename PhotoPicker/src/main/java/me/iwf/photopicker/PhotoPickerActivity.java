@@ -35,7 +35,6 @@ public class PhotoPickerActivity extends AppCompatActivity {
   private ImagePagerFragment imagePagerFragment;
   private MenuItem menuDoneItem;
 
-
   private int maxCount = DEFAULT_MAX_COUNT;
 
   /** to prevent multiple calls to inflate menu */

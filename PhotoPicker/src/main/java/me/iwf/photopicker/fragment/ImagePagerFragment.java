@@ -295,8 +295,8 @@ public class ImagePagerFragment extends Fragment {
     return mViewPager.getCurrentItem();
   }
 
-  @Override public void onDetach() {
-    super.onDetach();
+  @Override public void onDestroy() {
+    super.onDestroy();
 
     paths.clear();
     paths = null;
