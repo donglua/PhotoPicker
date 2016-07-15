@@ -105,7 +105,7 @@ public class PhotoPicker {
     }
 
     public PhotoPickerBuilder setShowCamera(boolean showCamera) {
-      mPickerOptionsBundle.putBoolean(EXTRA_SHOW_GIF, showCamera);
+      mPickerOptionsBundle.putBoolean(EXTRA_SHOW_CAMERA, showCamera);
       return this;
     }
 
