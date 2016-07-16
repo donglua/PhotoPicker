@@ -1,7 +1,7 @@
 
 apply plugin: 'com.jfrog.bintray'
 
-version = "0.8.4"
+version = "0.8.5"
 def siteUrl = 'https://github.com/donglua/PhotoPicker'      // Homepage URL of the library
 def gitUrl  = 'https://github.com/donglua/PhotoPicker.git'  // Git repository URL
 group = "me.iwf.photopicker"                                // Maven Group ID for the artifact
@@ -26,7 +26,6 @@ artifacts {
     //  archives javadocJar
     archives sourcesJar
 }
-
 
 def localProperties = project.rootProject.file('local.properties')
 
