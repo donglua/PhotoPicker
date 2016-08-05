@@ -1,5 +1,6 @@
 package me.iwf.photopicker;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
@@ -10,10 +11,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import java.util.List;
+
 import me.iwf.photopicker.fragment.ImagePagerFragment;
 
 import static me.iwf.photopicker.PhotoPicker.KEY_SELECTED_PHOTOS;
@@ -51,6 +58,8 @@ public class PhotoPagerActivity extends AppCompatActivity {
 
     actionBar = getSupportActionBar();
 
+   // centerActionBarTitle(this);
+
     if (actionBar != null) {
       actionBar.setDisplayHomeAsUpEnabled(true);
       updateActionBarTitle();
@@ -65,6 +74,20 @@ public class PhotoPagerActivity extends AppCompatActivity {
         updateActionBarTitle();
       }
     });
+  }
+
+  //把actionBar的文字标题居中
+  public static void centerActionBarTitle(Activity activity)
+  {
+    int titleId = activity.getResources().getIdentifier("action_bar_title", "id", "android");
+    if (titleId<=0)return;
+    TextView titleTextView = (TextView)activity.findViewById(titleId);
+    DisplayMetrics metrics = activity.getResources().getDisplayMetrics();
+    LinearLayout.LayoutParams txvPars = (LinearLayout.LayoutParams) titleTextView.getLayoutParams();
+    txvPars.gravity = Gravity.CENTER_HORIZONTAL;
+    txvPars.width = metrics.widthPixels;
+    titleTextView.setLayoutParams(txvPars);
+    titleTextView.setGravity(Gravity.CENTER);
   }
 
 

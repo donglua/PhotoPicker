@@ -13,8 +13,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Toast;
+
 import java.util.ArrayList;
-import java.util.List;
+
 import me.iwf.PhotoPickerDemo.RecyclerItemClickListener.OnItemClickListener;
 import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPreview;
@@ -101,7 +102,28 @@ public class MainActivity extends AppCompatActivity {
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
-    if (resultCode == RESULT_OK &&
+    PhotoPickUtils.onActivityResult(requestCode, resultCode, data, new PhotoPickUtils.PickHandler() {
+      @Override
+      public void onSuccess(ArrayList<String> photos) {
+        selectedPhotos.clear();
+        selectedPhotos.addAll(photos);
+        photoAdapter.notifyDataSetChanged();
+      }
+
+      @Override
+      public void onFail(String error) {
+        selectedPhotos.clear();
+        photoAdapter.notifyDataSetChanged();
+        Toast.makeText(MainActivity.this,error,Toast.LENGTH_LONG).show();
+
+      }
+
+      @Override
+      public void onCancle() {
+        Toast.makeText(MainActivity.this,"取消选择",Toast.LENGTH_LONG).show();
+      }
+    });
+   /* if (resultCode == RESULT_OK &&
         (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
 
       List<String> photos = null;
@@ -115,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
         selectedPhotos.addAll(photos);
       }
       photoAdapter.notifyDataSetChanged();
-    }
+    }*/
   }
 
   @Override
@@ -198,10 +220,11 @@ public class MainActivity extends AppCompatActivity {
         //PhotoPickerIntent.setPhotoCount(intent, 9);
         //PhotoPickerIntent.setColumn(intent, 4);
         //startActivityForResult(intent, REQUEST_CODE);
-        PhotoPicker.builder()
+       /* PhotoPicker.builder()
             .setPhotoCount(9)
             .setGridColumnCount(4)
-            .start(this);
+            .start(this);*/
+        PhotoPickUtils.startPick(this,9);
         break;
       }
 

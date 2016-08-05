@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <string name="__picker_title">图片</string>
+  <string name="__picker_title">图片选择</string>
   <string name="__picker_delete">删除</string>
   <string name="__picker_done">完成</string>
   <string name="__picker_done_with_count">完成(%1$d/%2$d)</string>

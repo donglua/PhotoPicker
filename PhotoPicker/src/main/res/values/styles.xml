@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="__picker_AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary" tools:targetApi="lollipop">#5677fc</item>
+        <item name="android:colorPrimaryDark" tools:targetApi="lollipop">#3b50ce</item>
+    </style>
 
 
 </resources>

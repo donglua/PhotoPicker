@@ -112,7 +112,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
           .dontAnimate()
           .thumbnail(0.5f)
           .override(imageSize, imageSize)
-          .placeholder(R.drawable.__picker_ic_photo_black_48dp)
+          .placeholder(R.drawable.__picker_default_weixin)
           .error(R.drawable.__picker_ic_broken_image_black_48dp)
           .into(holder.ivPhoto);
 

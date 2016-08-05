@@ -2,6 +2,8 @@ package me.iwf.photopicker.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,14 +16,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import me.iwf.photopicker.PhotoPickerActivity;
+import me.iwf.photopicker.PhotoPreview;
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.adapter.PhotoGridAdapter;
 import me.iwf.photopicker.adapter.PopupDirectoryListAdapter;
@@ -132,17 +140,25 @@ public class PhotoPickerFragment extends Fragment {
     layoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
     recyclerView.setLayoutManager(layoutManager);
     recyclerView.setAdapter(photoGridAdapter);
+
     recyclerView.setItemAnimator(new DefaultItemAnimator());
 
     final Button btSwitchDirectory = (Button) rootView.findViewById(R.id.button);
 
+    Button btnPreview = (Button) rootView.findViewById(R.id.btn_preview);
+
     listPopupWindow = new ListPopupWindow(getActivity());
-    listPopupWindow.setWidth(ListPopupWindow.MATCH_PARENT);
+
+    listPopupWindow.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//替换背景
+    WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
+    int widths = wm.getDefaultDisplay().getWidth();
+    listPopupWindow.setWidth(widths);//ListPopupWindow.MATCH_PARENT还是会有边距，直接拿到屏幕宽度来设置也不行，因为默认的background有左右padding值。
     listPopupWindow.setAnchorView(btSwitchDirectory);
     listPopupWindow.setAdapter(listAdapter);
     listPopupWindow.setModal(true);
+
     listPopupWindow.setDropDownGravity(Gravity.BOTTOM);
-    //listPopupWindow.setAnimationStyle(R.style.Animation_AppCompat_DropDownUp);
+    listPopupWindow.setAnimationStyle(R.style.Animation_AppCompat_DropDownUp);
 
     listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -150,7 +166,7 @@ public class PhotoPickerFragment extends Fragment {
 
         PhotoDirectory directory = directories.get(position);
 
-        btSwitchDirectory.setText(directory.getName());
+        btSwitchDirectory.setText(directory.getName().toLowerCase());//默认会大写，这里要改成小写
 
         photoGridAdapter.setCurrentDirectoryIndex(position);
         photoGridAdapter.notifyDataSetChanged();
@@ -192,7 +208,26 @@ public class PhotoPickerFragment extends Fragment {
         } else if (!getActivity().isFinishing()) {
           adjustHeight();
           listPopupWindow.show();
+          listPopupWindow.getListView().setVerticalScrollBarEnabled(false);
+
+          //去掉滑动条,listview 在show之后才建立，所以需要该方法在show之后调用，否则会空指针
         }
+      }
+    });
+
+
+    //预览按钮
+    btnPreview.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View v) {
+       if (photoGridAdapter.getSelectedPhotoPaths().size() > 0){
+         PhotoPreview.builder()
+                 .setPhotos(photoGridAdapter.getSelectedPhotoPaths())
+                 .setCurrentItem(0)
+                 .start(getActivity());
+       }else {
+         Toast.makeText(getActivity(),"还没有选择图片",Toast.LENGTH_SHORT).show();
+       }
       }
     });
 

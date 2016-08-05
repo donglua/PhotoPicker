@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@android:color/black"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
@@ -14,19 +15,35 @@
       />
 
 
-  <LinearLayout
+  <RelativeLayout
       android:layout_width="match_parent"
+      android:background="#4d4f4c"
       android:layout_height="wrap_content"
       >
         <Button
+            android:layout_centerVertical="true"
             android:id="@+id/button"
             android:text="@string/__picker_all_image"
             android:layout_width="wrap_content"
             android:gravity="center"
+            android:textColor="@android:color/white"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.ActionButton"
+            android:drawablePadding="5dp"
+            android:drawableRight="@drawable/icon_test_list_start"
             />
 
-  </LinearLayout>
+      <Button
+          android:layout_alignParentRight="true"
+          android:layout_centerVertical="true"
+          style="@style/Widget.AppCompat.ActionButton"
+          android:textColor="@android:color/white"
+          android:id="@+id/btn_preview"
+          android:textSize="14sp"
+          android:text="预览"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+
+  </RelativeLayout>
 
 </LinearLayout>

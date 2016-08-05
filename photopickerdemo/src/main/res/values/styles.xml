@@ -10,9 +10,9 @@
 
     <style name="customTheme" parent="Theme.AppCompat.Light.NoActionBar">
       <item name="actionBarTheme">@style/actionBarTheme</item>
-      <item name="colorPrimary">#FFA500</item>
+      <item name="colorPrimary">@color/colorPrimary</item>
       <item name="actionBarSize">@dimen/actionBarSize</item>
-      <item name="colorPrimaryDark">#CCa500</item>
+      <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
 </resources>

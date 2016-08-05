@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minHeight="44dp"
+    android:layout_width="match_parent" android:layout_height="44dp">
+    <ImageButton
+        android:id="@+id/btn_back"
+        android:src="@drawable/arrow_back"
+        android:background="@android:color/transparent"
+        android:layout_width="44dp"
+        android:layout_height="44dp" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:textColor="@android:color/white"
+        android:textSize="17sp"
+        android:text="@string/__picker_title"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_done"
+        android:text="@string/__picker_done"
+        android:textSize="14sp"
+        android:textColor="@android:color/white"
+        android:background="@android:color/transparent"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="44dp" />
+
+
+</RelativeLayout>

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -58,7 +59,18 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
     Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(mToolbar);
-    setTitle(R.string.__picker_title);
+    setTitle("");//去掉原生的标题
+
+    //将原生的返回图标换掉
+    mToolbar.setNavigationIcon(R.drawable.__picker_delete);
+    mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        PhotoPickerActivity.this.finish();
+      }
+    });
+
+
 
     ActionBar actionBar = getSupportActionBar();
 
@@ -151,6 +163,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
       } else {
         menuDoneItem.setEnabled(false);
       }
+
       menuIsInflated = true;
       return true;
     }
