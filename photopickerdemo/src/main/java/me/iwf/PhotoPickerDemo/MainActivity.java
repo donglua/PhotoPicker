@@ -17,6 +17,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import me.iwf.PhotoPickerDemo.RecyclerItemClickListener.OnItemClickListener;
+import me.iwf.photopicker.PhotoPickUtils;
 import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPreview;
 
