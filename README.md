@@ -18,7 +18,7 @@
 
 
 
-demo apk：
+demo apk：见项目根目录下demo.apk
 
 
 
@@ -54,7 +54,7 @@ demo apk：
 
 ### gradle 还未上传，直接拉源代码吧。
 
-或者使用aar：
+或者使用aar：见项目根目录下PhotoPicker-release.aar
 
 
 
