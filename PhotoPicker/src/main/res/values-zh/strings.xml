@@ -15,5 +15,7 @@
   <string name="__picker_over_max_count_tips">你最多可以选择%1$d张图片</string>
   <string name="__picker_image_count">%1$d张</string>
 
+  <string name="__picker_preview">预览</string>
+
 
 </resources>

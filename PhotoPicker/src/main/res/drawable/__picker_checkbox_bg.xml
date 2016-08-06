@@ -4,6 +4,7 @@
   <item android:state_selected="true">
     <layer-list>
       <item>
+        <!--仿微信效果,中间向上下渐变-->
         <shape>
           <corners android:radius="2dip"/>
           <padding android:top="-2dip"

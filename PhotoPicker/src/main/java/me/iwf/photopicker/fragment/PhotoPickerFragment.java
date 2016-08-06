@@ -38,6 +38,7 @@ import me.iwf.photopicker.entity.PhotoDirectory;
 import me.iwf.photopicker.event.OnPhotoClickListener;
 import me.iwf.photopicker.utils.ImageCaptureManager;
 import me.iwf.photopicker.utils.MediaStoreHelper;
+import me.iwf.photopicker.widget.Titlebar;
 
 import static android.app.Activity.RESULT_OK;
 import static me.iwf.photopicker.PhotoPicker.DEFAULT_COLUMN_NUMBER;
@@ -71,6 +72,8 @@ public class PhotoPickerFragment extends Fragment {
   private ListPopupWindow listPopupWindow;
   private RequestManager mGlideRequestManager;
   private Context mContext;
+
+  private Titlebar titlebar;
 
   public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif,
       boolean previewEnable, int column, int maxCount, ArrayList<String> originalPhotos) {
@@ -132,6 +135,7 @@ public class PhotoPickerFragment extends Fragment {
       Bundle savedInstanceState) {
 
     final View rootView = inflater.inflate(R.layout.__picker_fragment_photo_picker, container, false);
+    titlebar = (Titlebar) rootView.findViewById(R.id.titlebar);
 
     listAdapter  = new PopupDirectoryListAdapter(mGlideRequestManager, directories);
 

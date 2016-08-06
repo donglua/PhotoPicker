@@ -1,13 +1,8 @@
 package me.iwf.photopicker;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -18,6 +13,7 @@ import me.iwf.photopicker.entity.Photo;
 import me.iwf.photopicker.event.OnItemCheckListener;
 import me.iwf.photopicker.fragment.ImagePagerFragment;
 import me.iwf.photopicker.fragment.PhotoPickerFragment;
+import me.iwf.photopicker.widget.Titlebar;
 
 import static android.widget.Toast.LENGTH_LONG;
 import static me.iwf.photopicker.PhotoPicker.DEFAULT_COLUMN_NUMBER;
@@ -34,16 +30,18 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
   private PhotoPickerFragment pickerFragment;
   private ImagePagerFragment imagePagerFragment;
-  private MenuItem menuDoneItem;
+  //private MenuItem menuDoneItem;
 
   private int maxCount = DEFAULT_MAX_COUNT;
 
   /** to prevent multiple calls to inflate menu */
-  private boolean menuIsInflated = false;
+ // private boolean menuIsInflated = false;
 
   private boolean showGif = false;
   private int columnNumber = DEFAULT_COLUMN_NUMBER;
   private ArrayList<String> originalPhotos = null;
+
+  private Titlebar titlebar;
 
 
   @Override protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +55,10 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
     setContentView(R.layout.__picker_activity_photo_picker);
 
-    Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+    titlebar = (Titlebar) findViewById(R.id.titlebar);
+    titlebar.init(this);
+
+   /* Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(mToolbar);
     setTitle("");//去掉原生的标题
 
@@ -78,7 +79,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     actionBar.setDisplayHomeAsUpEnabled(true);
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
       actionBar.setElevation(25);
-    }
+    }*/
 
     maxCount = getIntent().getIntExtra(EXTRA_MAX_COUNT, DEFAULT_MAX_COUNT);
     columnNumber = getIntent().getIntExtra(EXTRA_GRID_COLUMN, DEFAULT_COLUMN_NUMBER);
@@ -95,12 +96,29 @@ public class PhotoPickerActivity extends AppCompatActivity {
       getSupportFragmentManager().executePendingTransactions();
     }
 
+    //右边的点击事件
+    titlebar.getTvRight().setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        ArrayList<String> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotoPaths();
+        if (photos != null && photos.size() > 0){
+          Intent intent = new Intent();
+          intent.putStringArrayListExtra(KEY_SELECTED_PHOTOS, photos);
+          setResult(RESULT_OK, intent);
+          finish();
+        }else {
+          Toast.makeText(getApplicationContext(),"还没有选择图片",Toast.LENGTH_SHORT).show();
+        }
+      }
+    });
+
     pickerFragment.getPhotoGridAdapter().setOnItemCheckListener(new OnItemCheckListener() {
       @Override public boolean OnItemCheck(int position, Photo photo, final boolean isCheck, int selectedItemCount) {
 
         int total = selectedItemCount + (isCheck ? -1 : 1);
 
-        menuDoneItem.setEnabled(total > 0);
+       // menuDoneItem.setEnabled(total > 0);
+
 
         if (maxCount <= 1) {
           List<Photo> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotos();
@@ -116,7 +134,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
               LENGTH_LONG).show();
           return false;
         }
-        menuDoneItem.setTitle(getString(R.string.__picker_done_with_count, total, maxCount));
+        titlebar.getTvRight().setText(getString(R.string.__picker_done_with_count, total, maxCount));
         return true;
       }
     });
@@ -152,7 +170,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
         .commit();
   }
 
-  @Override public boolean onCreateOptionsMenu(Menu menu) {
+ /* @Override public boolean onCreateOptionsMenu(Menu menu) {
     if (!menuIsInflated) {
       getMenuInflater().inflate(R.menu.__picker_menu_picker, menu);
       menuDoneItem = menu.findItem(R.id.done);
@@ -168,10 +186,10 @@ public class PhotoPickerActivity extends AppCompatActivity {
       return true;
     }
     return false;
-  }
+  }*/
 
 
-  @Override
+ /* @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     if (item.getItemId() == android.R.id.home) {
       super.onBackPressed();
@@ -188,7 +206,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     }
 
     return super.onOptionsItemSelected(item);
-  }
+  }*/
 
   public PhotoPickerActivity getActivity() {
     return this;

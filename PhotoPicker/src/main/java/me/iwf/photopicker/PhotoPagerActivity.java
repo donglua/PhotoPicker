@@ -3,14 +3,11 @@ package me.iwf.photopicker;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.Menu;
@@ -22,6 +19,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.iwf.photopicker.fragment.ImagePagerFragment;
+import me.iwf.photopicker.widget.Titlebar;
 
 import static me.iwf.photopicker.PhotoPicker.KEY_SELECTED_PHOTOS;
 import static me.iwf.photopicker.PhotoPreview.EXTRA_CURRENT_ITEM;
@@ -35,8 +33,9 @@ public class PhotoPagerActivity extends AppCompatActivity {
 
   private ImagePagerFragment pagerFragment;
 
-  private ActionBar actionBar;
+  //private ActionBar actionBar;
   private boolean showDelete;
+  private Titlebar titlebar;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -52,8 +51,12 @@ public class PhotoPagerActivity extends AppCompatActivity {
           (ImagePagerFragment) getSupportFragmentManager().findFragmentById(R.id.photoPagerFragment);
     }
     pagerFragment.setPhotos(paths, currentItem);
+    titlebar = (Titlebar) findViewById(R.id.titlebar);
+    titlebar.init(this);
+    titlebar.setTitle(getString(R.string.__picker_preview));
 
-    Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+    /*Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(mToolbar);
 
     actionBar = getSupportActionBar();
@@ -66,12 +69,15 @@ public class PhotoPagerActivity extends AppCompatActivity {
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
         actionBar.setElevation(25);
       }
-    }
+    }*/
 
 
     pagerFragment.getViewPager().addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
       @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        updateActionBarTitle();
+
+        titlebar.getTvRight().setText(getString(R.string.__picker_image_index, pagerFragment.getViewPager().getCurrentItem() + 1,
+                pagerFragment.getPaths().size()));
+       // updateActionBarTitle();
       }
     });
   }
@@ -172,9 +178,9 @@ public class PhotoPagerActivity extends AppCompatActivity {
     return super.onOptionsItemSelected(item);
   }
 
-  public void updateActionBarTitle() {
+ /* public void updateActionBarTitle() {
     if (actionBar != null) actionBar.setTitle(
         getString(R.string.__picker_image_index, pagerFragment.getViewPager().getCurrentItem() + 1,
             pagerFragment.getPaths().size()));
-  }
+  }*/
 }

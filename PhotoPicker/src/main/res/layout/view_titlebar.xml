@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+    android:layout_height="44dp"
+    tools:ignore="ResourceName">
+    <!--?attr/colorPrimary-->
+
+
+    <ImageView
+       android:scaleType="centerInside"
+        android:id="@+id/iv_left"
+        android:src="@drawable/arrow_back"
+        android:layout_centerVertical="true"
+        android:layout_width="48dp"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_left"
+        android:textColor="@android:color/white"
+        android:text=""
+        android:visibility="gone"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:textSize="15sp"
+        android:paddingLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:textColor="@android:color/white"
+        android:layout_centerInParent="true"
+        android:textSize="18sp"
+        android:text="djslfjds"
+        android:gravity="center"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:id="@+id/tv_right"
+        android:textColor="@android:color/white"
+        android:text="jfdsljfdls"
+        android:gravity="center"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textSize="15sp"
+        android:paddingRight="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+        android:id="@+id/iv_right"
+            android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+       android:scaleType="centerInside"
+        android:layout_width="48dp"
+        android:layout_height="44dp" />
+
+
+
+
+</RelativeLayout>

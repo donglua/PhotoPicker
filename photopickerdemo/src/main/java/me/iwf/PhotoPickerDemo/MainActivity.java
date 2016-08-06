@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-
     PhotoPickUtils.onActivityResult(requestCode, resultCode, data, new PhotoPickUtils.PickHandler() {
       @Override
       public void onSuccess(ArrayList<String> photos) {
@@ -112,10 +111,9 @@ public class MainActivity extends AppCompatActivity {
 
       @Override
       public void onFail(String error) {
+        Toast.makeText(MainActivity.this,error,Toast.LENGTH_LONG).show();
         selectedPhotos.clear();
         photoAdapter.notifyDataSetChanged();
-        Toast.makeText(MainActivity.this,error,Toast.LENGTH_LONG).show();
-
       }
 
       @Override
@@ -123,6 +121,10 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this,"取消选择",Toast.LENGTH_LONG).show();
       }
     });
+
+
+
+
    /* if (resultCode == RESULT_OK &&
         (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
 
@@ -224,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
             .setPhotoCount(9)
             .setGridColumnCount(4)
             .start(this);*/
-        PhotoPickUtils.startPick(this,9);
+        PhotoPickUtils.startPick(this);
         break;
       }
 

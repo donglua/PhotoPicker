@@ -12,4 +12,9 @@
   <color name="__picker_item_photo_border_selected">#ff99cc00</color>
   <color name="__picker_item_photo_border_n">#33ffffff</color>
 
+  <color name="__picker_item_selected_cover">#99000000</color><!--70%BU透明度-->
+
+  <color name="__picker_item_unselected_center">#00000000</color><!--100%透明度-->
+  <color name="__picker_item_unselected_border">#40000000</color><!--25%透明度-->
+
 </resources>

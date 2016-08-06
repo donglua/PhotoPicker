@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-
+<!--中间蒙版层，为选中时，为中间向上下渐变，选中时，黑色半透明蒙版-->
   <item android:state_selected="true">
     <shape>
-      <stroke android:color="@color/__picker_item_photo_border_selected"
-          android:width="1dip"/>
+
+      <solid android:color="@color/__picker_item_selected_cover"/>
     </shape>
   </item>
 
   <item>
     <shape>
-      <stroke android:color="@color/__picker_item_photo_border_n"
-          android:width="1dip"/>
+      <gradient
+          android:startColor="@color/__picker_item_unselected_border"
+          android:endColor="@color/__picker_item_unselected_border"
+          android:centerX="0.5"
+          android:centerY="0.5"
+          android:centerColor="@color/__picker_item_unselected_center"
+          android:angle="90"
+        android:type="linear">
+
+      </gradient>
+
     </shape>
   </item>
 

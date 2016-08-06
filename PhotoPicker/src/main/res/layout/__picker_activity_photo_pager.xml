@@ -2,12 +2,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     android:orientation="vertical"
-    tools:context="${relativePackage}.${activityClass}"
-    >
+    tools:context="${relativePackage}.${activityClass}">
 
-  <include layout="@layout/__picker_toolbar"/>
+  <!--<include layout="@layout/__picker_toolbar"/>-->
+  <me.iwf.photopicker.widget.Titlebar
+      android:id="@+id/titlebar"
+      app:mtb_title="@string/__picker_title"
+      android:layout_width="match_parent"
+      android:layout_height="44dp"
+      android:background="?attr/colorPrimary"/>
 
   <FrameLayout
       android:id="@+id/container"

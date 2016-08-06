@@ -40,7 +40,7 @@
           android:textColor="@android:color/white"
           android:id="@+id/btn_preview"
           android:textSize="14sp"
-          android:text="预览"
+          android:text="@string/__picker_preview"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content" />
 

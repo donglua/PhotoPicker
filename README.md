@@ -1,90 +1,86 @@
 
-# PhotoPicker
-[![CircleCI](https://circleci.com/gh/donglua/PhotoPicker/tree/master.svg?style=svg)](https://circleci.com/gh/donglua/PhotoPicker/tree/master)
-[![Build Status](https://travis-ci.org/donglua/PhotoPicker.svg?branch=master)](https://travis-ci.org/donglua/PhotoPicker)
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PhotoPicker-green.svg?style=flat)](https://android-arsenal.com/details/1/2091)
-[ ![Download](https://api.bintray.com/packages/donglua/maven/PhotoPicker/images/download.svg) ](https://bintray.com/donglua/maven/PhotoPicker/_latestVersion)
-[![API](https://img.shields.io/badge/API-10%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=10)
+# 微信ui版的PhotoPicker
+本项目fork 自[photoPicker](https://github.com/donglua/PhotoPicker)
+
+
+
+参考微信的图片选择ui，对原项目photoPicker进行改写。
+
+标题栏：去除难用的toolbar，改成自定义的titlebar。高度44dp，标题居中，颜色引用activity主题设置colorPrimary.可以自己设置.
+
+底部弹出框：原项目两边有间距，现改成铺满屏幕宽度弹出
+
+默认图片更改成黑灰色背景，让滑动时图片闪动不会那么突兀
+
+图片item再加一层蒙版，未选择状态时，由中间向上下浅黑透明渐变，选择状态下，颜色变黑。
+
+选择框： 未选状态下由原来的不透明变成透明，选中状态时图标颜色使用微信的绿色。
+
+
 
 ---
 
-# Example
-![](http://ww2.sinaimg.cn/large/5e9a81dbgw1etra5iu80lj206z0cet8r.jpg)
-![](http://ww2.sinaimg.cn/large/5e9a81dbgw1etra61rnr9j206z0ce3yu.jpg)
-![](http://ww4.sinaimg.cn/large/5e9a81dbgw1etra6efl1hj206z0cewet.jpg)
-![](http://ww3.sinaimg.cn/large/5e9a81dbgw1etra6q2edzj206z0cedgg.jpg)
+# 效果图
+ ![all](all.jpg)
 
-<p style="float:left;">
- <a href="https://play.google.com/store/apps/details?id=me.iwf.PhotoPickerDemo&utm_source=global_co&utm_medium=prtnr&utm_content=Mar2515&utm_campaign=PartBadge&pcampaignid=MKT-AC-global-none-all-co-pr-py-PartBadges-Oct1515-1">
- <img HEIGHT="80" WIDTH="270" alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png" />
- </a>
-</p>
+
+
+
+文件夹切换：底部弹窗
+
+
+
+ ![popwin](popwin.jpg)
+
+
+
+
+
+图片预览：
+
+ ![preview](preview.jpg)
+
+
 
 ---
 
 # Usage
 
-### Gradle
+### gradle 还未上传，直接拉源代码吧。
 
-```groovy
-dependencies {
-    compile 'me.iwf.photopicker:PhotoPicker:0.8.5@aar'
-    
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-}
-```
 
-### eclipse
-[![GO HOME](http://ww4.sinaimg.cn/large/5e9a81dbgw1eu90m08v86j20dw09a3yu.jpg)
+
+
+
+
 
 ### Pick Photo
 ```java
-// PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
-// intent.setPhotoCount(9);
-// intent.setShowCamera(true);
-// intent.setShowGif(true);
-// startActivityForResult(intent, REQUEST_CODE);
-PhotoPicker.builder()
-    .setPhotoCount(9)
-    .setShowCamera(true)
-    .setShowGif(true)
-    .setPreviewEnabled(false)
-    .start(this, PhotoPicker.REQUEST_CODE);
+PhotoPickUtils.startPick(this);
 ```
 
-### Preview Photo
-
-```java
-// ArrayList<String> photoPaths = ...;
-
-// Intent intent = new Intent(mContext, PhotoPagerActivity.class);
-// intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, position);
-// intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
-// intent.putExtra(PhotoPagerActivity.EXTRA_SHOW_DELETE, false); // default is true
-// startActivityForResult(intent, REQUEST_CODE);
-
-PhotoPreview.builder()
-    .setPhotos(selectedPhotos)
-    .setCurrentItem(position)
-    .start(MainActivity.this);
-```
+### 
 
 ### onActivityResult
 ```java
-@Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-  super.onActivityResult(requestCode, resultCode, data);
+ @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    PhotoPickUtils.onActivityResult(requestCode, resultCode, data, new 		PhotoPickUtils.PickHandler() {
+      @Override
+      public void onSuccess(ArrayList<String> photos) {//已经预先做了null或size为0的判断
+       
+      }
 
-  if (resultCode == RESULT_OK && requestCode == PhotoPicker.REQUEST_CODE) {
-    if (data != null) {
-      ArrayList<String> photos = 
-          data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-    }
-  }
-}
+      @Override
+      public void onFail(String error) {
+        Toast.makeText(MainActivity.this,error,Toast.LENGTH_LONG).show();
+      }
+
+      @Override
+      public void onCancle() {
+        Toast.makeText(MainActivity.this,"取消选择",Toast.LENGTH_LONG).show();
+      }
+    });
 ```
 
 ### manifest
@@ -99,29 +95,24 @@ PhotoPreview.builder()
     ...
     
     <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
-      android:theme="@style/Theme.AppCompat.NoActionBar" 
+      android:theme="@style/customTheme" 
        />
 
     <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
-      android:theme="@style/Theme.AppCompat.NoActionBar"/>
+      android:theme="@style/customTheme"/>
     
   </application>
 </manifest>
 ```
 ### Custom style
 ```xml
-<style name="actionBarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-  <item name="android:textColorPrimary">@android:color/primary_text_light</item>
-  <item name="actionBarSize">@dimen/actionBarSize</item>
-</style>
-
 <style name="customTheme" parent="Theme.AppCompat.Light.NoActionBar">
-  <item name="actionBarTheme">@style/actionBarTheme</item>
-  <item name="colorPrimary">#FFA500</item>
-  <item name="actionBarSize">@dimen/actionBarSize</item>
+  <item name="colorPrimary">#FFA500</item>//标题栏背景色
   <item name="colorPrimaryDark">#CCa500</item>
 </style>
 ```
+
+
 
 ### Proguard
 
@@ -152,23 +143,7 @@ PhotoPreview.builder()
 
 ---
 
+# Thanks 
 
-# License
-
-    Copyright 2015 Huang Donglu
-
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/donglua/photopicker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+[Photopicker](https://github.com/donglua/PhotoPicker)
 
