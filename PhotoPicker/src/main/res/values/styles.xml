@@ -4,6 +4,9 @@
         <item name="android:colorPrimary" tools:targetApi="lollipop">#5677fc</item>
         <item name="android:colorPrimaryDark" tools:targetApi="lollipop">#3b50ce</item>
     </style>
-
+    <style name="__picker_mystyle" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_enter</item>  //进入时的动画
+        <item name="@android:windowExitAnimation">@anim/dialog_exit</item>    //退出时的动画
+    </style>
 
 </resources>

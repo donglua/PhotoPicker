@@ -157,12 +157,14 @@ public class PhotoPickerFragment extends Fragment {
     WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
     int widths = wm.getDefaultDisplay().getWidth();
     listPopupWindow.setWidth(widths);//ListPopupWindow.MATCH_PARENT还是会有边距，直接拿到屏幕宽度来设置也不行，因为默认的background有左右padding值。
+  /*  int height = wm.getDefaultDisplay().getHeight();
+    listPopupWindow.setHeight((int) (height *0.7));*/
     listPopupWindow.setAnchorView(btSwitchDirectory);
     listPopupWindow.setAdapter(listAdapter);
     listPopupWindow.setModal(true);
 
     listPopupWindow.setDropDownGravity(Gravity.BOTTOM);
-    listPopupWindow.setAnimationStyle(R.style.Animation_AppCompat_DropDownUp);
+    listPopupWindow.setAnimationStyle(R.style.__picker_mystyle);
 
     listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
       @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

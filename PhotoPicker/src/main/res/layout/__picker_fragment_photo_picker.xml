@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:background="@android:color/black"
     android:layout_width="match_parent"
@@ -10,14 +10,14 @@
       android:id="@+id/rv_photos"
       android:layout_width="match_parent"
       android:gravity="center"
-      android:layout_weight="1"
-      android:layout_height="0dip"
+      android:layout_height="match_parent"
       />
 
 
   <RelativeLayout
+      android:layout_alignParentBottom="true"
       android:layout_width="match_parent"
-      android:background="#4d4f4c"
+      android:background="#e54d4f4c"
       android:layout_height="wrap_content"
       >
         <Button
@@ -46,4 +46,4 @@
 
   </RelativeLayout>
 
-</LinearLayout>
+</RelativeLayout>
