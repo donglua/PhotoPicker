@@ -54,11 +54,17 @@
       android:layout_centerHorizontal="true"
       />
 
-  <android.support.v7.widget.RecyclerView
+  <!--<android.support.v7.widget.RecyclerView
       android:id="@+id/recycler_view"
       android:layout_below="@id/button_multiple_picked"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      />
+      />-->
+
+  <me.iwf.photopicker.widget.MultiPickResultView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/recycler_view"
+      android:layout_below="@id/button_multiple_picked"/>
 
 </RelativeLayout>

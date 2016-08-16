@@ -19,12 +19,14 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.iwf.photopicker.fragment.ImagePagerFragment;
+import me.iwf.photopicker.widget.MultiPickResultView;
 import me.iwf.photopicker.widget.Titlebar;
 
 import static me.iwf.photopicker.PhotoPicker.KEY_SELECTED_PHOTOS;
 import static me.iwf.photopicker.PhotoPreview.EXTRA_CURRENT_ITEM;
 import static me.iwf.photopicker.PhotoPreview.EXTRA_PHOTOS;
 import static me.iwf.photopicker.PhotoPreview.EXTRA_SHOW_DELETE;
+import static me.iwf.photopicker.PhotoPreview.EXTRA_ACTION;
 
 /**
  * Created by donglua on 15/6/24.
@@ -45,6 +47,7 @@ public class PhotoPagerActivity extends AppCompatActivity {
     int currentItem = getIntent().getIntExtra(EXTRA_CURRENT_ITEM, 0);
     List<String> paths = getIntent().getStringArrayListExtra(EXTRA_PHOTOS);
     showDelete = getIntent().getBooleanExtra(EXTRA_SHOW_DELETE, true);
+    int action = getIntent().getIntExtra(EXTRA_ACTION, MultiPickResultView.ACTION_ONLY_SHOW);
 
     if (pagerFragment == null) {
       pagerFragment =
@@ -53,6 +56,18 @@ public class PhotoPagerActivity extends AppCompatActivity {
     pagerFragment.setPhotos(paths, currentItem);
     titlebar = (Titlebar) findViewById(R.id.titlebar);
     titlebar.init(this);
+    if (action == MultiPickResultView.ACTION_SELECT){
+      titlebar.setRitht(getApplicationContext().getResources().getDrawable(R.drawable.__picker_delete), "", new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+          int position = pagerFragment.getViewPager().getCurrentItem();
+          pagerFragment.getPaths().remove(position);
+          pagerFragment.getViewPager().getAdapter().notifyDataSetChanged();
+
+        }
+      });
+    }
+
     titlebar.setTitle(getString(R.string.__picker_preview));
 
 
@@ -75,7 +90,7 @@ public class PhotoPagerActivity extends AppCompatActivity {
     pagerFragment.getViewPager().addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
       @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-        titlebar.getTvRight().setText(getString(R.string.__picker_image_index, pagerFragment.getViewPager().getCurrentItem() + 1,
+        titlebar.setTitle(getString(R.string.__picker_preview) +" "+getString(R.string.__picker_image_index, pagerFragment.getViewPager().getCurrentItem() + 1,
                 pagerFragment.getPaths().size()));
        // updateActionBarTitle();
       }

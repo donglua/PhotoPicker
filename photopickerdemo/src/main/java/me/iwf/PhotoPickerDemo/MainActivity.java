@@ -8,18 +8,14 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import me.iwf.PhotoPickerDemo.RecyclerItemClickListener.OnItemClickListener;
 import me.iwf.photopicker.PhotoPickUtils;
 import me.iwf.photopicker.PhotoPicker;
-import me.iwf.photopicker.PhotoPreview;
+import me.iwf.photopicker.widget.MultiPickResultView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
       mViewId = viewId;
     }
   }
-  RecyclerView recyclerView;
-  PhotoAdapter photoAdapter;
+  MultiPickResultView recyclerView;
+ /* PhotoAdapter photoAdapter;
 
-  ArrayList<String> selectedPhotos = new ArrayList<>();
+  ArrayList<String> selectedPhotos = new ArrayList<>();*/
 
   //public final static int REQUEST_CODE = 1;
 
@@ -46,11 +42,19 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-    photoAdapter = new PhotoAdapter(this, selectedPhotos);
+    recyclerView = (MultiPickResultView) findViewById(R.id.recycler_view);
+    ArrayList<String> photos = new ArrayList<>();
+    photos.add("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2545179197,2573899739&fm=21&gp=0.jpg");
+    photos.add("https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1471325032244&di=71570ed352a1b823584c3b3b1b5bd57f&imgtype=jpg&src=http%3A%2F%2Ffile27.mafengwo.net%2FM00%2FB2%2F12%2FwKgB6lO0ahWAMhL8AAV1yBFJDJw20.jpeg");
+    photos.add("https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1471325032243&di=67dfaed98491c3a94965571ed4343951&imgtype=jpg&src=http%3A%2F%2Fwww.5068.com%2Fu%2Ffaceimg%2F20140725173411.jpg");
+    photos.add("https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1471325032243&di=d40f796d46782144ba0adf798253f080&imgtype=jpg&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg");
+    photos.add("https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1471325032243&di=bbb10b09ddb5338b53432af1c3789c39&imgtype=jpg&src=http%3A%2F%2Ffile25.mafengwo.net%2FM00%2F0A%2FAA%2FwKgB4lMC256AYLqGAAGklurKzyM52.rbook_comment.w1024.jpeg");
+
+    recyclerView.init(this,MultiPickResultView.ACTION_SELECT,null);
+  /*  photoAdapter = new PhotoAdapter(this, selectedPhotos);
 
     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
-    recyclerView.setAdapter(photoAdapter);
+    recyclerView.setAdapter(photoAdapter);*/
 
 
     findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
@@ -90,38 +94,49 @@ public class MainActivity extends AppCompatActivity {
 
     });
 
-    recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new OnItemClickListener() {
+   /* recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new OnItemClickListener() {
       @Override public void onItemClick(View view, int position) {
+
+
         PhotoPreview.builder()
             .setPhotos(selectedPhotos)
             .setCurrentItem(position)
             .start(MainActivity.this);
       }
-    }));
+    }));*/
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    PhotoPickUtils.onActivityResult(requestCode, resultCode, data, new PhotoPickUtils.PickHandler() {
+
+    recyclerView.onActivityResult(requestCode,resultCode,data);
+
+   /* PhotoPickUtils.onActivityResult(requestCode, resultCode, data, new PhotoPickUtils.PickHandler() {
       @Override
-      public void onSuccess(ArrayList<String> photos) {
-        selectedPhotos.clear();
-        selectedPhotos.addAll(photos);
-        photoAdapter.notifyDataSetChanged();
+      public void onPickSuccess(ArrayList<String> photos) {
+
+        photoAdapter.add(photos);
       }
 
       @Override
-      public void onFail(String error) {
+      public void onPreviewBack(ArrayList<String> photos) {
+        photoAdapter.refresh(photos);
+      }
+
+      @Override
+      public void onPickFail(String error) {
         Toast.makeText(MainActivity.this,error,Toast.LENGTH_LONG).show();
         selectedPhotos.clear();
         photoAdapter.notifyDataSetChanged();
       }
 
       @Override
-      public void onCancle() {
+      public void onPickCancle() {
         Toast.makeText(MainActivity.this,"取消选择",Toast.LENGTH_LONG).show();
       }
     });
+*/
+    //photoAdapter.refresh();
 
 
 
@@ -227,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
             .setPhotoCount(9)
             .setGridColumnCount(4)
             .start(this);*/
-        PhotoPickUtils.startPick(this);
+        PhotoPickUtils.startPick(this,null);
         break;
       }
 
@@ -274,12 +289,12 @@ public class MainActivity extends AppCompatActivity {
         //PhotoPickerIntent.setShowCamera(intent, true);
         //PhotoPickerIntent.setSelected(intent,selectedPhotos);
         //startActivityForResult(intent, REQUEST_CODE);
-        PhotoPicker.builder()
+       /* PhotoPicker.builder()
             .setPhotoCount(4)
             .setShowCamera(true)
             .setSelected(selectedPhotos)
             .start(this);
-        break;
+        break;*/
       }
     }
   }

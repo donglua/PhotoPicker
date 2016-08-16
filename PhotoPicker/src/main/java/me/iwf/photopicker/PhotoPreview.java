@@ -19,6 +19,8 @@ public class PhotoPreview {
   public final static String EXTRA_PHOTOS       = "photos";
   public final static String EXTRA_SHOW_DELETE  = "show_delete";
 
+  public final static String EXTRA_ACTION       = "action";
+
 
   public static PhotoPreviewBuilder builder() {
     return new PhotoPreviewBuilder();
@@ -85,6 +87,11 @@ public class PhotoPreview {
 
     public PhotoPreviewBuilder setPhotos(ArrayList<String> photoPaths) {
       mPreviewOptionsBundle.putStringArrayList(EXTRA_PHOTOS, photoPaths);
+      return this;
+    }
+
+    public PhotoPreviewBuilder setAction(int action) {
+      mPreviewOptionsBundle.putInt(EXTRA_ACTION, action);
       return this;
     }
 

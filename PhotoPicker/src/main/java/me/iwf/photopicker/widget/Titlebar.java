@@ -151,16 +151,25 @@ public class Titlebar extends FrameLayout {
             tvRight.setVisibility(VISIBLE);
             tvRight.setText(rightTxt);
             ivRight.setVisibility(GONE);
+            if (listener != null){
+                rightOnclickListener = listener;
+                tvRight.setOnClickListener(rightOnclickListener);
+            }
         }else if (rightDrawable != null){
             ivRight.setVisibility(VISIBLE);
             tvRight.setVisibility(GONE);
             ivRight.setImageDrawable(rightDrawable);
+            if (listener != null){
+                rightOnclickListener = listener;
+                ivRight.setOnClickListener(rightOnclickListener);
+            }
         }else {
 
         }
 
         if (listener != null){
             rightOnclickListener = listener;
+            ivRight.setOnClickListener(rightOnclickListener);
         }
     }
 

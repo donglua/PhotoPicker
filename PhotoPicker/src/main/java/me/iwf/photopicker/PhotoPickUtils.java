@@ -14,36 +14,46 @@ public class PhotoPickUtils {
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == PhotoPicker.REQUEST_CODE) {//第一次，选择图片后返回
-
                 if (data != null) {
                     ArrayList<String> photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-                    if (photos != null){
+                    pickHandler.onPickSuccess(photos);
+                   /* if (photos != null){
                         if (photos.size() >0){
-                            pickHandler.onSuccess(photos);
+
                         }else {
-                            pickHandler.onFail("未选择图片1");
+                            pickHandler.onPickFail("未选择图片1");
                         }
                     }else {
-                        pickHandler.onFail("未选择图片2");
-                    }
+                        pickHandler.onPickFail("未选择图片2");
+                    }*/
                 } else {
-                    pickHandler.onFail("选择图片失败3");
+                    pickHandler.onPickFail("选择图片失败");
                 }
+            }else if (requestCode == PhotoPreview.REQUEST_CODE){//如果是预览与删除后返回
+                if (data != null) {
+                    ArrayList<String> photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+                    pickHandler.onPreviewBack(photos);
+                } else {
+                   // pickHandler.onPickFail("选择图片失败");
+                }
+
             }
         }else {
+
             if (requestCode == PhotoPicker.REQUEST_CODE){
-                pickHandler.onCancle();
+                pickHandler.onPickCancle();
             }
         }
 
 
     }
 
-    public static void startPick(Activity context){
+    public static void startPick(Activity context,ArrayList<String> photos){
         PhotoPicker.builder()
                 .setPhotoCount(9)
                 .setShowCamera(true)
                 .setShowGif(true)
+                .setSelected(photos)
                 .setPreviewEnabled(true)
                 .start(context, PhotoPicker.REQUEST_CODE);
     }
@@ -51,8 +61,9 @@ public class PhotoPickUtils {
 
 
     public interface  PickHandler{
-        void onSuccess(ArrayList<String> photos);
-        void onFail(String error);
-        void onCancle();
+        void onPickSuccess(ArrayList<String> photos);
+        void onPreviewBack(ArrayList<String> photos);
+        void onPickFail(String error);
+        void onPickCancle();
     }
 }

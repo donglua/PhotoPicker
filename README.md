@@ -77,12 +77,12 @@ PhotoPickUtils.startPick(this);
     super.onActivityResult(requestCode, resultCode, data);
     PhotoPickUtils.onActivityResult(requestCode, resultCode, data, new 		PhotoPickUtils.PickHandler() {
       @Override
-      public void onSuccess(ArrayList<String> photos) {//已经预先做了null或size为0的判断
+      public void onPickSuccess(ArrayList<String> photos) {//已经预先做了null或size为0的判断
        
       }
 
       @Override
-      public void onFail(String error) {
+      public void onPickFail(String error) {
         Toast.makeText(MainActivity.this,error,Toast.LENGTH_LONG).show();
       }
 
