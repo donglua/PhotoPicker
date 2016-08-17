@@ -37,6 +37,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 ```
+* ```appcompat-v7```version >= 23.0.0
 
 ### eclipse
 [![GO HOME](http://ww4.sinaimg.cn/large/5e9a81dbgw1eu90m08v86j20dw09a3yu.jpg)
