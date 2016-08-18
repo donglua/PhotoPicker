@@ -1,5 +1,6 @@
 
 # PhotoPicker
+[![CircleCI](https://circleci.com/gh/donglua/PhotoPicker/tree/master.svg?style=svg)](https://circleci.com/gh/donglua/PhotoPicker/tree/master)
 [![Build Status](https://travis-ci.org/donglua/PhotoPicker.svg?branch=master)](https://travis-ci.org/donglua/PhotoPicker)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-PhotoPicker-green.svg?style=flat)](https://android-arsenal.com/details/1/2091)
 [ ![Download](https://api.bintray.com/packages/donglua/maven/PhotoPicker/images/download.svg) ](https://bintray.com/donglua/maven/PhotoPicker/_latestVersion)
@@ -27,38 +28,50 @@
 
 ```groovy
 dependencies {
-    compile 'me.iwf.photopicker:PhotoPicker:0.8.1@aar'
+    compile 'me.iwf.photopicker:PhotoPicker:0.8.9@aar'
     
-    compile 'com.android.support:appcompat-v7:23.1.1'
-    compile 'com.android.support:recyclerview-v7:23.1.1'
-    compile 'com.android.support:design:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
     compile 'com.nineoldandroids:library:2.4.0'
-    compile 'com.github.bumptech.glide:glide:3.6.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 ```
+* ```appcompat-v7```version >= 23.0.0
 
 ### eclipse
 [![GO HOME](http://ww4.sinaimg.cn/large/5e9a81dbgw1eu90m08v86j20dw09a3yu.jpg)
 
 ### Pick Photo
 ```java
-PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
-intent.setPhotoCount(9);
-intent.setShowCamera(true);
-intent.setShowGif(true);
-startActivityForResult(intent, REQUEST_CODE);
+// PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
+// intent.setPhotoCount(9);
+// intent.setShowCamera(true);
+// intent.setShowGif(true);
+// startActivityForResult(intent, REQUEST_CODE);
+PhotoPicker.builder()
+    .setPhotoCount(9)
+    .setShowCamera(true)
+    .setShowGif(true)
+    .setPreviewEnabled(false)
+    .start(this, PhotoPicker.REQUEST_CODE);
 ```
 
 ### Preview Photo
 
 ```java
-ArrayList<String> photoPaths = ...;
+// ArrayList<String> photoPaths = ...;
 
-Intent intent = new Intent(mContext, PhotoPagerActivity.class);
-intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, position);
-intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
-intent.putExtra(PhotoPagerActivity.EXTRA_SHOW_DELETE, false); // default is true
-startActivityForResult(intent, REQUEST_CODE);
+// Intent intent = new Intent(mContext, PhotoPagerActivity.class);
+// intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, position);
+// intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
+// intent.putExtra(PhotoPagerActivity.EXTRA_SHOW_DELETE, false); // default is true
+// startActivityForResult(intent, REQUEST_CODE);
+
+PhotoPreview.builder()
+    .setPhotos(selectedPhotos)
+    .setCurrentItem(position)
+    .start(MainActivity.this);
 ```
 
 ### onActivityResult
@@ -66,10 +79,10 @@ startActivityForResult(intent, REQUEST_CODE);
 @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
   super.onActivityResult(requestCode, resultCode, data);
 
-  if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+  if (resultCode == RESULT_OK && requestCode == PhotoPicker.REQUEST_CODE) {
     if (data != null) {
       ArrayList<String> photos = 
-          data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+          data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
     }
   }
 }
@@ -98,13 +111,16 @@ startActivityForResult(intent, REQUEST_CODE);
 ```
 ### Custom style
 ```xml
-<style name="myTheme.actionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-  <item name="android:textColorPrimary">#0000ff</item>
+<style name="actionBarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+  <item name="android:textColorPrimary">@android:color/primary_text_light</item>
+  <item name="actionBarSize">@dimen/actionBarSize</item>
 </style>
 
-<style name="myTheme" parent="Theme.AppCompat.Light.NoActionBar">
-  <item name="actionBarTheme">@style/myTheme.actionBar</item>
-  <item name="colorPrimary">#00FF00</item>
+<style name="customTheme" parent="Theme.AppCompat.Light.NoActionBar">
+  <item name="actionBarTheme">@style/actionBarTheme</item>
+  <item name="colorPrimary">#FFA500</item>
+  <item name="actionBarSize">@dimen/actionBarSize</item>
+  <item name="colorPrimaryDark">#CCa500</item>
 </style>
 ```
 

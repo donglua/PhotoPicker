@@ -9,6 +9,7 @@ import android.support.v4.content.Loader;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.entity.PhotoDirectory;
 
@@ -17,7 +18,6 @@ import static android.provider.MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAM
 import static android.provider.MediaStore.Images.ImageColumns.BUCKET_ID;
 import static android.provider.MediaStore.MediaColumns.DATA;
 import static android.provider.MediaStore.MediaColumns.DATE_ADDED;
-import static me.iwf.photopicker.PhotoPickerActivity.EXTRA_SHOW_GIF;
 
 /**
  * Created by donglua on 15/5/31.
@@ -43,7 +43,7 @@ public class MediaStoreHelper {
     }
 
     @Override public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-      return new PhotoDirectoryLoader(context.get(), args.getBoolean(EXTRA_SHOW_GIF, false));
+      return new PhotoDirectoryLoader(context.get(), args.getBoolean(PhotoPicker.EXTRA_SHOW_GIF, false));
     }
 
     @Override public void onLoadFinished(Loader<Cursor> loader, Cursor data) {

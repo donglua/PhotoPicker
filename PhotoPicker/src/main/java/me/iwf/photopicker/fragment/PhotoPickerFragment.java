@@ -1,5 +1,6 @@
 package me.iwf.photopicker.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +32,9 @@ import me.iwf.photopicker.utils.ImageCaptureManager;
 import me.iwf.photopicker.utils.MediaStoreHelper;
 
 import static android.app.Activity.RESULT_OK;
-import static me.iwf.photopicker.PhotoPickerActivity.DEFAULT_COLUMN_NUMBER;
-import static me.iwf.photopicker.PhotoPickerActivity.EXTRA_SHOW_GIF;
+import static me.iwf.photopicker.PhotoPicker.DEFAULT_COLUMN_NUMBER;
+import static me.iwf.photopicker.PhotoPicker.EXTRA_PREVIEW_ENABLED;
+import static me.iwf.photopicker.PhotoPicker.EXTRA_SHOW_GIF;
 import static me.iwf.photopicker.utils.MediaStoreHelper.INDEX_ALL_PHOTOS;
 
 /**
@@ -58,11 +61,15 @@ public class PhotoPickerFragment extends Fragment {
   private final static String EXTRA_GIF = "gif";
   private final static String EXTRA_ORIGIN = "origin";
   private ListPopupWindow listPopupWindow;
+  private RequestManager mGlideRequestManager;
+  private Context mContext;
 
-  public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif, int column, int maxCount, ArrayList<String> originalPhotos) {
+  public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif,
+      boolean previewEnable, int column, int maxCount, ArrayList<String> originalPhotos) {
     Bundle args = new Bundle();
     args.putBoolean(EXTRA_CAMERA, showCamera);
     args.putBoolean(EXTRA_GIF, showGif);
+    args.putBoolean(EXTRA_PREVIEW_ENABLED, previewEnable);
     args.putInt(EXTRA_COLUMN, column);
     args.putInt(EXTRA_COUNT, maxCount);
     args.putStringArrayList(EXTRA_ORIGIN, originalPhotos);
@@ -71,17 +78,28 @@ public class PhotoPickerFragment extends Fragment {
     return fragment;
   }
 
+  @Override public void onAttach(Context context) {
+    super.onAttach(context);
+    mContext = context;
+  }
+
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
+    setRetainInstance(true);
+
+    mGlideRequestManager = Glide.with(this);
 
     directories = new ArrayList<>();
     originalPhotos = getArguments().getStringArrayList(EXTRA_ORIGIN);
 
     column = getArguments().getInt(EXTRA_COLUMN, DEFAULT_COLUMN_NUMBER);
     boolean showCamera = getArguments().getBoolean(EXTRA_CAMERA, true);
+    boolean previewEnable = getArguments().getBoolean(EXTRA_PREVIEW_ENABLED, true);
 
-    photoGridAdapter = new PhotoGridAdapter(getContext(), directories, originalPhotos, column);
+    photoGridAdapter = new PhotoGridAdapter(mContext, mGlideRequestManager, directories, originalPhotos, column);
     photoGridAdapter.setShowCamera(showCamera);
+    photoGridAdapter.setPreviewEnable(previewEnable);
 
     Bundle mediaStoreArgs = new Bundle();
 
@@ -99,18 +117,15 @@ public class PhotoPickerFragment extends Fragment {
         });
 
     captureManager = new ImageCaptureManager(getActivity());
-
   }
 
 
   @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
 
-    setRetainInstance(true);
-
     final View rootView = inflater.inflate(R.layout.__picker_fragment_photo_picker, container, false);
 
-    listAdapter  = new PopupDirectoryListAdapter(Glide.with(this), directories);
+    listAdapter  = new PopupDirectoryListAdapter(mGlideRequestManager, directories);
 
     RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
     StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(column, OrientationHelper.VERTICAL);
@@ -187,18 +202,17 @@ public class PhotoPickerFragment extends Fragment {
         super.onScrolled(recyclerView, dx, dy);
         // Log.d(">>> Picker >>>", "dy = " + dy);
         if (Math.abs(dy) > SCROLL_THRESHOLD) {
-          Glide.with(getActivity()).pauseRequests();
+          mGlideRequestManager.pauseRequests();
         } else {
-          Glide.with(getActivity()).resumeRequests();
+          mGlideRequestManager.resumeRequests();
         }
       }
       @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-          Glide.with(getActivity()).resumeRequests();
+          mGlideRequestManager.resumeRequests();
         }
       }
     });
-
 
     return rootView;
   }
@@ -238,8 +252,17 @@ public class PhotoPickerFragment extends Fragment {
     return photoGridAdapter.getSelectedPhotoPaths();
   }
 
-  @Override public void onDetach() {
-    super.onDetach();
+  public void adjustHeight() {
+    if (listAdapter == null) return;
+    int count = listAdapter.getCount();
+    count = count < COUNT_MAX ? count : COUNT_MAX;
+    if (listPopupWindow != null) {
+      listPopupWindow.setHeight(count * getResources().getDimensionPixelOffset(R.dimen.__picker_item_directory_height));
+    }
+  }
+
+  @Override public void onDestroy() {
+    super.onDestroy();
 
     if (directories == null) {
       return;
@@ -252,16 +275,5 @@ public class PhotoPickerFragment extends Fragment {
     }
     directories.clear();
     directories = null;
-
   }
-
-  public void adjustHeight() {
-    if (listAdapter == null) return;
-    int count = listAdapter.getCount();
-    count = count < COUNT_MAX ? count : COUNT_MAX;
-    if (listPopupWindow != null) {
-      listPopupWindow.setHeight(count * getResources().getDimensionPixelOffset(R.dimen.__picker_item_directory_height));
-    }
-  }
-
 }

@@ -13,12 +13,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import me.iwf.photopicker.PhotoPickerActivity;
-import me.iwf.photopicker.utils.PhotoPickerIntent;
+import me.iwf.PhotoPickerDemo.RecyclerItemClickListener.OnItemClickListener;
+import me.iwf.photopicker.PhotoPicker;
+import me.iwf.photopicker.PhotoPreview;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
   ArrayList<String> selectedPhotos = new ArrayList<>();
 
-  public final static int REQUEST_CODE = 1;
-
+  //public final static int REQUEST_CODE = 1;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -90,21 +88,25 @@ public class MainActivity extends AppCompatActivity {
 
     });
 
+    recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new OnItemClickListener() {
+      @Override public void onItemClick(View view, int position) {
+        PhotoPreview.builder()
+            .setPhotos(selectedPhotos)
+            .setCurrentItem(position)
+            .start(MainActivity.this);
+      }
+    }));
   }
-
-
-  public void previewPhoto(Intent intent) {
-    startActivityForResult(intent, REQUEST_CODE);
-  }
-
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
 
-    List<String> photos = null;
-    if (resultCode == RESULT_OK && requestCode == REQUEST_CODE) {
+    if (resultCode == RESULT_OK &&
+        (requestCode == PhotoPicker.REQUEST_CODE || requestCode == PhotoPreview.REQUEST_CODE)) {
+
+      List<String> photos = null;
       if (data != null) {
-        photos = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+        photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
       }
       selectedPhotos.clear();
 
@@ -192,44 +194,65 @@ public class MainActivity extends AppCompatActivity {
 
     switch (viewId) {
       case R.id.button: {
-        Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
-        PhotoPickerIntent.setPhotoCount(intent, 9);
-        PhotoPickerIntent.setColumn(intent, 4);
-        startActivityForResult(intent, REQUEST_CODE);
+        //Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
+        //PhotoPickerIntent.setPhotoCount(intent, 9);
+        //PhotoPickerIntent.setColumn(intent, 4);
+        //startActivityForResult(intent, REQUEST_CODE);
+        PhotoPicker.builder()
+            .setPhotoCount(9)
+            .setGridColumnCount(4)
+            .start(this);
         break;
       }
 
       case R.id.button_no_camera: {
-        Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
-        PhotoPickerIntent.setPhotoCount(intent, 7);
-        PhotoPickerIntent.setShowCamera(intent, false);
-        startActivityForResult(intent, REQUEST_CODE);
+        //Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
+        //PhotoPickerIntent.setPhotoCount(intent, 7);
+        //PhotoPickerIntent.setShowCamera(intent, false);
+        //startActivityForResult(intent, REQUEST_CODE);
+        PhotoPicker.builder()
+            .setPhotoCount(7)
+            .setShowCamera(false)
+            .setPreviewEnabled(false)
+            .start(this);
         break;
       }
 
       case R.id.button_one_photo: {
-        Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
-        PhotoPickerIntent.setPhotoCount(intent, 1);
-        PhotoPickerIntent.setShowCamera(intent, true);
-        startActivityForResult(intent, REQUEST_CODE);
+        //Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
+        //PhotoPickerIntent.setPhotoCount(intent, 1);
+        //PhotoPickerIntent.setShowCamera(intent, true);
+        //startActivityForResult(intent, REQUEST_CODE);
+        PhotoPicker.builder()
+            .setPhotoCount(1)
+            .start(this);
         break;
       }
 
       case R.id.button_photo_gif : {
-        Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
-        PhotoPickerIntent.setPhotoCount(intent, 4);
-        PhotoPickerIntent.setShowCamera(intent, true);
-        PhotoPickerIntent.setShowGif(intent, true);
-        startActivityForResult(intent, REQUEST_CODE);
+        //Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
+        //PhotoPickerIntent.setPhotoCount(intent, 4);
+        //PhotoPickerIntent.setShowCamera(intent, true);
+        //PhotoPickerIntent.setShowGif(intent, true);
+        //startActivityForResult(intent, REQUEST_CODE);
+        PhotoPicker.builder()
+            .setShowCamera(true)
+            .setShowGif(true)
+            .start(this);
         break;
       }
 
       case R.id.button_multiple_picked:{
-        Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
-        PhotoPickerIntent.setPhotoCount(intent, 4);
-        PhotoPickerIntent.setShowCamera(intent, true);
-        PhotoPickerIntent.setSelected(intent,selectedPhotos);
-        startActivityForResult(intent, REQUEST_CODE);
+        //Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
+        //PhotoPickerIntent.setPhotoCount(intent, 4);
+        //PhotoPickerIntent.setShowCamera(intent, true);
+        //PhotoPickerIntent.setSelected(intent,selectedPhotos);
+        //startActivityForResult(intent, REQUEST_CODE);
+        PhotoPicker.builder()
+            .setPhotoCount(4)
+            .setShowCamera(true)
+            .setSelected(selectedPhotos)
+            .start(this);
         break;
       }
     }
