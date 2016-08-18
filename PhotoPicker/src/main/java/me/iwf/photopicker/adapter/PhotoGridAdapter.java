@@ -53,11 +53,7 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
   public PhotoGridAdapter(Context context, RequestManager requestManager,  List<PhotoDirectory> photoDirectories, ArrayList<String> orginalPhotos, int colNum) {
     this(context, requestManager, photoDirectories);
     setColumnNumber(context, colNum);
-    setOriginalPhotos(orginalPhotos);
-  }
-
-  private void setOriginalPhotos(ArrayList<String> originalPhotos){
-    this.originalPhotos = originalPhotos;
+    selectedPhotos = new ArrayList<>(orginalPhotos);
   }
 
   private void setColumnNumber(Context context, int columnNumber) {
@@ -195,8 +191,8 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
   public ArrayList<String> getSelectedPhotoPaths() {
     ArrayList<String> selectedPhotoPaths = new ArrayList<>(getSelectedItemCount());
 
-    for (Photo photo : selectedPhotos) {
-      selectedPhotoPaths.add(photo.getPath());
+    for (String photo : selectedPhotos) {
+      selectedPhotoPaths.add(photo);
     }
 
     return selectedPhotoPaths;
