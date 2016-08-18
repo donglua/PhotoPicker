@@ -15,9 +15,7 @@ public abstract class SelectableAdapter<VH extends RecyclerView.ViewHolder>
   private static final String TAG = SelectableAdapter.class.getSimpleName();
 
   protected List<PhotoDirectory> photoDirectories;
-  protected List<Photo> selectedPhotos;
-  //初始进入时已选的照片 original selected photos
-  protected ArrayList<String> originalPhotos = null;
+  protected List<String> selectedPhotos;
 
   public int currentDirectoryIndex = 0;
 
@@ -35,10 +33,7 @@ public abstract class SelectableAdapter<VH extends RecyclerView.ViewHolder>
    * @return true if the item is selected, false otherwise
    */
   @Override public boolean isSelected(Photo photo) {
-    if (originalPhotos != null && originalPhotos.contains(photo.getPath()) && !selectedPhotos.contains(photo)) {
-      selectedPhotos.add(photo);
-    }
-    return getSelectedPhotos().contains(photo);
+    return getSelectedPhotos().contains(photo.getPath());
   }
 
 
@@ -48,13 +43,10 @@ public abstract class SelectableAdapter<VH extends RecyclerView.ViewHolder>
    * @param photo Photo of the item to toggle the selection status for
    */
   @Override public void toggleSelection(Photo photo) {
-    if (selectedPhotos.contains(photo)) {
-      selectedPhotos.remove(photo);
-      if(originalPhotos!=null &&originalPhotos.contains(photo.getPath())){
-        originalPhotos.remove(photo.getPath());
-      }
+    if (selectedPhotos.contains(photo.getPath())) {
+      selectedPhotos.remove(photo.getPath());
     } else {
-      selectedPhotos.add(photo);
+      selectedPhotos.add(photo.getPath());
     }
   }
 
@@ -96,7 +88,7 @@ public abstract class SelectableAdapter<VH extends RecyclerView.ViewHolder>
   }
 
 
-  public List<Photo> getSelectedPhotos() {
+  public List<String> getSelectedPhotos() {
     return selectedPhotos;
   }
 

@@ -91,8 +91,8 @@ public class PhotoPickerActivity extends AppCompatActivity {
         menuDoneItem.setEnabled(total > 0);
 
         if (maxCount <= 1) {
-          List<Photo> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotos();
-          if (!photos.contains(photo)) {
+          List<String> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotos();
+          if (!photos.contains(photo.getPath())) {
             photos.clear();
             pickerFragment.getPhotoGridAdapter().notifyDataSetChanged();
           }
