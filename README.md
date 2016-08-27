@@ -1,8 +1,10 @@
 
 # 微信ui版的PhotoPicker
+
+[![](https://jitpack.io/v/glassLake/PhotoPicker.svg)](https://jitpack.io/#glassLake/PhotoPicker)
+
+
 本项目fork 自[photoPicker](https://github.com/donglua/PhotoPicker)
-
-
 
 参考微信的图片选择ui，对原项目photoPicker进行改写。
 
@@ -52,10 +54,21 @@ demo apk：见项目根目录下demo.apk
 
 # Usage
 
-### gradle 还未上传，直接拉源代码吧。
+### gradle
 
-或者使用aar：见项目根目录下PhotoPicker-release.aar
+Add it in your root build.gradle at the end of repositories:
 
+	allprojects {
+		repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+	}
+Step 2. Add the dependency
+
+	dependencies {
+	        compile 'com.github.glassLake:PhotoPicker:1.0.0'
+	}
 
 
 
