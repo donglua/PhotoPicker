@@ -1,6 +1,5 @@
 package me.iwf.photopicker.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -62,7 +61,6 @@ public class PhotoPickerFragment extends Fragment {
   private final static String EXTRA_ORIGIN = "origin";
   private ListPopupWindow listPopupWindow;
   private RequestManager mGlideRequestManager;
-  private Context mContext;
 
   public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif,
       boolean previewEnable, int column, int maxCount, ArrayList<String> originalPhotos) {
@@ -76,11 +74,6 @@ public class PhotoPickerFragment extends Fragment {
     PhotoPickerFragment fragment = new PhotoPickerFragment();
     fragment.setArguments(args);
     return fragment;
-  }
-
-  @Override public void onAttach(Context context) {
-    super.onAttach(context);
-    mContext = context;
   }
 
   @Override public void onCreate(Bundle savedInstanceState) {
@@ -97,7 +90,7 @@ public class PhotoPickerFragment extends Fragment {
     boolean showCamera = getArguments().getBoolean(EXTRA_CAMERA, true);
     boolean previewEnable = getArguments().getBoolean(EXTRA_PREVIEW_ENABLED, true);
 
-    photoGridAdapter = new PhotoGridAdapter(mContext, mGlideRequestManager, directories, originalPhotos, column);
+    photoGridAdapter = new PhotoGridAdapter(getActivity(), mGlideRequestManager, directories, originalPhotos, column);
     photoGridAdapter.setShowCamera(showCamera);
     photoGridAdapter.setPreviewEnable(previewEnable);
 
