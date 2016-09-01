@@ -17,7 +17,8 @@ public class PhotoDirectoryLoader extends CursorLoader {
       Media.DATA,
       Media.BUCKET_ID,
       Media.BUCKET_DISPLAY_NAME,
-      Media.DATE_ADDED
+      Media.DATE_ADDED,
+      Media.SIZE
   };
 
   public PhotoDirectoryLoader(Context context, boolean showGif) {

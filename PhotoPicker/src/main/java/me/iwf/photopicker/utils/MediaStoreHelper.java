@@ -18,6 +18,7 @@ import static android.provider.MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAM
 import static android.provider.MediaStore.Images.ImageColumns.BUCKET_ID;
 import static android.provider.MediaStore.MediaColumns.DATA;
 import static android.provider.MediaStore.MediaColumns.DATE_ADDED;
+import static android.provider.MediaStore.MediaColumns.SIZE;
 
 /**
  * Created by donglua on 15/5/31.
@@ -32,7 +33,7 @@ public class MediaStoreHelper {
         .initLoader(0, args, new PhotoDirLoaderCallbacks(activity, resultCallback));
   }
 
-  static class PhotoDirLoaderCallbacks implements LoaderManager.LoaderCallbacks<Cursor> {
+  private static class PhotoDirLoaderCallbacks implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private WeakReference<Context> context;
     private PhotosResultCallback resultCallback;
@@ -60,6 +61,9 @@ public class MediaStoreHelper {
         String bucketId = data.getString(data.getColumnIndexOrThrow(BUCKET_ID));
         String name = data.getString(data.getColumnIndexOrThrow(BUCKET_DISPLAY_NAME));
         String path = data.getString(data.getColumnIndexOrThrow(DATA));
+        long size = data.getInt(data.getColumnIndexOrThrow(SIZE));
+
+        if (size < 1) continue;
 
         PhotoDirectory photoDirectory = new PhotoDirectory();
         photoDirectory.setId(bucketId);
