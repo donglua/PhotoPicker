@@ -28,7 +28,7 @@
 
 ```groovy
 dependencies {
-    compile 'me.iwf.photopicker:PhotoPicker:0.8.9@aar'
+    compile 'me.iwf.photopicker:PhotoPicker:0.8.10@aar'
     
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
@@ -171,5 +171,4 @@ PhotoPreview.builder()
     limitations under the License.
 
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/donglua/photopicker/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
