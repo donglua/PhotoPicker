@@ -28,7 +28,7 @@
 
 ```groovy
 dependencies {
-    compile 'me.iwf.photopicker:PhotoPicker:0.8.5@aar'
+    compile 'me.iwf.photopicker:PhotoPicker:0.8.9@aar'
     
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
@@ -37,6 +37,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
 }
 ```
+* ```appcompat-v7```version >= 23.0.0
 
 ### eclipse
 [![GO HOME](http://ww4.sinaimg.cn/large/5e9a81dbgw1eu90m08v86j20dw09a3yu.jpg)
