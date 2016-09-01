@@ -1,70 +1,94 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     >
 
-  <Button
-      android:layout_marginTop="10dip"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/pick_photo"
-      android:id="@+id/button"
-      android:layout_centerHorizontal="true"
-      />
-
-  <Button
-      android:layout_below="@id/button"
-      android:layout_marginTop="10dip"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/pick_photo_without_camera"
-      android:id="@+id/button_no_camera"
-      android:layout_centerHorizontal="true"
-      />
-
-  <Button
-      android:layout_below="@id/button_no_camera"
-      android:layout_marginTop="10dip"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/pick_one_photo"
-      android:id="@+id/button_one_photo"
-      android:layout_centerHorizontal="true"
-      />
-
-  <Button
-      android:layout_below="@id/button_one_photo"
-      android:layout_marginTop="10dip"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/pick_photo_gif"
-      android:id="@+id/button_photo_gif"
-      android:layout_centerHorizontal="true"
-      />
-
-  <Button
-      android:layout_below="@id/button_photo_gif"
-      android:layout_marginTop="10dip"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="@string/multiple_pick_photo"
-      android:id="@+id/button_multiple_picked"
-      android:layout_centerHorizontal="true"
-      />
-
-  <!--<android.support.v7.widget.RecyclerView
-      android:id="@+id/recycler_view"
-      android:layout_below="@id/button_multiple_picked"
+  <ScrollView
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      />-->
+      android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-  <me.iwf.photopicker.widget.MultiPickResultView
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:id="@+id/recycler_view"
-      android:layout_below="@id/button_multiple_picked"/>
 
-</RelativeLayout>
+      <Button
+          android:layout_marginTop="10dip"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/pick_photo"
+          android:id="@+id/button"
+          android:layout_centerHorizontal="true"
+          />
+
+      <Button
+          android:layout_below="@id/button"
+          android:layout_marginTop="10dip"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/pick_photo_without_camera"
+          android:id="@+id/button_no_camera"
+          android:layout_centerHorizontal="true"
+          />
+
+      <Button
+          android:layout_below="@id/button_no_camera"
+          android:layout_marginTop="10dip"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/pick_one_photo"
+          android:id="@+id/button_one_photo"
+          android:layout_centerHorizontal="true"
+          />
+
+      <Button
+          android:layout_below="@id/button_one_photo"
+          android:layout_marginTop="10dip"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/pick_photo_gif"
+          android:id="@+id/button_photo_gif"
+          android:layout_centerHorizontal="true"
+          />
+
+      <Button
+          android:layout_below="@id/button_photo_gif"
+          android:layout_marginTop="10dip"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/multiple_pick_photo"
+          android:id="@+id/button_multiple_picked"
+          android:layout_centerHorizontal="true"
+          />
+
+      <!--<android.support.v7.widget.RecyclerView
+          android:id="@+id/recycler_view"
+          android:layout_below="@id/button_multiple_picked"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          />-->
+
+      <me.iwf.photopicker.widget.MultiPickResultView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/recycler_view"/>
+
+      <me.iwf.photopicker.widget.MultiPickResultView
+          android:layout_marginTop="20dp"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:id="@+id/recycler_onlylook"
+          android:layout_below="@id/button_multiple_picked"/>
+
+    </LinearLayout>
+
+
+  </ScrollView>
+
+
+
+
+</LinearLayout>

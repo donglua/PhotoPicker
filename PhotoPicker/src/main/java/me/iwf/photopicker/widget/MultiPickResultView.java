@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
+import java.util.List;
 
 import me.iwf.photopicker.PhotoPickUtils;
 
@@ -93,9 +94,23 @@ public class MultiPickResultView extends FrameLayout {
         photoAdapter = new PhotoAdapter(context, selectedPhotos);
         photoAdapter.setAction(action);
         recyclerView.setAdapter(photoAdapter);
+        //recyclerView.setLayoutFrozen(true);
 
 
     }
+
+
+    public void showPics(List<String> paths){
+        if (paths != null){
+            selectedPhotos.clear();
+            selectedPhotos.addAll(paths);
+           photoAdapter.notifyDataSetChanged();
+        }
+
+    }
+
+
+
 
 
 

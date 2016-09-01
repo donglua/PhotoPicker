@@ -30,6 +30,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
 
   private Context mContext;
 
+
   public void setAction(@MultiPickResultView.MultiPicAction int action) {
     this.action = action;
   }
@@ -43,6 +44,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     this.photoPaths = photoPaths;
     this.mContext = mContext;
     inflater = LayoutInflater.from(mContext);
+    padding = dip2Px(8);
 
   }
 
@@ -68,18 +70,30 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     return new PhotoViewHolder(itemView);
   }
 
+  public  int dip2Px(int dip) {
+    // px/dip = density;
+    float density = mContext.getResources().getDisplayMetrics().density;
+    int px = (int) (dip * density + .5f);
+    return px;
+  }
 
+  int padding;
   @Override
   public void onBindViewHolder(final PhotoViewHolder holder, final int position) {
 
     if (action == MultiPickResultView.ACTION_SELECT){
+     // RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) holder.ivPhoto.getLayoutParams();
+
+      holder.ivPhoto.setPadding(padding,padding,padding,padding);
+
+
       if (position == getItemCount() -1){//最后一个始终是+号，点击能够跳去添加图片
         Glide.with(mContext)
                 .load("")
                 .centerCrop()
                 .thumbnail(0.1f)
-                .placeholder(R.drawable.icon_propser_add)
-                .error(R.drawable.icon_propser_add)
+                .placeholder(R.drawable.icon_pic_default)
+                .error(R.drawable.icon_pic_default)
                 .into(holder.ivPhoto);
         holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -89,12 +103,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
             }else {
               PhotoPickUtils.startPick((Activity) mContext,photoPaths);
             }
-
           }
         });
 
+        holder.deleteBtn.setVisibility(View.GONE);
+
       }else {
-        //String str = photoPaths.get(position);
+        String str = photoPaths.get(position);
+        Log.e("file",str);
         Uri uri = Uri.fromFile(new File(photoPaths.get(position)));
         Glide.with(mContext)
                 .load(uri)
@@ -104,10 +120,19 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
                 .error(R.drawable.__picker_ic_broken_image_black_48dp)
                 .into(holder.ivPhoto);
 
+
+        holder.deleteBtn.setVisibility(View.VISIBLE);
+        holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+              photoPaths.remove(position);
+            notifyDataSetChanged();
+          }
+        });
+
         holder.ivPhoto.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-
             PhotoPreview.builder()
                     .setPhotos(photoPaths)
                     .setAction(action)
@@ -121,7 +146,9 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
       //Uri uri = Uri.parse(photoPaths.get(position));
       Log.e("pic",photoPaths.get(position));
               Glide.with(mContext)
-              .load("http://i.imgur.com/idojSYm.png")
+              .load(photoPaths.get(position))
+                      .centerCrop()
+                      .thumbnail(0.1f)
               .placeholder(R.drawable.__picker_default_weixin)
               .error(R.drawable.__picker_ic_broken_image_black_48dp)
               .into(holder.ivPhoto);
@@ -145,6 +172,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
   }
 
 
+
+
   @Override public int getItemCount() {
     return action == MultiPickResultView.ACTION_SELECT ? photoPaths.size()+1 : photoPaths.size();
   }
@@ -154,6 +183,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
     private ImageView ivPhoto;
     private View vSelected;
     public View cover;
+    public View deleteBtn;
     public PhotoViewHolder(View itemView) {
       super(itemView);
       ivPhoto   = (ImageView) itemView.findViewById(R.id.iv_photo);
@@ -161,6 +191,8 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
       vSelected.setVisibility(View.GONE);
       cover = itemView.findViewById(R.id.cover);
       cover.setVisibility(View.GONE);
+      deleteBtn = itemView.findViewById(R.id.v_delete);
+      deleteBtn.setVisibility(View.GONE);
     }
   }
 

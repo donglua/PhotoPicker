@@ -50,6 +50,12 @@ demo apk：见项目根目录下demo.apk
 
 
 
+封装好的图片显示组件:(上方是图片选择,下面是只显示图片的组件)
+
+ ![multview](multview.png)
+
+
+
 ---
 
 # Usage
@@ -67,20 +73,59 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.glassLake:PhotoPicker:1.0.0'
+	        compile 'com.github.glassLake:PhotoPicker:1.0.1'
 	}
 
 
 
+## 完全使用封装好的组件
+
+
+
+xml:
+
+```
+<me.iwf.photopicker.widget.MultiPickResultView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/recycler_view"/>
+```
+
+选择图片并显示图片:
+
+```
+recyclerView = (MultiPickResultView) findViewById(R.id.recycler_view);
+recyclerView.init(this,MultiPickResultView.ACTION_SELECT,null);
+
+//onActivityResult里一行代码回调
+ recyclerView.onActivityResult(requestCode,resultCode,data);
+```
+
+
+
+只显示图片
+
+```
+//可以初始化时传入地址
+recyclerViewShowOnly.init(this,MultiPickResultView.ACTION_ONLY_SHOW,pathslook);
+
+//也可以后续设置地址:
+ recyclerViewShowOnly.showPics(pathslook);
+```
 
 
 
 
 
 ### Pick Photo
+
 ```java
 PhotoPickUtils.startPick(this);
 ```
+
+
+
+
 
 ### 
 

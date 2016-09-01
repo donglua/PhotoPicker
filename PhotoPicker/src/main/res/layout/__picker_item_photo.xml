@@ -20,6 +20,14 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"/>
 
+  <View
+      android:visibility="gone"
+      android:id="@+id/v_delete"
+      android:background="@drawable/icon_delete"
+      android:layout_alignParentRight="true"
+      android:layout_width="15dp"
+      android:layout_height="15dp"/>
+
   <ImageView
       android:layout_margin="5dip"
       android:layout_alignParentTop="true"

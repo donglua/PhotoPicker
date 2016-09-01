@@ -32,17 +32,26 @@ public class MainActivity extends AppCompatActivity {
     }
   }
   MultiPickResultView recyclerView;
+
+  MultiPickResultView recyclerViewShowOnly;
  /* PhotoAdapter photoAdapter;
 
   ArrayList<String> selectedPhotos = new ArrayList<>();*/
 
   //public final static int REQUEST_CODE = 1;
 
+  ArrayList<String> pathslook ;
+
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+    pathslook = new ArrayList<>();
 
     recyclerView = (MultiPickResultView) findViewById(R.id.recycler_view);
+    recyclerView.init(this,MultiPickResultView.ACTION_SELECT,null);
+
+    recyclerViewShowOnly = (MultiPickResultView) findViewById(R.id.recycler_onlylook);
+    recyclerViewShowOnly.init(this,MultiPickResultView.ACTION_ONLY_SHOW,pathslook);
     ArrayList<String> photos = new ArrayList<>();
     photos.add("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2545179197,2573899739&fm=21&gp=0.jpg");
     photos.add("https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1471325032244&di=71570ed352a1b823584c3b3b1b5bd57f&imgtype=jpg&src=http%3A%2F%2Ffile27.mafengwo.net%2FM00%2FB2%2F12%2FwKgB6lO0ahWAMhL8AAV1yBFJDJw20.jpeg");
@@ -50,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     photos.add("https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1471325032243&di=d40f796d46782144ba0adf798253f080&imgtype=jpg&src=http%3A%2F%2Fimglf0.ph.126.net%2F1EnYPI5Vzo2fCkyy2GsJKg%3D%3D%2F2829667940890114965.jpg");
     photos.add("https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1471325032243&di=bbb10b09ddb5338b53432af1c3789c39&imgtype=jpg&src=http%3A%2F%2Ffile25.mafengwo.net%2FM00%2F0A%2FAA%2FwKgB4lMC256AYLqGAAGklurKzyM52.rbook_comment.w1024.jpeg");
 
-    recyclerView.init(this,MultiPickResultView.ACTION_SELECT,null);
+
   /*  photoAdapter = new PhotoAdapter(this, selectedPhotos);
 
     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
@@ -110,6 +119,10 @@ public class MainActivity extends AppCompatActivity {
     super.onActivityResult(requestCode, resultCode, data);
 
     recyclerView.onActivityResult(requestCode,resultCode,data);
+
+
+
+    recyclerViewShowOnly.showPics(recyclerView.getPhotos());
 
    /* PhotoPickUtils.onActivityResult(requestCode, resultCode, data, new PhotoPickUtils.PickHandler() {
       @Override
