@@ -84,6 +84,9 @@ public class MultiPickResultView extends FrameLayout {
 
     public void init(Activity context,@MultiPicAction  int action, ArrayList<String> photos){
         this.action = action;
+        if (action == MultiPickResultView.ACTION_ONLY_SHOW){//当只用作显示图片时,一行显示3张
+            recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, OrientationHelper.VERTICAL));
+        }
 
         selectedPhotos = new ArrayList<>();
 

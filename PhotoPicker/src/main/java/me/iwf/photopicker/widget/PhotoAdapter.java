@@ -116,6 +116,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
                 .load(uri)
                 .centerCrop()
                 .thumbnail(0.1f)
+               // .bitmapTransform(new RoundedCornersTransformation(mContext,6,0))
                 .placeholder(R.drawable.__picker_default_weixin)
                 .error(R.drawable.__picker_ic_broken_image_black_48dp)
                 .into(holder.ivPhoto);
@@ -149,6 +150,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
               .load(photoPaths.get(position))
                       .centerCrop()
                       .thumbnail(0.1f)
+                     // .bitmapTransform(new RoundedCornersTransformation(mContext,4,0))
               .placeholder(R.drawable.__picker_default_weixin)
               .error(R.drawable.__picker_ic_broken_image_black_48dp)
               .into(holder.ivPhoto);

@@ -61,8 +61,16 @@ public class PhotoPagerActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
           int position = pagerFragment.getViewPager().getCurrentItem();
-          pagerFragment.getPaths().remove(position);
-          pagerFragment.getViewPager().getAdapter().notifyDataSetChanged();
+          if (pagerFragment.getPaths().size() >0){
+            pagerFragment.getPaths().remove(position);
+            pagerFragment.getViewPager().getAdapter().notifyDataSetChanged();
+            if (pagerFragment.getPaths().size() ==0){
+              titlebar.setTitle(getString(R.string.__picker_preview) +" "+getString(R.string.__picker_image_index, 0,
+                      pagerFragment.getPaths().size()));
+            }
+
+          }
+
 
         }
       });

@@ -6,13 +6,18 @@ android {
   resourcePrefix "__picker_"
 
   defaultConfig {
-    minSdkVersion 10
+    minSdkVersion 11
     targetSdkVersion 23
     versionCode 1
     versionName "0.8.5"
   }
 }
 apply from: '../gradle/gradle-mvn-push.gradle'
+
+repositories {
+  jcenter()
+  mavenCentral()  // GPUImage for Android
+}
 
 dependencies {
   compile 'com.android.support:support-v4:23.4.0'
@@ -22,5 +27,7 @@ dependencies {
   compile 'com.android.support:support-annotations:23.4.0'
   compile 'com.nineoldandroids:library:2.4.0'
   compile 'com.github.bumptech.glide:glide:3.7.0'
+  compile 'jp.wasabeef:glide-transformations:2.0.1'
+
 }
 
