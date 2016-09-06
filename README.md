@@ -31,6 +31,12 @@ demo apk：见项目根目录下demo.apk
 
 
 
+1.0.2
+
+单纯显示图片时,由原来的4列改成3列
+
+修复图片预览时删到最后一张时的数组角标越界bug
+
 
 
 ---
@@ -80,12 +86,12 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.glassLake:PhotoPicker:1.0.1'
+	        compile 'com.github.glassLake:PhotoPicker:1.0.2'
 	}
 
 
 
-## 完全使用封装好的组件
+## 使用完全封装好的组件
 
 
 
@@ -122,17 +128,13 @@ recyclerViewShowOnly.init(this,MultiPickResultView.ACTION_ONLY_SHOW,pathslook);
 
 
 
-
+## 不使用显示组件,只使用选择图片的功能
 
 ### Pick Photo
 
 ```java
 PhotoPickUtils.startPick(this);
 ```
-
-
-
-
 
 ### 
 
@@ -189,7 +191,9 @@ PhotoPickUtils.startPick(this);
 
 
 
-### Proguard
+
+
+## Proguard
 
 ```
 # Glide
