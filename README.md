@@ -22,6 +22,11 @@
 
 ---
 
+
+## Fresco version
+https://github.com/jing-wu/PhotoPicker
+
+
 # Usage
 
 ### Gradle
