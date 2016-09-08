@@ -8,12 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import me.iwf.photopicker.R;
+import me.iwf.photopicker.utils.AndroidLifecycleUtils;
 
 /**
  * Created by donglua on 15/6/21.
@@ -42,14 +46,19 @@ public class PhotoPagerAdapter extends PagerAdapter {
     } else {
       uri = Uri.fromFile(new File(path));
     }
-    mGlide.load(uri)
-        .thumbnail(0.1f)
-        .dontAnimate()
-        .dontTransform()
-        .override(800, 800)
-        .placeholder(R.drawable.__picker_ic_photo_black_48dp)
-        .error(R.drawable.__picker_ic_broken_image_black_48dp)
-        .into(imageView);
+
+    boolean canLoadImage = AndroidLifecycleUtils.canLoadImage(context);
+
+    if (canLoadImage) {
+      mGlide.load(uri)
+              .thumbnail(0.1f)
+              .dontAnimate()
+              .dontTransform()
+              .override(800, 800)
+              .placeholder(R.drawable.__picker_ic_photo_black_48dp)
+              .error(R.drawable.__picker_ic_broken_image_black_48dp)
+              .into(imageView);
+    }
 
     imageView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {

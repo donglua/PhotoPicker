@@ -18,6 +18,7 @@ import me.iwf.photopicker.entity.Photo;
 import me.iwf.photopicker.entity.PhotoDirectory;
 import me.iwf.photopicker.event.OnItemCheckListener;
 import me.iwf.photopicker.event.OnPhotoClickListener;
+import me.iwf.photopicker.utils.AndroidLifecycleUtils;
 import me.iwf.photopicker.utils.MediaStoreHelper;
 
 /**
@@ -103,15 +104,19 @@ public class PhotoGridAdapter extends SelectableAdapter<PhotoGridAdapter.PhotoVi
         photo = photos.get(position);
       }
 
-      glide
-          .load(new File(photo.getPath()))
-          .centerCrop()
-          .dontAnimate()
-          .thumbnail(0.5f)
-          .override(imageSize, imageSize)
-          .placeholder(R.drawable.__picker_ic_photo_black_48dp)
-          .error(R.drawable.__picker_ic_broken_image_black_48dp)
-          .into(holder.ivPhoto);
+      boolean canLoadImage = AndroidLifecycleUtils.canLoadImage(holder.ivPhoto.getContext());
+
+      if (canLoadImage) {
+        glide
+                .load(new File(photo.getPath()))
+                .centerCrop()
+                .dontAnimate()
+                .thumbnail(0.5f)
+                .override(imageSize, imageSize)
+                .placeholder(R.drawable.__picker_ic_photo_black_48dp)
+                .error(R.drawable.__picker_ic_broken_image_black_48dp)
+                .into(holder.ivPhoto);
+      }
 
       final boolean isChecked = isSelected(photo);
 
