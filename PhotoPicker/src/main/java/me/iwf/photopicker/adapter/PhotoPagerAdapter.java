@@ -7,7 +7,6 @@ import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -18,6 +17,8 @@ import java.util.List;
 
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.utils.AndroidLifecycleUtils;
+import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Created by donglua on 15/6/21.
@@ -37,7 +38,7 @@ public class PhotoPagerAdapter extends PagerAdapter {
     View itemView = LayoutInflater.from(context)
         .inflate(R.layout.__picker_picker_item_pager, container, false);
 
-    final ImageView imageView = (ImageView) itemView.findViewById(R.id.iv_pager);
+    final PhotoView imageView = (PhotoView) itemView.findViewById(R.id.iv_pager);
 
     final String path = paths.get(position);
     final Uri uri;
@@ -60,8 +61,9 @@ public class PhotoPagerAdapter extends PagerAdapter {
               .into(imageView);
     }
 
-    imageView.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View view) {
+    imageView.setOnViewTapListener(new PhotoViewAttacher.OnViewTapListener() {
+      @Override
+      public void onViewTap(View view, float x, float y) {
         if (context instanceof Activity) {
           if (!((Activity) context).isFinishing()) {
             ((Activity) context).onBackPressed();
