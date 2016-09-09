@@ -11,6 +11,10 @@ android {
     versionCode 1
     versionName "0.8.9"
   }
+
+  lintOptions {
+    abortOnError false
+  }
 }
 apply from: '../gradle/gradle-mvn-push.gradle'
 ext {
