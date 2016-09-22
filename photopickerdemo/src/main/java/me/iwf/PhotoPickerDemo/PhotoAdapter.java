@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import java.io.File;
 import java.util.ArrayList;
 import me.iwf.photopicker.R;
+import me.iwf.photopicker.utils.AndroidLifecycleUtils;
 
 /**
  * Created by donglua on 15/5/31.
@@ -42,13 +43,17 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
 
     Uri uri = Uri.fromFile(new File(photoPaths.get(position)));
 
-    Glide.with(mContext)
-        .load(uri)
-        .centerCrop()
-        .thumbnail(0.1f)
-        .placeholder(R.drawable.__picker_ic_photo_black_48dp)
-        .error(R.drawable.__picker_ic_broken_image_black_48dp)
-        .into(holder.ivPhoto);
+    boolean canLoadImage = AndroidLifecycleUtils.canLoadImage(holder.ivPhoto.getContext());
+
+    if (canLoadImage) {
+      Glide.with(mContext)
+              .load(uri)
+              .centerCrop()
+              .thumbnail(0.1f)
+              .placeholder(R.drawable.__picker_ic_photo_black_48dp)
+              .error(R.drawable.__picker_ic_broken_image_black_48dp)
+              .into(holder.ivPhoto);
+    }
   }
 
 

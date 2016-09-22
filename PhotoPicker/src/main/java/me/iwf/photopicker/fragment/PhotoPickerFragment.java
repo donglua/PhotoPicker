@@ -3,6 +3,7 @@ package me.iwf.photopicker.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.OrientationHelper;
@@ -15,11 +16,14 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.adapter.PhotoGridAdapter;
@@ -27,6 +31,7 @@ import me.iwf.photopicker.adapter.PopupDirectoryListAdapter;
 import me.iwf.photopicker.entity.Photo;
 import me.iwf.photopicker.entity.PhotoDirectory;
 import me.iwf.photopicker.event.OnPhotoClickListener;
+import me.iwf.photopicker.utils.AndroidLifecycleUtils;
 import me.iwf.photopicker.utils.ImageCaptureManager;
 import me.iwf.photopicker.utils.MediaStoreHelper;
 
@@ -197,12 +202,12 @@ public class PhotoPickerFragment extends Fragment {
         if (Math.abs(dy) > SCROLL_THRESHOLD) {
           mGlideRequestManager.pauseRequests();
         } else {
-          mGlideRequestManager.resumeRequests();
+          resumeRequestsIfNotDestroyed();
         }
       }
       @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-          mGlideRequestManager.resumeRequests();
+          resumeRequestsIfNotDestroyed();
         }
       }
     });
@@ -210,9 +215,14 @@ public class PhotoPickerFragment extends Fragment {
     return rootView;
   }
 
-
   @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == ImageCaptureManager.REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+
+      if (captureManager == null) {
+        FragmentActivity activity = getActivity();
+        captureManager = new ImageCaptureManager(activity);
+      }
+
       captureManager.galleryAddPic();
       if (directories.size() > 0) {
         String path = captureManager.getCurrentPhotoPath();
@@ -268,5 +278,13 @@ public class PhotoPickerFragment extends Fragment {
     }
     directories.clear();
     directories = null;
+  }
+
+  private void resumeRequestsIfNotDestroyed() {
+    if (!AndroidLifecycleUtils.canLoadImage(this)) {
+      return;
+    }
+
+    mGlideRequestManager.resumeRequests();
   }
 }

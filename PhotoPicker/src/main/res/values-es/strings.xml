@@ -2,7 +2,7 @@
 <resources>
     <string name="__picker_title">Imágenes</string>
     <string name="__picker_delete">Eliminar</string>
-    <string name="__picker_done">@android:string/ok</string>
+    <string name="__picker_done">Ok</string>
     <string name="__picker_done_with_count">Ok(%1$d/%2$d)</string>
     <string name="__picker_image_index">%1$d/%2$d</string>
     <string name="__picker_undo">Deshacer</string>
@@ -13,5 +13,4 @@
     <string name="__picker_all_image">Todas las imágenes</string>
     <string name="__picker_over_max_count_tips">Sólo se pueden seleccionar %1$d imágenes</string>
     <string name="__picker_image_count">%1$d</string>
-
 </resources>
