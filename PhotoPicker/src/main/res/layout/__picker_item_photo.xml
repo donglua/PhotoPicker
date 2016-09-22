@@ -15,11 +15,13 @@
       />
 
   <ImageView
-      android:layout_margin="5dip"
       android:layout_alignParentTop="true"
       android:layout_alignParentRight="true"
       android:clickable="true"
-      android:padding="5dip"
+      android:paddingTop="10dip"
+      android:paddingRight="10dip"
+      android:paddingLeft="20dip"
+      android:paddingBottom="20dip"
       android:id="@+id/v_selected"
       android:src="@drawable/__picker_checkbox_bg"
       android:layout_width="wrap_content"
