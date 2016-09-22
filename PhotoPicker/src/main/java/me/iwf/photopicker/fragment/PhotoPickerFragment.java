@@ -3,6 +3,7 @@ package me.iwf.photopicker.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.OrientationHelper;
@@ -216,6 +217,12 @@ public class PhotoPickerFragment extends Fragment {
 
   @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == ImageCaptureManager.REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+
+      if (captureManager == null) {
+        FragmentActivity activity = getActivity();
+        captureManager = new ImageCaptureManager(activity);
+      }
+
       captureManager.galleryAddPic();
       if (directories.size() > 0) {
         String path = captureManager.getCurrentPhotoPath();
