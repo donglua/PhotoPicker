@@ -11,6 +11,6 @@
   <string name="__picker_yes">Yes</string>
   <string name="__picker_cancel">Cancel</string>
   <string name="__picker_all_image">All Images</string>
-  <string name="__picker_over_max_count_tips">Up to %1$d photos can be selected</string>
   <string name="__picker_image_count">%1$d</string>
+  <string name="__picker_over_max_count_tips">Up to %1$d photos can be selected</string>
 </resources>

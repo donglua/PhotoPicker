@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.0"
 
     defaultConfig {
-        applicationId "me.iwf.PhotoPickerDemo"
+        applicationId "me.iwf.photopicker"
         minSdkVersion 10
         targetSdkVersion 24
         versionCode 13
