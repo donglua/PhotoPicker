@@ -11,11 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.View;
 import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
-import me.iwf.PhotoPickerDemo.RecyclerItemClickListener.OnItemClickListener;
 import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPreview;
 
@@ -33,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
       mViewId = viewId;
     }
   }
-  RecyclerView recyclerView;
-  PhotoAdapter photoAdapter;
+  private RecyclerView recyclerView;
+  private PhotoAdapter photoAdapter;
 
-  ArrayList<String> selectedPhotos = new ArrayList<>();
+  private ArrayList<String> selectedPhotos = new ArrayList<>();
 
   //public final static int REQUEST_CODE = 1;
 
@@ -51,51 +49,25 @@ public class MainActivity extends AppCompatActivity {
     recyclerView.setAdapter(photoAdapter);
 
 
-    findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        checkPermission(RequestCode.Button);
-      }
-    });
+    findViewById(R.id.button).setOnClickListener(v -> checkPermission(RequestCode.Button));
 
+    findViewById(R.id.button_no_camera).setOnClickListener(
+        v -> checkPermission(RequestCode.ButtonNoCamera));
 
-    findViewById(R.id.button_no_camera).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        checkPermission(RequestCode.ButtonNoCamera);
-      }
-    });
+    findViewById(R.id.button_one_photo).setOnClickListener(
+        v -> checkPermission(RequestCode.ButtonOnePhoto));
 
-    findViewById(R.id.button_one_photo).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        checkPermission(RequestCode.ButtonOnePhoto);
-      }
-    });
+    findViewById(R.id.button_photo_gif).setOnClickListener(
+        v -> checkPermission(RequestCode.ButtonPhotoGif));
 
-    findViewById(R.id.button_photo_gif).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        checkPermission(RequestCode.ButtonPhotoGif);
-      }
-    });
+    findViewById(R.id.button_multiple_picked).setOnClickListener(
+        v -> checkPermission(RequestCode.ButtonMultiplePicked));
 
-    findViewById(R.id.button_multiple_picked).setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        checkPermission(RequestCode.ButtonMultiplePicked);
-      }
-
-    });
-
-    recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new OnItemClickListener() {
-      @Override public void onItemClick(View view, int position) {
-        PhotoPreview.builder()
+    recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
+        (view, position) -> PhotoPreview.builder()
             .setPhotos(selectedPhotos)
             .setCurrentItem(position)
-            .start(MainActivity.this);
-      }
-    }));
+            .start(MainActivity.this)));
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
