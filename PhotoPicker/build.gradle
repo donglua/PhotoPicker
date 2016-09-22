@@ -2,14 +2,14 @@ apply plugin: 'com.android.library'
 
 android {
   compileSdkVersion 24
-  buildToolsVersion "24.0.0"
+  buildToolsVersion "24.0.1"
   resourcePrefix "__picker_"
 
   defaultConfig {
     minSdkVersion 10
     targetSdkVersion 24
     versionCode 1
-    versionName "0.8.10"
+    versionName "0.8.11"
   }
 }
 apply from: '../gradle/gradle-mvn-push.gradle'
