@@ -68,7 +68,7 @@ public class PhotoPickerFragment extends Fragment {
   private RequestManager mGlideRequestManager;
 
   public static PhotoPickerFragment newInstance(boolean showCamera, boolean showGif,
-      boolean previewEnable, int column, int maxCount, ArrayList<String> originalPhotos) {
+                                                boolean previewEnable, int column, int maxCount, ArrayList<String> originalPhotos) {
     Bundle args = new Bundle();
     args.putBoolean(EXTRA_CAMERA, showCamera);
     args.putBoolean(EXTRA_GIF, showGif);
@@ -81,7 +81,8 @@ public class PhotoPickerFragment extends Fragment {
     return fragment;
   }
 
-  @Override public void onCreate(Bundle savedInstanceState) {
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
     setRetainInstance(true);
@@ -104,26 +105,44 @@ public class PhotoPickerFragment extends Fragment {
     boolean showGif = getArguments().getBoolean(EXTRA_GIF);
     mediaStoreArgs.putBoolean(EXTRA_SHOW_GIF, showGif);
     MediaStoreHelper.getPhotoDirs(getActivity(), mediaStoreArgs,
-        new MediaStoreHelper.PhotosResultCallback() {
-          @Override public void onResultCallback(List<PhotoDirectory> dirs) {
-            directories.clear();
-            directories.addAll(dirs);
-            photoGridAdapter.notifyDataSetChanged();
-            listAdapter.notifyDataSetChanged();
-            adjustHeight();
-          }
-        });
+            new MediaStoreHelper.PhotosResultCallback() {
+              @Override
+              public void onResultCallback(List<PhotoDirectory> dirs) {
+                directories.clear();
+                directories.addAll(dirs);
+                photoGridAdapter.notifyDataSetChanged();
+                listAdapter.notifyDataSetChanged();
+                adjustHeight();
+              }
+            });
 
     captureManager = new ImageCaptureManager(getActivity());
   }
 
+  private void enableMenuPicker(boolean enable) {
+    if (getActivity() instanceof PhotoPickerActivity &&
+            ((PhotoPickerActivity) getActivity()).menuDoneItem != null) {
+      ((PhotoPickerActivity) getActivity()).menuDoneItem.setEnabled(enable);
+    }
+  }
 
-  @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
+  private void checkMenuPickerShouldEnable() {
+    if (photoGridAdapter != null) {
+      if (photoGridAdapter.getSelectedItemCount() <= 0) {
+        enableMenuPicker(false);
+      }
+    } else {
+      enableMenuPicker(false);
+    }
+  }
+
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
 
     final View rootView = inflater.inflate(R.layout.__picker_fragment_photo_picker, container, false);
 
-    listAdapter  = new PopupDirectoryListAdapter(mGlideRequestManager, directories);
+    listAdapter = new PopupDirectoryListAdapter(mGlideRequestManager, directories);
 
     RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
     StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(column, OrientationHelper.VERTICAL);
@@ -143,7 +162,8 @@ public class PhotoPickerFragment extends Fragment {
     //listPopupWindow.setAnimationStyle(R.style.Animation_AppCompat_DropDownUp);
 
     listPopupWindow.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+      @Override
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         listPopupWindow.dismiss();
 
         PhotoDirectory directory = directories.get(position);
@@ -156,7 +176,8 @@ public class PhotoPickerFragment extends Fragment {
     });
 
     photoGridAdapter.setOnPhotoClickListener(new OnPhotoClickListener() {
-      @Override public void onClick(View v, int position, boolean showCamera) {
+      @Override
+      public void onClick(View v, int position, boolean showCamera) {
         final int index = showCamera ? position - 1 : position;
 
         List<String> photos = photoGridAdapter.getCurrentPhotoPaths();
@@ -164,15 +185,17 @@ public class PhotoPickerFragment extends Fragment {
         int[] screenLocation = new int[2];
         v.getLocationOnScreen(screenLocation);
         ImagePagerFragment imagePagerFragment =
-            ImagePagerFragment.newInstance(photos, index, screenLocation, v.getWidth(),
-                v.getHeight());
+                ImagePagerFragment.newInstance(photos, index, screenLocation, v.getWidth(),
+                        v.getHeight());
 
         ((PhotoPickerActivity) getActivity()).addImagePagerFragment(imagePagerFragment);
+        enableMenuPicker(true);
       }
     });
 
     photoGridAdapter.setOnCameraClickListener(new OnClickListener() {
-      @Override public void onClick(View view) {
+      @Override
+      public void onClick(View view) {
         try {
           Intent intent = captureManager.dispatchTakePictureIntent();
           startActivityForResult(intent, ImageCaptureManager.REQUEST_TAKE_PHOTO);
@@ -183,7 +206,8 @@ public class PhotoPickerFragment extends Fragment {
     });
 
     btSwitchDirectory.setOnClickListener(new OnClickListener() {
-      @Override public void onClick(View v) {
+      @Override
+      public void onClick(View v) {
 
         if (listPopupWindow.isShowing()) {
           listPopupWindow.dismiss();
@@ -196,7 +220,8 @@ public class PhotoPickerFragment extends Fragment {
 
 
     recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-      @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+      @Override
+      public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         // Log.d(">>> Picker >>>", "dy = " + dy);
         if (Math.abs(dy) > SCROLL_THRESHOLD) {
@@ -205,7 +230,9 @@ public class PhotoPickerFragment extends Fragment {
           resumeRequestsIfNotDestroyed();
         }
       }
-      @Override public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
+      @Override
+      public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
           resumeRequestsIfNotDestroyed();
         }
@@ -215,7 +242,8 @@ public class PhotoPickerFragment extends Fragment {
     return rootView;
   }
 
-  @Override public void onActivityResult(int requestCode, int resultCode, Intent data) {
+  @Override
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == ImageCaptureManager.REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
 
       if (captureManager == null) {
@@ -240,13 +268,15 @@ public class PhotoPickerFragment extends Fragment {
   }
 
 
-  @Override public void onSaveInstanceState(Bundle outState) {
+  @Override
+  public void onSaveInstanceState(Bundle outState) {
     captureManager.onSaveInstanceState(outState);
     super.onSaveInstanceState(outState);
   }
 
 
-  @Override public void onViewStateRestored(Bundle savedInstanceState) {
+  @Override
+  public void onViewStateRestored(Bundle savedInstanceState) {
     captureManager.onRestoreInstanceState(savedInstanceState);
     super.onViewStateRestored(savedInstanceState);
   }
@@ -264,7 +294,14 @@ public class PhotoPickerFragment extends Fragment {
     }
   }
 
-  @Override public void onDestroy() {
+  @Override
+  public void onResume() {
+    super.onResume();
+    checkMenuPickerShouldEnable();
+  }
+
+  @Override
+  public void onDestroy() {
     super.onDestroy();
 
     if (directories == null) {
