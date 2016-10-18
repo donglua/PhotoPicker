@@ -16,4 +16,4 @@ notifications:
 
 sudo: false
 
-script: ./gradlew build
+script: ./gradlew build --stacktrace
