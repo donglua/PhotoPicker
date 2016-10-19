@@ -33,7 +33,7 @@
 
 ```groovy
 dependencies {
-    compile 'me.iwf.photopicker:PhotoPicker:0.8.11@aar'
+    compile 'me.iwf.photopicker:PhotoPicker:0.9.0@aar'
     
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
@@ -49,11 +49,6 @@ dependencies {
 
 ### Pick Photo
 ```java
-// PhotoPickerIntent intent = new PhotoPickerIntent(MainActivity.this);
-// intent.setPhotoCount(9);
-// intent.setShowCamera(true);
-// intent.setShowGif(true);
-// startActivityForResult(intent, REQUEST_CODE);
 PhotoPicker.builder()
     .setPhotoCount(9)
     .setShowCamera(true)
@@ -65,13 +60,7 @@ PhotoPicker.builder()
 ### Preview Photo
 
 ```java
-// ArrayList<String> photoPaths = ...;
-
-// Intent intent = new Intent(mContext, PhotoPagerActivity.class);
-// intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, position);
-// intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, photoPaths);
-// intent.putExtra(PhotoPagerActivity.EXTRA_SHOW_DELETE, false); // default is true
-// startActivityForResult(intent, REQUEST_CODE);
+ArrayList<String> photoPaths = ...;
 
 PhotoPreview.builder()
     .setPhotos(selectedPhotos)
@@ -97,8 +86,9 @@ PhotoPreview.builder()
 ```xml
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     >
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
   <application
     ...
     >
