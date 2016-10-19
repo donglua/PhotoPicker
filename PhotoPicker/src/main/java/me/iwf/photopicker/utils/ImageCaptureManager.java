@@ -64,7 +64,7 @@ public class ImageCaptureManager {
       // Create the File where the photo should go
       File file = createImageFile();
       Uri photoFile;
-      if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
+      if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         String authority = mContext.getApplicationInfo().packageName + ".provider";
         photoFile = FileProvider.getUriForFile(this.mContext.getApplicationContext(), authority, file);
       } else {
@@ -74,7 +74,6 @@ public class ImageCaptureManager {
       // Continue only if the File was successfully created
       if (photoFile != null) {
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile);
-        takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
       }
     }
     return takePictureIntent;

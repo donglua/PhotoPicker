@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <external-path name="external" path="images/"/>
-    <external-path name="external_root" path="."/>
-    <external-path name="files_root" path="."/>
-    <files-path name="files" path="images/"/>
+    <external-path name="external_storage_root" path="."/>
+    <files-path name="files" path="."/>
 </paths>
