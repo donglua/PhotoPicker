@@ -88,14 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
   @Override
   public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
-    switch (permission) {
-      case Manifest.permission.WRITE_EXTERNAL_STORAGE:
-      case Manifest.permission.CAMERA:
-        // No need to explain to user as it is obvious
-        return false;
-      default:
-        return true;
-    }
+    // No need to explain to user as it is obvious
+    return false;
   }
 
   private void onClick(@IdRes int viewId) {
