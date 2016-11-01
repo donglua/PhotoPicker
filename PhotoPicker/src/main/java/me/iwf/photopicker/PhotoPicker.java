@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import java.util.ArrayList;
 
+import me.iwf.photopicker.utils.PermissionsUtils;
+
 /**
  * Created by Donglua on 16/6/25.
  * Builder class to ease Intent setup.
@@ -47,7 +49,9 @@ public class PhotoPicker {
      * @param requestCode requestCode for result
      */
     public void start(@NonNull Activity activity, int requestCode) {
-      activity.startActivityForResult(getIntent(activity), requestCode);
+      if (PermissionsUtils.checkReadStoragePermission(activity)) {
+        activity.startActivityForResult(getIntent(activity), requestCode);
+      }
     }
 
     /**
@@ -56,8 +60,11 @@ public class PhotoPicker {
      * @param fragment    Fragment to receive result
      * @param requestCode requestCode for result
      */
-    public void start(@NonNull Context context, @NonNull android.support.v4.app.Fragment fragment, int requestCode) {
-      fragment.startActivityForResult(getIntent(context), requestCode);
+    public void start(@NonNull Context context,
+                      @NonNull android.support.v4.app.Fragment fragment, int requestCode) {
+      if (PermissionsUtils.checkReadStoragePermission(fragment.getActivity())) {
+        fragment.startActivityForResult(getIntent(context), requestCode);
+      }
     }
 
     /**
@@ -65,8 +72,11 @@ public class PhotoPicker {
      *
      * @param fragment    Fragment to receive result
      */
-    public void start(@NonNull Context context, @NonNull android.support.v4.app.Fragment fragment) {
-      fragment.startActivityForResult(getIntent(context), REQUEST_CODE);
+    public void start(@NonNull Context context,
+                      @NonNull android.support.v4.app.Fragment fragment) {
+      if (PermissionsUtils.checkReadStoragePermission(fragment.getActivity())) {
+        fragment.startActivityForResult(getIntent(context), REQUEST_CODE);
+      }
     }
 
     /**
