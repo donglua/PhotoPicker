@@ -36,7 +36,6 @@ public abstract class SelectableAdapter<VH extends RecyclerView.ViewHolder>
     return getSelectedPhotos().contains(photo.getPath());
   }
 
-
   /**
    * Toggle the selection status of the item at a given position
    *

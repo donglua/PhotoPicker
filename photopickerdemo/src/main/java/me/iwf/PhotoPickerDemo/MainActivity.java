@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
     recyclerView.setAdapter(photoAdapter);
 
-
     findViewById(R.id.button).setOnClickListener(v -> onClick(v.getId()));
     findViewById(R.id.button_no_camera).setOnClickListener(v -> onClick(v.getId()));
     findViewById(R.id.button_one_photo).setOnClickListener(v -> onClick(v.getId()));

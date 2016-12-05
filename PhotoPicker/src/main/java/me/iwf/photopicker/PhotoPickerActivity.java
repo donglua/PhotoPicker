@@ -84,11 +84,9 @@ public class PhotoPickerActivity extends AppCompatActivity {
     }
 
     pickerFragment.getPhotoGridAdapter().setOnItemCheckListener(new OnItemCheckListener() {
-      @Override public boolean OnItemCheck(int position, Photo photo, final boolean isCheck, int selectedItemCount) {
+      @Override public boolean onItemCheck(int position, Photo photo, final int selectedItemCount) {
 
-        int total = selectedItemCount + (isCheck ? -1 : 1);
-
-        menuDoneItem.setEnabled(total > 0);
+        menuDoneItem.setEnabled(selectedItemCount > 0);
 
         if (maxCount <= 1) {
           List<String> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotos();
@@ -99,12 +97,12 @@ public class PhotoPickerActivity extends AppCompatActivity {
           return true;
         }
 
-        if (total > maxCount) {
+        if (selectedItemCount > maxCount) {
           Toast.makeText(getActivity(), getString(R.string.__picker_over_max_count_tips, maxCount),
               LENGTH_LONG).show();
           return false;
         }
-        menuDoneItem.setTitle(getString(R.string.__picker_done_with_count, total, maxCount));
+        menuDoneItem.setTitle(getString(R.string.__picker_done_with_count, selectedItemCount, maxCount));
         return true;
       }
     });
