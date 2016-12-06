@@ -55,7 +55,6 @@ public class PhotoPicker {
     }
 
     /**
-     * Send the Intent with a custom request code
      *
      * @param fragment    Fragment to receive result
      * @param requestCode requestCode for result

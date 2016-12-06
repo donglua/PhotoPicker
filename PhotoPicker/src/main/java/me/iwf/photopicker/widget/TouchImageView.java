@@ -354,6 +354,9 @@ public class TouchImageView extends ImageView {
    * (focusX, focusY). These floats range from 0 to 1 and denote the focus point
    * as a fraction from the left and top of the view. For example, the top left
    * corner of the image would be (0, 0). And the bottom right corner would be (1, 1).
+   * @param scale
+   * @param focusX
+   * @param focusY
    */
   public void setZoom(float scale, float focusX, float focusY) {
     setZoom(scale, focusX, focusY, mScaleType);
@@ -364,6 +367,10 @@ public class TouchImageView extends ImageView {
    * (focusX, focusY). These floats range from 0 to 1 and denote the focus point
    * as a fraction from the left and top of the view. For example, the top left
    * corner of the image would be (0, 0). And the bottom right corner would be (1, 1).
+   * @param scale
+   * @param focusX
+   * @param focusY
+   * @param scaleType
    */
   public void setZoom(float scale, float focusX, float focusY, ScaleType scaleType) {
     //
@@ -392,6 +399,7 @@ public class TouchImageView extends ImageView {
   /**
    * Set zoom parameters equal to another TouchImageView. Including scale, position,
    * and ScaleType.
+   * @param img TouchImageView
    */
   public void setZoom(TouchImageView img) {
     PointF center = img.getScrollPosition();
@@ -423,6 +431,8 @@ public class TouchImageView extends ImageView {
   /**
    * Set the focus point of the zoomed image. The focus points are denoted as a fraction from the
    * left and top of the view. The focus points can range in value between 0 and 1.
+   * @param focusX X
+   * @param focusY Y
    */
   public void setScrollPosition(float focusX, float focusY) {
     setZoom(normalizedScale, focusX, focusY);

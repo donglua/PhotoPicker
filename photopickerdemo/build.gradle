@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.3"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
 
     defaultConfig {
         applicationId "me.iwf.PhotoPickerDemo"
         minSdkVersion 10
-        targetSdkVersion 24
-        versionCode 14
-        versionName "0.9.0"
+        targetSdkVersion 25
+        versionCode 15
+        versionName "0.9.1"
         jackOptions {
             enabled true
         }
