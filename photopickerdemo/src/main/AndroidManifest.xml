@@ -49,6 +49,10 @@
             android:name="me.iwf.photopicker.PhotoPagerActivity"
             />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="423ff17515038a50c41085cc2dbd0087d2e51cbb" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
