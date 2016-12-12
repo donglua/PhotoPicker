@@ -6,7 +6,7 @@ android {
   resourcePrefix "__picker_"
 
   dexOptions {
-    javaMaxHeapSize "2g"
+    javaMaxHeapSize "4g"
   }
   defaultConfig {
     minSdkVersion 10
