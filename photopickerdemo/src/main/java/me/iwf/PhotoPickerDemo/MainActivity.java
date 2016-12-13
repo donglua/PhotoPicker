@@ -5,17 +5,19 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.View;
 import android.widget.Toast;
+
 import com.crashlytics.android.Crashlytics;
-import io.fabric.sdk.android.Fabric;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPreview;
 
@@ -38,18 +40,29 @@ public class MainActivity extends AppCompatActivity {
     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
     recyclerView.setAdapter(photoAdapter);
 
-    findViewById(R.id.button).setOnClickListener(v -> onClick(v.getId()));
-    findViewById(R.id.button_no_camera).setOnClickListener(v -> onClick(v.getId()));
-    findViewById(R.id.button_one_photo).setOnClickListener(v -> onClick(v.getId()));
-    findViewById(R.id.button_photo_gif).setOnClickListener(v -> onClick(v.getId()));
-    findViewById(R.id.button_multiple_picked).setOnClickListener(v -> onClick(v.getId()));
+    View.OnClickListener onClickListener = new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        MainActivity.this.onClick(view.getId());
+      }
+    };
+
+    findViewById(R.id.button).setOnClickListener(onClickListener);
+    findViewById(R.id.button_no_camera).setOnClickListener(onClickListener);
+    findViewById(R.id.button_one_photo).setOnClickListener(onClickListener);
+    findViewById(R.id.button_photo_gif).setOnClickListener(onClickListener);
+    findViewById(R.id.button_multiple_picked).setOnClickListener(onClickListener);
 
     recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
-        (view, position) ->
-          PhotoPreview.builder()
-                  .setPhotos(selectedPhotos)
-                  .setCurrentItem(position)
-                  .start(MainActivity.this)
+            new RecyclerItemClickListener.OnItemClickListener() {
+      @Override
+      public void onItemClick(View view, int position) {
+        PhotoPreview.builder()
+                .setPhotos(selectedPhotos)
+                .setCurrentItem(position)
+                .start(MainActivity.this);
+      }
+    }
     ));
   }
 
