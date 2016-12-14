@@ -22,11 +22,6 @@
 
 ---
 
-
-## 衍生版本
-* Fresco版： https://github.com/jing-wu/PhotoPicker
-* 微信UI修改版：https://github.com/glassLake/PhotoPicker
-
 # Usage
 
 ### Gradle
