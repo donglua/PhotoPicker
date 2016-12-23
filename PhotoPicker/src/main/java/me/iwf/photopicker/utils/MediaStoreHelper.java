@@ -35,16 +35,16 @@ public class MediaStoreHelper {
 
   private static class PhotoDirLoaderCallbacks implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private WeakReference<Context> context;
+    private Context context;
     private PhotosResultCallback resultCallback;
 
     public PhotoDirLoaderCallbacks(Context context, PhotosResultCallback resultCallback) {
-      this.context = new WeakReference<>(context);
+      this.context = context;
       this.resultCallback = resultCallback;
     }
 
     @Override public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-      return new PhotoDirectoryLoader(context.get(), args.getBoolean(PhotoPicker.EXTRA_SHOW_GIF, false));
+      return new PhotoDirectoryLoader(context, args.getBoolean(PhotoPicker.EXTRA_SHOW_GIF, false));
     }
 
     @Override public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
@@ -52,7 +52,7 @@ public class MediaStoreHelper {
       if (data == null)  return;
       List<PhotoDirectory> directories = new ArrayList<>();
       PhotoDirectory photoDirectoryAll = new PhotoDirectory();
-      photoDirectoryAll.setName(context.get().getString(R.string.__picker_all_image));
+      photoDirectoryAll.setName(context.getString(R.string.__picker_all_image));
       photoDirectoryAll.setId("ALL");
 
       while (data.moveToNext()) {

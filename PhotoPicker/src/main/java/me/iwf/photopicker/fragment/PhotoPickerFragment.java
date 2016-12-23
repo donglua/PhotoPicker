@@ -1,5 +1,6 @@
 package me.iwf.photopicker.fragment;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -221,6 +222,9 @@ public class PhotoPickerFragment extends Fragment {
       Intent intent = captureManager.dispatchTakePictureIntent();
       startActivityForResult(intent, ImageCaptureManager.REQUEST_TAKE_PHOTO);
     } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ActivityNotFoundException e) {
+      // TODO No Activity Found to handle Intent
       e.printStackTrace();
     }
   }
