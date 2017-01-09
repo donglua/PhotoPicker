@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
   private ArrayList<String> selectedPhotos = new ArrayList<>();
 
-  private int currentClickId = -1;
-
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Fabric.with(this, new Crashlytics());
@@ -40,30 +38,65 @@ public class MainActivity extends AppCompatActivity {
     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
     recyclerView.setAdapter(photoAdapter);
 
-    View.OnClickListener onClickListener = new View.OnClickListener() {
+    findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
       @Override
-      public void onClick(View view) {
-        MainActivity.this.onClick(view.getId());
+      public void onClick(View v) {
+        PhotoPicker.builder()
+                .setPhotoCount(9)
+                .setGridColumnCount(4)
+                .start(MainActivity.this);
       }
-    };
+    });
 
-    findViewById(R.id.button).setOnClickListener(onClickListener);
-    findViewById(R.id.button_no_camera).setOnClickListener(onClickListener);
-    findViewById(R.id.button_one_photo).setOnClickListener(onClickListener);
-    findViewById(R.id.button_photo_gif).setOnClickListener(onClickListener);
-    findViewById(R.id.button_multiple_picked).setOnClickListener(onClickListener);
+    findViewById(R.id.button_no_camera).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        PhotoPicker.builder()
+                .setPhotoCount(7)
+                .setShowCamera(false)
+                .setPreviewEnabled(false)
+                .start(MainActivity.this);
+      }
+    });
+
+    findViewById(R.id.button_one_photo).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        PhotoPicker.builder()
+                .setPhotoCount(1)
+                .start(MainActivity.this);
+      }
+    });
+
+    findViewById(R.id.button_photo_gif).setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        PhotoPicker.builder()
+                .setShowCamera(true)
+                .setShowGif(true)
+                .start(MainActivity.this);
+      }
+    });
 
     recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
             new RecyclerItemClickListener.OnItemClickListener() {
       @Override
       public void onItemClick(View view, int position) {
-        PhotoPreview.builder()
-                .setPhotos(selectedPhotos)
-                .setCurrentItem(position)
-                .start(MainActivity.this);
+        if (photoAdapter.getItemViewType(position) == PhotoAdapter.TYPE_ADD) {
+          PhotoPicker.builder()
+                  .setPhotoCount(PhotoAdapter.MAX)
+                  .setShowCamera(true)
+                  .setPreviewEnabled(false)
+                  .setSelected(selectedPhotos)
+                  .start(MainActivity.this);
+        } else {
+          PhotoPreview.builder()
+                  .setPhotos(selectedPhotos)
+                  .setCurrentItem(position)
+                  .start(MainActivity.this);
+        }
       }
-    }
-    ));
+    }));
   }
 
   @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -86,71 +119,4 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  @Override
-  public void onRequestPermissionsResult(int requestCode,
-                                         @NonNull String[] permissions,
-                                         @NonNull int[] grantResults) {
-    // If request is cancelled, the result arrays are empty.
-    if (grantResults.length > 0
-            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-      if (currentClickId != -1) onClick(currentClickId);
-    } else {
-      // permission denied, boo! Disable the
-      // functionality that depends on this permission.
-      Toast.makeText(this, "No read storage permission! Cannot perform the action.", Toast.LENGTH_SHORT).show();
-    }
-  }
-
-  @Override
-  public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
-    // No need to explain to user as it is obvious
-    return false;
-  }
-
-  private void onClick(@IdRes int viewId) {
-    switch (viewId) {
-      case R.id.button: {
-        PhotoPicker.builder()
-            .setPhotoCount(9)
-            .setGridColumnCount(4)
-            .start(this);
-        break;
-      }
-
-      case R.id.button_no_camera: {
-        PhotoPicker.builder()
-            .setPhotoCount(7)
-            .setShowCamera(false)
-            .setPreviewEnabled(false)
-            .start(this);
-        break;
-      }
-
-      case R.id.button_one_photo: {
-        PhotoPicker.builder()
-            .setPhotoCount(1)
-            .start(this);
-        break;
-      }
-
-      case R.id.button_photo_gif : {
-        PhotoPicker.builder()
-            .setShowCamera(true)
-            .setShowGif(true)
-            .start(this);
-        break;
-      }
-
-      case R.id.button_multiple_picked:{
-        PhotoPicker.builder()
-            .setPhotoCount(4)
-            .setShowCamera(true)
-            .setSelected(selectedPhotos)
-            .start(this);
-        break;
-      }
-    }
-
-    currentClickId = viewId;
-  }
 }
