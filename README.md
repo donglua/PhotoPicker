@@ -59,6 +59,7 @@ ArrayList<String> photoPaths = ...;
 PhotoPreview.builder()
     .setPhotos(selectedPhotos)
     .setCurrentItem(position)
+    .setShowDeleteButton(false)
     .start(MainActivity.this);
 ```
 
