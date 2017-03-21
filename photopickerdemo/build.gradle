@@ -1,15 +1,30 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "me.iwf.photopicker"
+        applicationId "me.iwf.PhotoPickerDemo"
         minSdkVersion 10
         targetSdkVersion 25
-        versionCode 12
-        versionName "0.8.4"
+        versionCode 15
+        versionName "0.9.1"
     }
     buildTypes {
         release {
@@ -17,11 +32,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':PhotoPicker')
+
 
 //    compile 'me.iwf.photopicker:PhotoPicker:0.8.4@aar'
 
@@ -30,4 +51,7 @@ dependencies {
 //    compile 'com.android.support:design:23.4.0'
 //    compile 'com.nineoldandroids:library:2.4.0'
 //    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
 }

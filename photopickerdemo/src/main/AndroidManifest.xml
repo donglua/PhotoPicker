@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.iwf.PhotoPickerDemo"
     >
-    <permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
-    <permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.CAMERA" />
 
     <!--
       - Include all the "features" under the camera permission,
@@ -46,6 +41,10 @@
             android:name="me.iwf.photopicker.PhotoPagerActivity"
             />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="423ff17515038a50c41085cc2dbd0087d2e51cbb" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

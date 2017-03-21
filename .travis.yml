@@ -1,4 +1,5 @@
 language: android
+jdk: oraclejdk8
 
 before_install:
  - chmod +x gradlew
@@ -7,8 +8,8 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-23.0.3
-    - android-23
+    - build-tools-25.0.1
+    - android-25
     - extra-android-m2repository
 
 notifications:
@@ -16,4 +17,4 @@ notifications:
 
 sudo: false
 
-script: ./gradlew build
+script: ./gradlew clean build --stacktrace

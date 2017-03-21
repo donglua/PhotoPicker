@@ -5,95 +5,96 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.Toast;
+
+import com.crashlytics.android.Crashlytics;
+
 import java.util.ArrayList;
 import java.util.List;
-import me.iwf.PhotoPickerDemo.RecyclerItemClickListener.OnItemClickListener;
+
+import io.fabric.sdk.android.Fabric;
 import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPreview;
 
 public class MainActivity extends AppCompatActivity {
 
-  enum RequestCode {
-    Button(R.id.button),
-    ButtonNoCamera(R.id.button_no_camera),
-    ButtonOnePhoto(R.id.button_one_photo),
-    ButtonPhotoGif(R.id.button_photo_gif),
-    ButtonMultiplePicked(R.id.button_multiple_picked);
+  private PhotoAdapter photoAdapter;
 
-    @IdRes final int mViewId;
-    RequestCode(@IdRes int viewId) {
-      mViewId = viewId;
-    }
-  }
-  RecyclerView recyclerView;
-  PhotoAdapter photoAdapter;
-
-  ArrayList<String> selectedPhotos = new ArrayList<>();
-
-  //public final static int REQUEST_CODE = 1;
+  private ArrayList<String> selectedPhotos = new ArrayList<>();
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    Fabric.with(this, new Crashlytics());
     setContentView(R.layout.activity_main);
 
-    recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
     photoAdapter = new PhotoAdapter(this, selectedPhotos);
 
     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
     recyclerView.setAdapter(photoAdapter);
 
-
     findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        checkPermission(RequestCode.Button);
+        PhotoPicker.builder()
+                .setPhotoCount(9)
+                .setGridColumnCount(4)
+                .start(MainActivity.this);
       }
     });
-
 
     findViewById(R.id.button_no_camera).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        checkPermission(RequestCode.ButtonNoCamera);
+        PhotoPicker.builder()
+                .setPhotoCount(7)
+                .setShowCamera(false)
+                .setPreviewEnabled(false)
+                .start(MainActivity.this);
       }
     });
 
     findViewById(R.id.button_one_photo).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        checkPermission(RequestCode.ButtonOnePhoto);
+        PhotoPicker.builder()
+                .setPhotoCount(1)
+                .start(MainActivity.this);
       }
     });
 
     findViewById(R.id.button_photo_gif).setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View v) {
-        checkPermission(RequestCode.ButtonPhotoGif);
+        PhotoPicker.builder()
+                .setShowCamera(true)
+                .setShowGif(true)
+                .start(MainActivity.this);
       }
     });
 
-    findViewById(R.id.button_multiple_picked).setOnClickListener(new View.OnClickListener() {
+    recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this,
+            new RecyclerItemClickListener.OnItemClickListener() {
       @Override
-      public void onClick(View v) {
-        checkPermission(RequestCode.ButtonMultiplePicked);
-      }
-
-    });
-
-    recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new OnItemClickListener() {
-      @Override public void onItemClick(View view, int position) {
-        PhotoPreview.builder()
-            .setPhotos(selectedPhotos)
-            .setCurrentItem(position)
-            .start(MainActivity.this);
+      public void onItemClick(View view, int position) {
+        if (photoAdapter.getItemViewType(position) == PhotoAdapter.TYPE_ADD) {
+          PhotoPicker.builder()
+                  .setPhotoCount(PhotoAdapter.MAX)
+                  .setShowCamera(true)
+                  .setPreviewEnabled(false)
+                  .setSelected(selectedPhotos)
+                  .start(MainActivity.this);
+        } else {
+          PhotoPreview.builder()
+                  .setPhotos(selectedPhotos)
+                  .setCurrentItem(position)
+                  .start(MainActivity.this);
+        }
       }
     }));
   }
@@ -118,143 +119,4 @@ public class MainActivity extends AppCompatActivity {
     }
   }
 
-  @Override
-  public void onRequestPermissionsResult(int requestCode,
-                                         @NonNull String[] permissions,
-                                         @NonNull int[] grantResults) {
-    // If request is cancelled, the result arrays are empty.
-    if (grantResults.length > 0
-            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-      // permission was granted, yay!
-      onClick(RequestCode.values()[requestCode].mViewId);
-
-    } else {
-      // permission denied, boo! Disable the
-      // functionality that depends on this permission.
-      Toast.makeText(this, "No read storage permission! Cannot perform the action.", Toast.LENGTH_SHORT).show();
-    }
-  }
-
-  @Override
-  public boolean shouldShowRequestPermissionRationale(@NonNull String permission) {
-    switch (permission) {
-      case Manifest.permission.READ_EXTERNAL_STORAGE:
-      case Manifest.permission.CAMERA:
-        // No need to explain to user as it is obvious
-        return false;
-      default:
-        return true;
-    }
-  }
-
-  private void checkPermission(@NonNull RequestCode requestCode) {
-
-    int readStoragePermissionState = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
-    int cameraPermissionState = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
-
-    boolean readStoragePermissionGranted = readStoragePermissionState != PackageManager.PERMISSION_GRANTED;
-    boolean cameraPermissionGranted = cameraPermissionState != PackageManager.PERMISSION_GRANTED;
-
-    if (readStoragePermissionGranted || cameraPermissionGranted) {
-
-      // Should we show an explanation?
-      if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-          Manifest.permission.READ_EXTERNAL_STORAGE)
-          || ActivityCompat.shouldShowRequestPermissionRationale(this,
-          Manifest.permission.CAMERA)) {
-
-        // Show an expanation to the user *asynchronously* -- don't block
-        // this thread waiting for the user's response! After the user
-        // sees the explanation, try again to request the permission.
-
-      } else {
-        String[] permissions;
-        if (readStoragePermissionGranted && cameraPermissionGranted) {
-          permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA };
-        } else {
-          permissions = new String[] {
-              readStoragePermissionGranted ? Manifest.permission.READ_EXTERNAL_STORAGE
-                  : Manifest.permission.CAMERA
-          };
-        }
-        ActivityCompat.requestPermissions(this,
-                permissions,
-                requestCode.ordinal());
-      }
-
-    } else {
-      // Permission granted
-      onClick(requestCode.mViewId);
-    }
-
-  }
-
-  private void onClick(@IdRes int viewId) {
-
-    switch (viewId) {
-      case R.id.button: {
-        //Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
-        //PhotoPickerIntent.setPhotoCount(intent, 9);
-        //PhotoPickerIntent.setColumn(intent, 4);
-        //startActivityForResult(intent, REQUEST_CODE);
-        PhotoPicker.builder()
-            .setPhotoCount(9)
-            .setGridColumnCount(4)
-            .start(this);
-        break;
-      }
-
-      case R.id.button_no_camera: {
-        //Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
-        //PhotoPickerIntent.setPhotoCount(intent, 7);
-        //PhotoPickerIntent.setShowCamera(intent, false);
-        //startActivityForResult(intent, REQUEST_CODE);
-        PhotoPicker.builder()
-            .setPhotoCount(7)
-            .setShowCamera(false)
-            .setPreviewEnabled(false)
-            .start(this);
-        break;
-      }
-
-      case R.id.button_one_photo: {
-        //Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
-        //PhotoPickerIntent.setPhotoCount(intent, 1);
-        //PhotoPickerIntent.setShowCamera(intent, true);
-        //startActivityForResult(intent, REQUEST_CODE);
-        PhotoPicker.builder()
-            .setPhotoCount(1)
-            .start(this);
-        break;
-      }
-
-      case R.id.button_photo_gif : {
-        //Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
-        //PhotoPickerIntent.setPhotoCount(intent, 4);
-        //PhotoPickerIntent.setShowCamera(intent, true);
-        //PhotoPickerIntent.setShowGif(intent, true);
-        //startActivityForResult(intent, REQUEST_CODE);
-        PhotoPicker.builder()
-            .setShowCamera(true)
-            .setShowGif(true)
-            .start(this);
-        break;
-      }
-
-      case R.id.button_multiple_picked:{
-        //Intent intent = new Intent(MainActivity.this, PhotoPickerActivity.class);
-        //PhotoPickerIntent.setPhotoCount(intent, 4);
-        //PhotoPickerIntent.setShowCamera(intent, true);
-        //PhotoPickerIntent.setSelected(intent,selectedPhotos);
-        //startActivityForResult(intent, REQUEST_CODE);
-        PhotoPicker.builder()
-            .setPhotoCount(4)
-            .setShowCamera(true)
-            .setSelected(selectedPhotos)
-            .start(this);
-        break;
-      }
-    }
-  }
 }

@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.iwf.photopicker.utils.FileUtils;
+
 /**
  * Created by donglua on 15/6/28.
  */
@@ -92,6 +94,15 @@ public class PhotoDirectory {
   }
 
   public void setPhotos(List<Photo> photos) {
+    if (photos == null) return;
+    for (int i = 0, j = 0, num = photos.size(); i < num; i++) {
+        Photo p = photos.get(j);
+        if (p == null || !FileUtils.fileIsExists(p.getPath())) {
+            photos.remove(j);
+        } else {
+            j++;
+        }
+    }
     this.photos = photos;
   }
 
@@ -104,7 +115,9 @@ public class PhotoDirectory {
   }
 
   public void addPhoto(int id, String path) {
-    photos.add(new Photo(id, path));
+    if (FileUtils.fileIsExists(path)) {
+      photos.add(new Photo(id, path));
+    }
   }
 
 }

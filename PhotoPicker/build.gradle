@@ -5,16 +5,19 @@ android {
   buildToolsVersion "25.0.2"
   resourcePrefix "__picker_"
 
+  dexOptions {
+    javaMaxHeapSize "4g"
+  }
   defaultConfig {
     minSdkVersion 10
     targetSdkVersion 25
-    versionCode 1
-    versionName "0.8.9"
+  }
+  lintOptions {
+    abortOnError false
   }
 }
-apply from: '../gradle/gradle-mvn-push.gradle'
 ext {
-  supportLibVersion = "23.4.0"
+  supportLibVersion = "25.0.1"
 }
 dependencies {
   compile "com.android.support:support-v4:$supportLibVersion"
@@ -26,3 +29,12 @@ dependencies {
   compile "com.github.bumptech.glide:glide:3.7.0"
 }
 
+apply plugin: 'com.novoda.bintray-release'
+publish {
+  userOrg = 'donglua'
+  groupId = 'me.iwf.photopicker'
+  artifactId = 'PhotoPicker'
+  publishVersion = '0.9.3'
+  desc = 'Photo Picker'
+  website = 'https://github.com/donglua/PhotoPicker'
+}

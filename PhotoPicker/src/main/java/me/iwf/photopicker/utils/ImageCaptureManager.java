@@ -3,6 +3,7 @@ package me.iwf.photopicker.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -49,11 +50,6 @@ public class ImageCaptureManager {
     }
 
     File image = new File(storageDir, imageFileName);
-    //                File.createTempFile(
-    //                imageFileName,  /* prefix */
-    //                ".jpg",         /* suffix */
-    //                storageDir      /* directory */
-    //        );
 
     // Save a file: path for use with ACTION_VIEW intents
     mCurrentPhotoPath = image.getAbsolutePath();
@@ -66,9 +62,14 @@ public class ImageCaptureManager {
     // Ensure that there's a camera activity to handle the intent
     if (takePictureIntent.resolveActivity(mContext.getPackageManager()) != null) {
       // Create the File where the photo should go
-      String authority = mContext.getApplicationInfo().packageName+".provider";
       File file = createImageFile();
-      Uri photoFile = FileProvider.getUriForFile(this.mContext, authority, file);
+      Uri photoFile;
+      if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        String authority = mContext.getApplicationInfo().packageName + ".provider";
+        photoFile = FileProvider.getUriForFile(this.mContext.getApplicationContext(), authority, file);
+      } else {
+        photoFile = Uri.fromFile(file);
+      }
 
       // Continue only if the File was successfully created
       if (photoFile != null) {
