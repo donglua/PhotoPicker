@@ -22,7 +22,6 @@ public class FileUtils {
         } catch (Exception e) {
             return false;
         }
-        Log.e("TMG",path+"file not exists");
         return true;
     }
 }
