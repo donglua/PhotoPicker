@@ -4,7 +4,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'io.fabric.tools:gradle:1.+'
+        classpath 'io.fabric.tools:gradle:1.22.1'
     }
 }
 apply plugin: 'com.android.application'
@@ -13,7 +13,6 @@ apply plugin: 'io.fabric'
 repositories {
     maven { url 'https://maven.fabric.io/public' }
 }
-
 
 android {
     compileSdkVersion 25
@@ -24,7 +23,7 @@ android {
         minSdkVersion 10
         targetSdkVersion 25
         versionCode 15
-        versionName "0.9.1"
+        versionName "0.9.7"
     }
     buildTypes {
         release {

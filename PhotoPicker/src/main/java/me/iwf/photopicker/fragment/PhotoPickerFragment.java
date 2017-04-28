@@ -105,6 +105,8 @@ public class PhotoPickerFragment extends Fragment {
     photoGridAdapter.setShowCamera(showCamera);
     photoGridAdapter.setPreviewEnable(previewEnable);
 
+    listAdapter  = new PopupDirectoryListAdapter(mGlideRequestManager, directories);
+
     Bundle mediaStoreArgs = new Bundle();
 
     boolean showGif = getArguments().getBoolean(EXTRA_GIF);
@@ -128,8 +130,6 @@ public class PhotoPickerFragment extends Fragment {
       Bundle savedInstanceState) {
 
     final View rootView = inflater.inflate(R.layout.__picker_fragment_photo_picker, container, false);
-
-    listAdapter  = new PopupDirectoryListAdapter(mGlideRequestManager, directories);
 
     RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_photos);
     StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(column, OrientationHelper.VERTICAL);
