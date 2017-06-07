@@ -8,7 +8,7 @@
 
     <application>
         <provider
-            android:name="android.support.v4.content.FileProvider"
+            android:name="me.iwf.photopicker.utils.PhotoFileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
