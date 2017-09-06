@@ -1,7 +1,6 @@
 package me.iwf.PhotoPickerDemo;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import java.io.File;
 import java.util.ArrayList;
 import me.iwf.photopicker.R;
@@ -60,12 +60,14 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
       boolean canLoadImage = AndroidLifecycleUtils.canLoadImage(holder.ivPhoto.getContext());
 
       if (canLoadImage) {
+        final RequestOptions options = new RequestOptions();
+        options.centerCrop()
+            .placeholder(R.drawable.__picker_ic_photo_black_48dp)
+            .error(R.drawable.__picker_ic_broken_image_black_48dp);
         Glide.with(mContext)
                 .load(uri)
-                .centerCrop()
+                .apply(options)
                 .thumbnail(0.1f)
-                .placeholder(R.drawable.__picker_ic_photo_black_48dp)
-                .error(R.drawable.__picker_ic_broken_image_black_48dp)
                 .into(holder.ivPhoto);
       }
     }
