@@ -1,23 +1,16 @@
 package me.iwf.PhotoPickerDemo;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
-import android.widget.Toast;
-
 import com.crashlytics.android.Crashlytics;
-
+import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.fabric.sdk.android.Fabric;
 import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPreview;
 
@@ -32,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Fabric.with(this, new Crashlytics());
     setContentView(R.layout.activity_main);
 
-    RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+    RecyclerView recyclerView = findViewById(R.id.recycler_view);
     photoAdapter = new PhotoAdapter(this, selectedPhotos);
 
     recyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, OrientationHelper.VERTICAL));
