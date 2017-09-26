@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="__picker_title">Изображения</string>
+  <string name="__picker_delete">Удалить</string>
+  <string name="__picker_done">Готово</string>
+  <string name="__picker_done_with_count">Готово (%1$d/%2$d)</string>
+  <string name="__picker_image_index">%1$d/%2$d</string>
+  <string name="__picker_undo">Отмена</string>
+  <string name="__picker_deleted_a_photo">Изрбражение удалено</string>
+  <string name="__picker_confirm_to_delete">Удалить изображение?</string>
+  <string name="__picker_yes">Да</string>
+  <string name="__picker_cancel">Отмена</string>
+  <string name="__picker_all_image">Все изображения</string>
+  <string name="__picker_image_count">%1$d</string>
+  <string name="__picker_over_max_count_tips">Можно выбрать не более %1$d изображений</string>
+</resources>
