@@ -9,7 +9,7 @@ android:
     - tools
     - platform-tools
     - build-tools-26.0.1
-    - android-25
+    - android-26
     - extra-android-m2repository
 
 notifications:
