@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.iwf.photopicker.PhotoPicker;
 import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.adapter.PhotoGridAdapter;
@@ -123,6 +122,15 @@ public class PhotoPickerFragment extends Fragment {
         });
 
     captureManager = new ImageCaptureManager(getActivity());
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    if(getActivity() instanceof PhotoPickerActivity){
+      PhotoPickerActivity photoPickerActivity = (PhotoPickerActivity) getActivity();
+      photoPickerActivity.updateTitleDoneItem();
+    }
   }
 
 

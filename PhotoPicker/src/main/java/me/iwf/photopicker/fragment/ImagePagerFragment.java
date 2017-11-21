@@ -12,14 +12,18 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+
 import com.bumptech.glide.Glide;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.nineoldandroids.view.ViewHelper;
 import com.nineoldandroids.view.ViewPropertyAnimator;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import me.iwf.photopicker.PhotoPickerActivity;
 import me.iwf.photopicker.R;
 import me.iwf.photopicker.adapter.PhotoPagerAdapter;
 
@@ -83,6 +87,14 @@ public class ImagePagerFragment extends Fragment {
     return f;
   }
 
+  @Override
+  public void onResume() {
+    super.onResume();
+    if(getActivity() instanceof PhotoPickerActivity){
+      PhotoPickerActivity photoPickerActivity = (PhotoPickerActivity) getActivity();
+      photoPickerActivity.updateTitleDoneItem();
+    }
+  }
 
   public void setPhotos(List<String> paths, int currentItem) {
     this.paths.clear();
@@ -288,6 +300,16 @@ public class ImagePagerFragment extends Fragment {
 
   public ArrayList<String> getPaths() {
     return paths;
+  }
+
+
+  public ArrayList<String> getCurrentPath(){
+    ArrayList<String> list = new ArrayList<>();
+    int position = mViewPager.getCurrentItem();
+    if(paths != null && paths.size() > position){
+      list.add(paths.get(position));
+    }
+    return list;
   }
 
 
