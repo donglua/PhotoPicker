@@ -102,13 +102,37 @@ public class PhotoPickerActivity extends AppCompatActivity {
               LENGTH_LONG).show();
           return false;
         }
-        menuDoneItem.setTitle(getString(R.string.__picker_done_with_count, selectedItemCount, maxCount));
+        if(maxCount > 1){
+          menuDoneItem.setTitle(getString(R.string.__picker_done_with_count, selectedItemCount, maxCount));
+        }else {
+          menuDoneItem.setTitle(getString(R.string.__picker_done));
+        }
         return true;
       }
     });
 
   }
 
+  //刷新右上角按钮文案
+  public void updateTitleDoneItem(){
+    if(menuIsInflated){
+      if(pickerFragment != null && pickerFragment.isResumed()){
+        List<String> photos = pickerFragment.getPhotoGridAdapter().getSelectedPhotos();
+        int size = photos == null ? 0 : photos.size();
+        menuDoneItem.setEnabled(size > 0);
+        if(maxCount > 1){
+          menuDoneItem.setTitle(getString(R.string.__picker_done_with_count, size, maxCount));
+        }else {
+          menuDoneItem.setTitle(getString(R.string.__picker_done));
+        }
+
+      }else if(imagePagerFragment != null && imagePagerFragment.isResumed()){
+        //预览界面 完成总是可点的，没选就把默认当前图片
+        menuDoneItem.setEnabled(true);
+      }
+
+    }
+  }
 
   /**
    * Overriding this method allows us to run our exit animation first, then exiting
@@ -165,10 +189,23 @@ public class PhotoPickerActivity extends AppCompatActivity {
 
     if (item.getItemId() == R.id.done) {
       Intent intent = new Intent();
-      ArrayList<String> selectedPhotos = pickerFragment.getPhotoGridAdapter().getSelectedPhotoPaths();
-      intent.putStringArrayListExtra(KEY_SELECTED_PHOTOS, selectedPhotos);
-      setResult(RESULT_OK, intent);
-      finish();
+      ArrayList<String> selectedPhotos = null;
+      if(pickerFragment != null){
+        selectedPhotos = pickerFragment.getPhotoGridAdapter().getSelectedPhotoPaths();
+      }
+      //当在列表没有选择图片，又在详情界面时默认选择当前图片
+      if(selectedPhotos.size() <= 0){
+        if(imagePagerFragment != null && imagePagerFragment.isResumed()){
+          // 预览界面
+          selectedPhotos = imagePagerFragment.getCurrentPath();
+        }
+      }
+      if(selectedPhotos != null && selectedPhotos.size() > 0){
+        intent.putStringArrayListExtra(KEY_SELECTED_PHOTOS, selectedPhotos);
+        setResult(RESULT_OK, intent);
+        finish();
+      }
+
       return true;
     }
 
