@@ -17,7 +17,7 @@ android {
   }
 }
 ext {
-  supportLibVersion = "26.0.2"
+  supportLibVersion = "26.1.0"
 }
 dependencies {
   compile "com.android.support:support-v4:$supportLibVersion"
