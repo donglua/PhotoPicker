@@ -27,7 +27,7 @@
 
 ```groovy
 dependencies {
-    compile 'me.iwf.photopicker:PhotoPicker:0.9.10@aar'
+    compile 'me.iwf.photopicker:PhotoPicker:0.9.12@aar'
     
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
@@ -122,10 +122,6 @@ PhotoPreview.builder()
     **[] $VALUES;
     public *;
 }
-# nineoldandroids
--keep interface com.nineoldandroids.view.** { *; }
--dontwarn com.nineoldandroids.**
--keep class com.nineoldandroids.** { *; }
 # support-v7-appcompat
 -keep public class android.support.v7.widget.** { *; }
 -keep public class android.support.v7.internal.widget.** { *; }
