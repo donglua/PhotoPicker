@@ -41,7 +41,6 @@ public class PhotoPickerActivity extends AppCompatActivity {
   private boolean menuIsInflated = false;
 
   private boolean showGif = false;
-  private int columnNumber = DEFAULT_COLUMN_NUMBER;
   private ArrayList<String> originalPhotos = null;
 
 
@@ -69,7 +68,7 @@ public class PhotoPickerActivity extends AppCompatActivity {
     }
 
     maxCount = getIntent().getIntExtra(EXTRA_MAX_COUNT, DEFAULT_MAX_COUNT);
-    columnNumber = getIntent().getIntExtra(EXTRA_GRID_COLUMN, DEFAULT_COLUMN_NUMBER);
+    int columnNumber = getIntent().getIntExtra(EXTRA_GRID_COLUMN, DEFAULT_COLUMN_NUMBER);
     originalPhotos = getIntent().getStringArrayListExtra(EXTRA_ORIGINAL_PHOTOS);
 
     pickerFragment = (PhotoPickerFragment) getSupportFragmentManager().findFragmentByTag("tag");
@@ -140,13 +139,9 @@ public class PhotoPickerActivity extends AppCompatActivity {
    */
   @Override public void onBackPressed() {
     if (imagePagerFragment != null && imagePagerFragment.isVisible()) {
-      imagePagerFragment.runExitAnimation(new Runnable() {
-        public void run() {
-          if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-            getSupportFragmentManager().popBackStack();
-          }
-        }
-      });
+      if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+        getSupportFragmentManager().popBackStack();
+      }
     } else {
       super.onBackPressed();
     }

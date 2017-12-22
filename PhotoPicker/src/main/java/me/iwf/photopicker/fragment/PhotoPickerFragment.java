@@ -12,6 +12,7 @@ import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -174,11 +175,8 @@ public class PhotoPickerFragment extends Fragment {
 
         List<String> photos = photoGridAdapter.getCurrentPhotoPaths();
 
-        int[] screenLocation = new int[2];
-        v.getLocationOnScreen(screenLocation);
         ImagePagerFragment imagePagerFragment =
-            ImagePagerFragment.newInstance(photos, index, screenLocation, v.getWidth(),
-                v.getHeight());
+            ImagePagerFragment.newInstance(photos, index);
 
         ((PhotoPickerActivity) getActivity()).addImagePagerFragment(imagePagerFragment);
       }
@@ -232,8 +230,7 @@ public class PhotoPickerFragment extends Fragment {
     } catch (IOException e) {
       e.printStackTrace();
     } catch (ActivityNotFoundException e) {
-      // TODO No Activity Found to handle Intent
-      e.printStackTrace();
+      Log.e("PhotoPickerFragment", "No Activity Found to handle Intent", e);
     }
   }
 
