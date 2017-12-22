@@ -32,7 +32,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'com.android.support:design:23.4.0'
-    compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.github.bumptech.glide:glide:4.1.1'
 }
 ```
