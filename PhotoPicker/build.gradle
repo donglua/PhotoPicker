@@ -33,7 +33,7 @@ publish {
   userOrg = 'donglua'
   groupId = 'me.iwf.photopicker'
   artifactId = 'PhotoPicker'
-  publishVersion = '0.9.10'
+  publishVersion = '0.9.12'
   desc = 'Photo Picker'
   website = 'https://github.com/donglua/PhotoPicker'
 }
