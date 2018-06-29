@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="__picker_title">사진</string>
+    <string name="__picker_title">사진 선택</string>
     <string name="__picker_delete">삭제</string>
     <string name="__picker_done">완료</string>
     <string name="__picker_done_with_count">완료(%1$d/%2$d)</string>
