@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="__picker_title">사진 선택</string>
+    <string name="__picker_delete">삭제</string>
+    <string name="__picker_done">완료</string>
+    <string name="__picker_done_with_count">완료(%1$d/%2$d)</string>
+    <string name="__picker_image_index">%1$d/%2$d</string>
+    <string name="__picker_undo">취소</string>
+    <string name="__picker_deleted_a_photo">사진이 삭제 되었습니다.</string>
+    <string name="__picker_confirm_to_delete">사진을 삭제 하시겠습니까?</string>
+    <string name="__picker_yes">예</string>
+    <string name="__picker_cancel">취소</string>
+    <string name="__picker_all_image">모든 사진</string>
+    <string name="__picker_image_count">%1$d</string>
+    <string name="__picker_over_max_count_tips">최대 %1$d개의 사진을 선택 할 수 있습니다.</string>
+</resources>
