@@ -48,7 +48,7 @@ dependencies {
     implementation "com.android.support:design:$supportLibVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibVersion"
     implementation "com.android.support:support-annotations:$supportLibVersion"
-    implementation "com.github.bumptech.glide:glide:4.1.1"
+    implementation "com.github.bumptech.glide:glide:4.8.0"
 
-    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.4'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.5'
 }
