@@ -55,6 +55,8 @@ public class MediaStoreHelper {
       photoDirectoryAll.setName(context.getString(R.string.__picker_all_image));
       photoDirectoryAll.setId("ALL");
 
+      data.moveToFirst();
+
       while (data.moveToNext()) {
 
         int imageId  = data.getInt(data.getColumnIndexOrThrow(_ID));
