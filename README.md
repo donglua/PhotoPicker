@@ -8,6 +8,12 @@
 
 ---
 
+# DEPRECATED
+
+PhotoPicker is deprecated.
+
+> 本项目已废弃，仍可使用，但不推荐；推荐使用 [zhihu/Matisse](https://github.com/zhihu/Matisse)。
+
 # Example
 ![](http://ww2.sinaimg.cn/large/5e9a81dbgw1etra61rnr9j206z0ce3yu.jpg)
 ![](http://ww3.sinaimg.cn/large/5e9a81dbgw1etra6q2edzj206z0cedgg.jpg)
