@@ -12,7 +12,8 @@
 
 PhotoPicker is deprecated.
 
-> 本项目已废弃，仍可使用，但不推荐；推荐使用 [zhihu/Matisse](https://github.com/zhihu/Matisse)。
+> * 本项目已废弃，仍可使用，但不推荐；推荐使用 [zhihu/Matisse](https://github.com/zhihu/Matisse)。
+> * 本项目建于2015年初，是最早的图片选择库之一。由于目前同类开源项目很多，也做得更完善，加上迁移成本低，本项目没有继续维护的必要，感谢大家支持。
 
 # Example
 ![](http://ww2.sinaimg.cn/large/5e9a81dbgw1etra61rnr9j206z0ce3yu.jpg)
