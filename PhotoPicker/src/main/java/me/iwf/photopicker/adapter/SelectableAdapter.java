@@ -74,7 +74,7 @@ public abstract class SelectableAdapter<VH extends RecyclerView.ViewHolder>
 
 
   public List<Photo> getCurrentPhotos() {
-    if (photoDirectories.size() >= currentDirectoryIndex) {
+    if (photoDirectories.size() <= currentDirectoryIndex) {
       currentDirectoryIndex = photoDirectories.size() - 1;
     }
     return photoDirectories.get(currentDirectoryIndex).getPhotos();
